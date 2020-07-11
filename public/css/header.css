@@ -140,7 +140,7 @@ flex-wrap:nowrap;
   
   display: none;
   margin-left: -80px;
-  margin-top: 10px;
+  margin-top: 5px;
   color:black;
   z-index: 10;
 }
@@ -583,7 +583,15 @@ transition: all 0.3s;
           }
           .slide-image{
            height:60vh;
-           width: 100vw;
+        
+          }
+          .slide-text-1{
+       
+            font-size:  medium !important;
+ 
+          }
+          .slide-text-2{
+            font-size:  small!important;
           }
 
         }
