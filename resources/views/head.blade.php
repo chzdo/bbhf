@@ -1,7 +1,7 @@
 <header>
 <nav class="navigator">
 <div class="icon-holder">
-<img src="{{URL::asset('images/icon.png')}}" />
+<img src="{{URL::asset('images/nav-icon.png')}}" />
 </div>
 <div class="nav-link-holder" >
 <a class="nav-link active" href="/" > Home </a>
