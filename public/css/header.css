@@ -78,7 +78,7 @@ flex-wrap:nowrap;
 }
 
 .nav-fixed{
-  background-color: rgba(2, 17, 85, 0.75) !important;
+  background-color: rgba(2, 17, 85, 1) !important;
   position: fixed !important;
   top:0px !important;
   transition: 1s;
@@ -260,7 +260,7 @@ header{
     width:20%;
 height:3em;
 display: flex;
-
+width: 30%;
 transition: all 0.3s;
     text-transform: uppercase;
    text-align: center;
@@ -592,6 +592,9 @@ transition: all 0.3s;
           }
           .slide-text-2{
             font-size:  small!important;
+          }
+          .section-header{
+            font-size: 2em;
           }
 
         }
