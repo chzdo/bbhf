@@ -31,73 +31,103 @@
         
               <div class="card-item ">
                   
-                  <div class="card-item-image">
+                  <div class="card-item-image" style="  background: url('../images/youth.jpg') ;  background-position: center;
+                  background-size: cover;
+                  background-repeat: no-repeat;">
                   </div>
                   <div class="card-item-body">
                       <p class="card-item-body-header">
-                          SCHOLARSHIPS
+                         empowerment
                       </p>
                       <p class="card-item-body-article">
-                        We organise evangelical outreaches with permission from leaders of a community in conjunction with the local church in the community where we share the message of the goodness of Jesus Christ leading them to salvation in Jesus Christ name.
-                      </p>
+                        We provide youths who are already empowered with skills but lack the start up capital to establish  a small and/ or  medium enterprises in the area they have undergone trainings with start up capital needed to start their own businesses.     </p>
                 </div>
               </div>
               
               <div class="card-item">
                   
-                <div class="card-item-image">
+                <div class="card-item-image" style="  background: url('../images/training.jpg') ;  background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;">
                 </div>
                 <div class="card-item-body">
                     <p class="card-item-body-header">
-                        SCHOLARSHIPS
+                       Trainings
                     </p>
                     <p class="card-item-body-article">
-                      We organise evangelical outreaches with permission from leaders of a community in conjunction with the local church in the community where we share the message of the goodness of Jesus Christ leading them to salvation in Jesus Christ name.
+                      We offer free entrepreneurship trainings to youths and provide some of the participants the start up capital to own and manage their own business thereby ensuring they are meaningful engaged and empowered to be productive for self, families and the society at large.    </p>
+              </div>
+            </div>
+            
+            <div class="card-item">
+                  
+              <div class="card-item-image" style="  background: url('../images/school2.jpg') ;  background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;">
+                </div>
+                <div class="card-item-body">
+                    <p class="card-item-body-header">
+                     rehabilitation
+                    </p>
+                    <p class="card-item-body-article">
+                      We identify primary and high schools needing structural rehabilitation and renovate such thus making for an enabling atmosphere for learning.    </p>
+              </div>
+            </div>
+            
+            <div class="card-item">
+              <div class="card-item-image" style="  background: url('../images/school.jpg') ;  background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;">
+                </div>
+                <div class="card-item-body">
+                    <p class="card-item-body-header">
+                       DEVELOPMENT
+                    </p>
+                    <p class="card-item-body-article">
+                      We contruct free potable water supply to identified communities in  rural areas without such basic amenities which help make water accessible to the people  thereby improving their health and  preventing outbreak and/ or spread of communicable diseases.
                     </p>
               </div>
             </div>
             
             <div class="card-item">
                   
-                <div class="card-item-image">
+              <div class="card-item-image" style="  background: url('../images/medical2.jpg') ;  background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;">
                 </div>
                 <div class="card-item-body">
                     <p class="card-item-body-header">
-                        SCHOLARSHIPS
+                        Medical outreach
                     </p>
                     <p class="card-item-body-article">
-                      We organise evangelical outreaches with permission from leaders of a community in conjunction with the local church in the community where we share the message of the goodness of Jesus Christ leading them to salvation in Jesus Christ name.
-                    </p>
+                      We organise free medical mission outreaches for rural communities where there is no health facility or distance to available ones is a huge barrier to accessing them by the people.   </p>
               </div>
             </div>
-            
             <div class="card-item">
                   
-                <div class="card-item-image">
+              <div class="card-item-image" style="  background: url('../images/vol.jpg') ;  background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;">
                 </div>
                 <div class="card-item-body">
                     <p class="card-item-body-header">
-                        SCHOLARSHIPS
+                       volunteering
                     </p>
                     <p class="card-item-body-article">
-                      We organise evangelical outreaches with permission from leaders of a community in conjunction with the local church in the community where we share the message of the goodness of Jesus Christ leading them to salvation in Jesus Christ name.
-                    </p>
-              </div>
+                      We run a volunteering community  programmes which affords young people who are residents  of a community the opportunity to offer social services to their communities of residence. </div>
             </div>
-            
             <div class="card-item">
                   
-                <div class="card-item-image">
+              <div class="card-item-image" style="  background: url('../images/mission.jpg') ;  background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;">
                 </div>
                 <div class="card-item-body">
                     <p class="card-item-body-header">
-                        SCHOLARSHIPS
+                       Missions outreach
                     </p>
                     <p class="card-item-body-article">
-                      We organise evangelical outreaches with permission from leaders of a community in conjunction with the local church in the community where we share the message of the goodness of Jesus Christ leading them to salvation in Jesus Christ name.
-                    </p>
-              </div>
-            </div>
+                      We organise evangelical outreaches with permission from leaders of a community in conjunction with the local church in the community where we share the message of the goodness of Jesus Christ leading them to salvation in Jesus Christ name.</div>
     </div>
     
     </div>
@@ -146,8 +176,105 @@
        
        </div>
        
-   </div>
+
      </section>
+     <section class="section " >
+      <div class="section-wrapper ">
+         <div class="section-header-wrapper">
+           <div class="section-header">
+          GET INVOLVED
+           </div>
+           <p class="card-item-body-article">
+             Join us as we impact and add values to lives through giving
+           </p>
+     </div>
+  
+     <div class="member-card-holder">
+          <div class="member-card">
+          <img class="round-icon" src={{URL::asset('images/volunteer.png')}}>
+            <p class="member-card-header"> VOLUNTEER </p>
+            <p class="member-card-article">
+              Are you passionate about impact and rendering services to your immediate community?
+         </p>
+         <a class="donate-btn" href="#"> JOIN NOW </a>
+          </div>
+          <div class="member-card">
+            <img class="round-icon" src={{URL::asset('images/member.png')}}>
+            <p class="member-card-header"> BECOME A MEMBER</p>
+            <p class="member-card-article">
+                 Join the BBHF team to changing lives through giving.
+            </p>
+            <a class="donate-btn" href="#"> JOIN NOW </a>
+          </div>
+     
+          <div class="member-card">
+            <img class="round-icon" src={{URL::asset('images/donate2.png')}}>
+            <p class="member-card-header"> BECOME A SPONSOR</p>
+            <p class="member-card-article">
+              Join the BBHF team to changing lives through giving.
+         </p>
+         <a class="donate-btn" href="#"> JOIN NOW </a>
+          </div>
+  </div>
+  
+  </div>
+     
+         
+     
+       </section>
+
+       <section class="section  " style="margin-top: -50px !important;">
+        <div class="section-wrapper ">
+           <div class="section-header-wrapper">
+             <div class="section-header">
+           LASTEST NEWS
+             </div>
+             <p class="card-item-body-article">
+          Reports from volunteers and members
+             </p>
+       </div>
+    
+       <div class="news-card-holder  ">
+            <div class="news-card">
+            <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
+              <p class="news-date"> 27-11-1990 </p>
+              <p class="news-title">
+               Medical Outreach
+           </p>
+           <p class="news-desc">
+            Are you passionate about impact and rendering services to your immediate community?
+       </p>
+           <a class="donate-btn" href="#"> READ MORE </a>
+            </div>
+            <div class="news-card">
+              <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
+                <p class="news-date"> 27-11-1990 </p>
+                <p class="news-title">
+                 Medical Outreach
+             </p>
+             <p class="news-desc">
+              Are you passionate about impact and rendering services to your immediate community?
+         </p>
+             <a class="donate-btn" href="#"> READ MORE </a>
+              </div>
+              <div class="news-card">
+                <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
+                  <p class="news-date"> 27-11-1990 </p>
+                  <p class="news-title">
+                   Medical Outreach
+               </p>
+               <p class="news-desc">
+                Are you passionate about impact and rendering services to your immediate community?
+           </p>
+               <a class="donate-btn" href="#"> READ MORE </a>
+                </div>
+               </div>
+    
+    </div>
+       
+           
+       
+         </section>
 </div>
 
 

@@ -54,9 +54,9 @@
 
      $('.volunteer_single').owlCarousel({
          loop: true,
-         margin: 10,
+         margin: 0,
          nav: true,
-         items: 3,
+         items: 2,
          autoplayTimeout: 6000,
          autoplay: true,
          navText: [
