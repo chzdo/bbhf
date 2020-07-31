@@ -5,6 +5,7 @@ margin : 0;
 body{
     margin: 0;
     font-family: 'Crimson Pro', serif;
+  
 
 }
 ::after, ::before{
@@ -140,12 +141,16 @@ flex-wrap:nowrap;
   
   display: none;
   margin-left: -80px;
-  margin-top: 5px;
+  margin-top: 1px;
   color:black;
   z-index: 10;
 }
 .sub-menu-item{
   width:100%;
+}
+.sub-menu-item a,.sub-menu-item a:hover{
+  text-decoration: none !important;
+  color:black !important;
 }
 .sub-menu-item:hover:before{
   content:'';
@@ -193,6 +198,18 @@ color: chocolate;
 
 
 
+.mini-slide-overlay{
+         height: 400px !important;
+}
+
+.mini-slide-overlay:after{
+  height: 400px !important;
+}
+
+.mini-slide-cont{
+  top: -400px !important;
+  height: 400px !important;
+}
 
 
 
@@ -200,11 +217,7 @@ color: chocolate;
 
 
 
-
-
-
-
-.jk-slider{
+.jk-slider,.mini-slide{
     width:100%;
     position: relative;
     top:-100px;
@@ -336,6 +349,8 @@ transition: all 0.3s;
 .footer-holder{
   height:400px;
   width:100%;
+
+  align-self: baseline;
   align-items: center;
   display:flex;
   flex-direction: column;
@@ -354,7 +369,17 @@ transition: all 0.3s;
  content:'';
  background:  radial-gradient(circle at 1% 1%,#328bf2,#1644ad);
 opacity: 0.7;}
+.mini-slide-cont:after{
+  position:relative;
+  display:block;
+  width:50%;
 
+  height:10px;
+  content:'';
+  animation: color-change 3s infinite;
+  -webkit-animation: color-change 3s reverse backwards infinite;
+  background:  rgba(250, 119, 11, 1);
+}
  .footer-holder:before{
   position:relative;
   display:block;
@@ -712,6 +737,8 @@ margin-bottom: 10px;
           }
           [data-role="mobile-nav"]{
             display:flex;
+            z-index:7000;
+            
           }
           .slide-image{
            height:60vh;
@@ -726,7 +753,7 @@ margin-bottom: 10px;
             font-size:  small!important;
           }
           .section-header{
-            font-size: 2em;
+            font-size: 3em;
           }
            .footer-item-holder{
              flex-direction: column;
@@ -738,4 +765,9 @@ margin-bottom: 10px;
            .feedback-holder{
              margin-bottom: 10px;
            }
+           body{
+          font-size: x-small;
+          
+        
+        }
         }

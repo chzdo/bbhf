@@ -16,13 +16,13 @@
             </p>
             <div class="socials">
                 <a href="#" class="social-item">
-                    <i class="fa fa-facebook"></i>
+                    <i class="fab fa-facebook"></i>
                 </a>
                 <a href="#" class="social-item">
-                    <i class="fa fa-instagram"></i>
+                    <i class="fab fa-instagram"></i>
                 </a>
                 <a href="#" class="social-item">
-                    <i class="fa fa-twitter"></i>
+                    <i class="fab fa-twitter"></i>
                 </a>
             </div>
             
