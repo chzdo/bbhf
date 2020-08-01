@@ -63,7 +63,7 @@
          </div>   
       
    </div>
-   <div class="write-up bg-danger" id="whoweare">
+   <div class="write-up " id="whoweare">
    <div class="section-sub-header">
 
     Who we are

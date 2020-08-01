@@ -10,7 +10,8 @@ return [
     "medical_mission_outreach",
     "evangelical_outreach",
     "education",
-    "social_schemes"
+    "social_schemes",
+    "volunteering_community_programme"
 
 ]
 

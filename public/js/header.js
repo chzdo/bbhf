@@ -20,5 +20,12 @@ $img = $("#logo-icon");
   }
 
 }
+$("#contact").click((e)=>{
+  e.preventDefault();
+  $('html, body').animate({
+scrollTop: $('.footer-holder').offset().top
+  },600)
+})
+$(".mobile-nav").append($('.navigator .nav-link-holder').html())
 
 
