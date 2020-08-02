@@ -5,8 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
         <link rel="stylesheet" href="{{URL::asset('css/dist/css/bootstrap.min.css')}}" >
         <link rel="stylesheet" href="{{URL::asset('fontawesome/css/all.css')}}" >
-        <link rel="stylesheet" href="{{URL::asset('fontawesome/css/fontawesome.css')}}" >
-        <link rel="stylesheet" href="{{URL::asset('fontawesome/css/all.min.css')}}" >
+
        <link rel="stylesheet" href="{{URL::asset('css/styles.css')}}" />
        <link rel="stylesheet" href="{{URL::asset('css/header.css')}}" />
        <link rel="stylesheet" href="{{URL::asset('css/flicky.css')}}" />

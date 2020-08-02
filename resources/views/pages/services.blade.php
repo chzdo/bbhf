@@ -11,7 +11,7 @@
 
 @section('body')
 
-<!--
+
 <nav id="scrollspy" class="scrollspy">
   <ul class="scrollspy-menu">
     <li>
@@ -94,7 +94,7 @@
     Our leadership is made up of an amazing team of passionate and dedicated individuals, who are the best at driving the BBHF vision and always providing  a dynamic, transparent, accountable and innovative leadership.
       </div>
       <div class="btn-holder">
-       <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config('constants.service_routes')[0] }}'> Donate for this cause </a>
+       <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
      
       </div>
      </div>
@@ -118,7 +118,7 @@
       This also helps to reduce the crime rate in such communities.
     </div>
     <div class="btn-holder">
-       <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config('constants.service_routes')[0] }}'> Donate for this cause </a>
+       <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
         </div>
      </div>
    </div>
@@ -152,7 +152,7 @@
     </div>
     <div class="btn-holder">
       <a class=" btn btn-bbhf bbhf-green " href='/projects/{{ Config::get('constants.service_routes')[0] }}'> See Opportunities </a>
-      <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config('constants.service_routes')[0] }}'> Donate for this cause </a>
+      <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
      
       </div>
      </div>
@@ -176,7 +176,7 @@
       Free pharmacological and non- pharmacological treatments are also offered to individual patients with diagnosed illnesses on spot, with free surgical services done as is feasible. These services are rendered by our foundation's pool of health care personnels, Volunteers, associates and funded by our sponsors in collaboration with individuals and/ or corporate organisations.
     </div>
     <div class="btn-holder">
-      <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config('constants.service_routes')[0] }}'> Donate for this cause </a>
+      <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
      
       </div>
    </div>
@@ -202,7 +202,7 @@
       The new converts are linked up with the local churches and pastor(s) for continuity of their Christian journey.</div>
   
    <div class="btn-holder">
-     <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config('constants.service_routes')[0] }}'> Donate for this cause </a>
+     <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
    
     </div>
   </div>
@@ -243,7 +243,7 @@
  Our leadership is made up of an amazing team of passionate and dedicated individuals, who are the best at driving the BBHF vision and always providing  a dynamic, transparent, accountable and innovative leadership.
     </div>
     <div class="btn-holder">
-       <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config('constants.service_routes')[0] }}'> Donate for this cause </a>
+       <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
      
       </div>
     </div>
@@ -280,7 +280,7 @@
  Our leadership is made up of an amazing team of passionate and dedicated individuals, who are the best at driving the BBHF vision and always providing  a dynamic, transparent, accountable and innovative leadership.
     </div>
      <div class="btn-holder">
-      <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config('constants.service_routes')[0] }}'> Donate for this cause </a>
+      <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
      
       </div>
     </div>
@@ -346,6 +346,6 @@ console.log('target',target)
    // $(this).addClass('active');
 });
 </script>
--->
+
 @endif
 @endpush
