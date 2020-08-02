@@ -65,9 +65,47 @@
          </div>
             
 
+         <div class="write-up " id="{{ Config::get('constants.services_route')[0]}}">
+           <div class="section-sub-header">       
+               Community Development Projects 
+            </div>
+          <div class="row p-3">
+              <div class="col-md-3">
+                <img src="{{asset('images/people-children-slippers.jpg')}}"  class='service-image'/>
+               </div>
+            <div class="col-md-9">
+                 <div class="main-write-up">
+               We are Blessed to Bless Hands Foundation(BBHF), and we exist to;  through effective partnerships with individuals and corporate organisations meet the health, social, economic, educational, communal and spiritual needs of all people, especially in Africa. 
+           
+               We believe in the ability of individuals and corporate organisations, to through proactive commitments, birth impactful and productive change in the lives of all people especially in African communities. 
+               
+               At BBHF, we are committed to providing enabling opportunities, platforms and systems for all people, particularly the youths and young people, to lead a self-sustaining and productive life for self, and be able to contribute to the family, Community and society sustainability and development. 
+               
+               
+               We are dedicated to supporting ministers of the gospel, particularly missionaries with aids to help in their works of ministry and we work with local churches to share the goodness of Jesus Christ, calling many to eternal life.
+               
+               
+               We daily nurture, train and build social change makers through our Volunteering programmes and the BBHF School of Social Change, with these individuals going on to be Agents of Change, all over the World, especially in Africa.
+               We have a network of skilled Volunteers and members across the world who drive our vision and bring their very best to the frontiers of attaining the BBHF vision.
+           
+                  Our leadership is made up of an amazing team of passionate and dedicated individuals, who are the best at driving the BBHF vision and always providing  a dynamic, transparent, accountable and innovative leadership.
+             </div>
+             <div class="btn-holder">
+              <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
+            
+             </div>
+            </div>
+          </div>         
+         </div>
   
-  </div>
 
+
+
+
+
+
+
+  </div>
 </section>
 </div>
 
