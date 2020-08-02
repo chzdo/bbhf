@@ -71,7 +71,7 @@
             </div>
           <div class="row p-3">
               <div class="col-md-3">
-                <img src="{{asset('images/people-children-slippers.jpg')}}"  class='service-image'/>
+                <img src="#"  class='service-image'/>
                </div>
             <div class="col-md-9">
                  <div class="main-write-up">
