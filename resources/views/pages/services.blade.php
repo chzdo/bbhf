@@ -101,6 +101,26 @@
 
 
 
+         <div class="write-up" id="{{ Config::get('constants.services_route')[1]}}">
+          <div class="section-sub-header"> 
+            Entreprenuership and Empowerment Grants
+          </div>
+          <div class="row p-3">
+            <div class="col-md-3">
+            <img src="{{asset('images/men-group-slippers.jpg')}}"  class='service-image'/>
+            </div>
+            <div class="col-md-9">
+          <div class="main-write-up">
+            Blessed to Bless Hands Foundation (BBHF) offers entrepreneurship trainings to individuals, especially young people who have the passion and interest to be trained in specific skill set(s), with plans to use such to deliver quality services, intended to meet the consumer demands of their communities. 
+            We go on to provide those who have completed the trainings and those who already have skills but lack the needed capital to start their businesses, startup funds thereby enabling them to live a productive life for self, families, communities, society and also enables them contribute their quota to the economies of their communities. 
+            This also helps to reduce the crime rate in such communities.
+          </div>
+          <div class="btn-holder">
+             <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
+              </div>
+           </div>
+         </div>
+        </div>
 
 
 
