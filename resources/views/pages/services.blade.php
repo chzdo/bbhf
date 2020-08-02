@@ -11,7 +11,7 @@
 
 @section('body')
 
-
+<!--
 <nav id="scrollspy" class="scrollspy">
   <ul class="scrollspy-menu">
     <li>
@@ -346,5 +346,6 @@ console.log('target',target)
    // $(this).addClass('active');
 });
 </script>
+-->
 @endif
 @endpush
