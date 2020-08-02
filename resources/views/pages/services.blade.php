@@ -65,13 +65,13 @@
          </div>
             
 
-         <div class="write-up " id="#">
+         <div class="write-up " id="{{ Config::get('constants.services_route')[0]}}">
            <div class="section-sub-header">       
                Community Development Projects 
             </div>
           <div class="row p-3">
               <div class="col-md-3">
-                <img src="#"  class='service-image'/>
+                <img src="{{asset('images/people-children-slippers.jpg')}}"  class='service-image'/>
                </div>
             <div class="col-md-9">
                  <div class="main-write-up">
