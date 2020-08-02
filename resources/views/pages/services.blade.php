@@ -65,7 +65,7 @@
          </div>
             
 
-         <div class="write-up " id="{{ Config::get('constants.services_route')[0]}}">
+         <div class="write-up " id="#">
            <div class="section-sub-header">       
                Community Development Projects 
             </div>
