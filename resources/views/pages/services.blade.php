@@ -55,7 +55,21 @@
     </li>
   </ul>
 </nav>
+<div class="home-container">
+  <section class="section " >
+      <div class="section-wrapper ">
+         <div class="section-header-wrapper ">
+           <div class="section-header ">
+          SERVICES  
+           </div>        
+         </div>
+            
 
+  
+  </div>
+
+</section>
+</div>
 
 @endsection
 @push('headerJs')
