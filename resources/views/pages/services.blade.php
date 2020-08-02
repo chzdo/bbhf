@@ -10,7 +10,51 @@
 @endsection
 
 @section('body')
-
+<nav id="scrollspy" class="scrollspy">
+  <ul class="scrollspy-menu">
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[0]}}" href="#{{ Config::get('constants.services_route')[0]}}" class="dot active">
+        <span>Community Development Projects</span>
+      </a>
+    </li>
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[1]}}" href="#{{ Config::get('constants.services_route')[1]}}" class="dot">
+        <span>Entreprenuership and Grants</span>
+      </a>
+    </li>
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[2]}}" href="#{{ Config::get('constants.services_route')[2]}}"  class="dot">
+        <span> Competitions and Scholarships</span>
+      </a>
+    </li>
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[3]}}" href="#{{ Config::get('constants.services_route')[3]}}"  class="dot">
+        <span>Medical Mission Outreach</span>
+      </a>
+    </li>
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[4]}}" href="#{{ Config::get('constants.services_route')[4]}}"  class="dot">
+        <span>Evangelical Outreach</span>
+      </a>
+    </li>
+  
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[5]}}" href="#{{ Config::get('constants.services_route')[5]}}" class="dot">
+        <span>Education</span>
+      </a>
+    </li>
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[6]}}" href="#{{ Config::get('constants.services_route')[6]}}"  class="dot">
+        <span>Social Schemes</span>
+      </a>
+    </li>
+    <li>
+      <a data-scroll="{{ Config::get('constants.services_route')[7]}}" href="#{{ Config::get('constants.services_route')[7]}}"  class="dot">
+        <span>Volunteering Programme</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 
 
 @endsection
