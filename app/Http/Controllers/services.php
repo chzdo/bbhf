@@ -17,4 +17,9 @@ class services extends Controller
             abort(404);
         }
     }
+
+    function news(Request $req){
+          //    var_dump($req->param);
+              return view('pages.news');
+    }
 }

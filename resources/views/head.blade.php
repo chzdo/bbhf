@@ -44,7 +44,7 @@
    </ul>
 </div>
 
- <a class="nav-link active" href="/services" > News </a>
+ <a class="nav-link active" href="/news" > News </a>
  <a class="nav-link active" href="#" id="contact"> Contact </a>
  <a class="link-button" href="#" > join us </a>
 </div>

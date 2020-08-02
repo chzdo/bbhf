@@ -22,4 +22,5 @@ Route::get('/about', function(){
 })->name('about');
 
 Route::get('/services/{section?}', "services@index" )->name('services');
+Route::get('/news/{section?}', "services@news" )->name('news');
    
