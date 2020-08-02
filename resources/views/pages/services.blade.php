@@ -116,7 +116,7 @@
             This also helps to reduce the crime rate in such communities.
           </div>
           <div class="btn-holder">
-             <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.service_routes')[0] }}'> Donate for this cause </a>
+             <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{ Config::get('constants.services_route')[1] }}'>> Donate for this cause </a>
               </div>
            </div>
          </div>
