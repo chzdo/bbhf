@@ -91,7 +91,7 @@
                   Our leadership is made up of an amazing team of passionate and dedicated individuals, who are the best at driving the BBHF vision and always providing  a dynamic, transparent, accountable and innovative leadership.
              </div>
              <div class="btn-holder">
-              <a class=" btn btn-bbhf bbhf-orange " href='/donate/{{Config::get('constants.services_route')[0]}}'> Donate for this cause </a>
+              <a class=" btn btn-bbhf bbhf-orange "  href='/donate/{{ Config::get('constants.services_route')[0] }}'> Donate for this cause </a>
             
              </div>
             </div>
