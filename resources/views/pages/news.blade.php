@@ -45,7 +45,76 @@
            <a class="continue-link sch-btn bg-danger" href="#"> Read More </a>
        </div>
 </section>
+<section class="section-news">
+        
+    <div class="news-holder">
+        <div class="section-header-wrapper mb-5">
+            <div class="section-header">
+                More news
+            </div></div>
+         <a class="new-link " href="#">
+        
+                    <img src="{{asset('images/people-children-slippers.jpg')}}"  class='news-image-mini'/>
+                   
+                 
+                <div class="holder-headline">
+                    <div class="service-news">
+                        Community development
+                        </div>
+                        <div class="mini">
+                          Bore Hole For Borno Community     Bore Hole For Borno Community
+                          </div>
+                          <div class="time">
+                           27 Aug 2020
+                            </div>
+             
+
+             </div>
+
+         </a>
+
+         <a class="new-link " href="#">
+        
+            <img src="{{asset('images/people-children-slippers.jpg')}}"  class='news-image-mini'/>
+           
+         
+        <div class="holder-headline">
+            <div class="service-news">
+                Community development
+                </div>
+                <div class="mini">
+                  Bore Hole For Borno Community     Bore Hole For Borno Community
+                  </div>
+                  <div class="time">
+                   27 Aug 2020
+                    </div>
+     
+
+     </div>
+
+ </a>
+ <a class="new-link " href="#">
+        
+    <img src="{{asset('images/people-children-slippers.jpg')}}"  class='news-image-mini'/>
    
+ 
+<div class="holder-headline">
+    <div class="service-news">
+        Community development
+        </div>
+        <div class="mini">
+          Bore Hole For Borno Community     Bore Hole For Borno Community
+          </div>
+          <div class="time">
+           27 Aug 2020
+            </div>
+
+
+</div>
+
+</a>
+    </div>
+ </section>
 </div>
 
 @endsection
