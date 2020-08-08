@@ -141,8 +141,8 @@ flex-wrap:nowrap;
   
   display: none;
   margin-left: -80px;
-  margin-top: 1px;
-  color:black;
+  margin-top: 1.5em;
+  color:rgb(5, 4, 4);
   z-index: 1000;
 }
 .sub-menu-item{
@@ -757,6 +757,7 @@ margin-bottom: 10px;
            height:60vh;
         
           }
+         
           .slide-text-1{
        
             font-size:  medium !important;

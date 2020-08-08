@@ -27,5 +27,8 @@ scrollTop: $('.footer-holder').offset().top
   },600)
 })
 $(".mobile-nav").append($('.navigator .nav-link-holder').html())
-
+console.log($(".navigator").height())
+$(".donate-container").css({
+  top:$(".navigator").height()
+       } )
 

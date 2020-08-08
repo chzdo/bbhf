@@ -11,11 +11,10 @@ class services extends Controller
         if($section==null){
             return view('pages.services')->with('scroll',false);
         }
-        if(in_array($section,Config::get('constants.services_route'))){
-              return view('pages.services',['scroll'=>true,'section'=>strval($section)]);
-        }else{
-            abort(404);
-        }
+            $section_temp = explode(" ",base64_decode($section));
+            $throw = implode("_",$section_temp);
+              return view('pages.services',['scroll'=>true,'section'=>strval($throw)]);
+       
     }
 
     function news(Request $req){

@@ -86,7 +86,7 @@ $window.trigger('scroll');
       if ((element_bottom_position >= window_top_position) &&
         (element_top_position <= window_bottom_position)) {
     
-          // console.log(id ,element_height,element_top_position,element_top_position+element_height)
+         //  console.log(id ,element_height,element_top_position,element_top_position+element_height)
          
             $('.write-up').find('.section-sub-header').css({
     

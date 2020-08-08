@@ -12,41 +12,23 @@
 
 
  </a>
+@inject('category','App\category')
+<?php 
+
+$temp = \App\category::all() ?>
  <ul class="sub-menu">
-  <li class="sub-menu-item">
-   <a href="/services/{{ Config::get('constants.services_route')[0]}}" >Community Development Projects </a>
-  </li>
-  <li class="sub-menu-item">
-    <a href="/services/{{ Config::get('constants.services_route')[1]}}" >Entreprenuership and Empowerment Grants</a>
-  </li>
-  <li class="sub-menu-item">
-    <a href="/services/{{ Config::get('constants.services_route')[2]}}" >   Competitions and Scholarships</a>
+@foreach ($temp as $item)
+<li class="sub-menu-item">
+<a href="/services/{{ base64_encode($item->category)}}" >{{ $item->category }}</a>
+ </li>
+@endforeach
+ </ul>
 
-    </li>
-    <li class="sub-menu-item">
-      <a href="/services/{{ Config::get('constants.services_route')[3]}}" >   Medical Mission Outreach</a>
-
-      </li><li class="sub-menu-item">
-        <a href="/services/{{ Config::get('constants.services_route')[4]}}" >   Evangelical Outreaches</a>
- 
-        </li>
-      
-        <li class="sub-menu-item">
-          <a href="/services/{{ Config::get('constants.services_route')[5]}}" >Education</a>
-  
-          </li>
-          <li class="sub-menu-item">
-            <a href="/services/{{ Config::get('constants.services_route')[6]}}" >  Social Schemes</a>
-           </li>
-           <li class="sub-menu-item">
-            <a href="/services/{{ Config::get('constants.services_route')[7]}}" >Voluteering Programme </a>
-           </li>
-   </ul>
 </div>
 
  <a class="nav-link active" href="/news" > News </a>
  <a class="nav-link active" href="#" id="contact"> Contact </a>
- <a class="link-button" href="#" > join us </a>
+ <a class="link-button" href="/donate" > join us </a>
 </div>
 <a href="javascript:void(0)" data-role="mobile-nav" onclick="$( ()=>{ $('#scrollspy').hide(); $('.mobile-nav').css('display','flex'); $('html,body').css({overflow:'hidden', width: '100%'})})"  > MENU  &nbsp; <i class="fa fa-bars" ></i></a>
 </nav>

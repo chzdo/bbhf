@@ -12,14 +12,15 @@
           <link rel="stylesheet" href="{{URL::asset('css/owl.carousel.min.css')}}" />
           <link rel="stylesheet" href="{{URL::asset('css/owl.theme.default.css')}}" />
        <link rel="icon" href="{{asset('images/icon.jpg')}}" />
-       <link rel="apple-touch-icon" href="{{asset('images/icon.jpg')}}" />
+       <link rel="apple-touch-icon" href="{{asset('images/icon-logo.png')}}" />
        <link rel="dns-prefetch" href="//fonts.gstatic.com">
        <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Literata" rel="stylesheet">
           <title>@yield('title')</title>
     </head>
     <body>
+     
      @yield('head')
-
+     
 @yield('body')
 
 

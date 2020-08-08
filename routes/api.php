@@ -14,6 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/category', function(){
+$result =    App\category::select('id','category')->get();
+return response()->json(['code'=>1,"message"=>$result]);
+});
+
+/**  Donation Routes */
+Route::post('/donation/create',"donors@create");
+Route::get('/donation/payment/verify/',"donors@verify");
+
+
+Route::get('/category/{category_id}/project', function(Request $req){
+   try{
+   $result =   App\category::findorFail($req->category_id)->projects()->get();
+
+    return response()->json(['code'=>1,'message'=>$result],200);
+   }catch(Exception $ex){
+    return  response()->json(["code"=>0,"message"=>"Not Found"],404);
+   }
+   });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::fallback(function(){
+    return response()->json(['code'=>0, "message"=>"page not found"]);
 });

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+   
+   
     return view('pages.home');
-});
-
+  
+})->middleware('services');
+Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
 Route::get('/about', function(){
  return view('pages.about');
 })->name('about');
-
-Route::get('/services/{section?}', "services@index" )->name('services');
+Route::get('/donate/{category?}/{project?}',"donors@showWeb")->name('donations');
+Route::get('/services/{section?}', "services@index" )->name('services')->middleware('services');
 Route::get('/news/{section?}', "services@news" )->name('news');
-   

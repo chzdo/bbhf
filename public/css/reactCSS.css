@@ -1,0 +1,311 @@
+body{
+   font-family: Alegreya Sans SC;
+   font-size: 1rem;
+   height: 100%;
+}
+
+.react-head{
+   position: absolute;
+   width:100%;
+   height: fit-content;
+}
+.donate-background{
+    display: flex;
+    flex-direction: row;
+    width:100vw;
+    top:0;
+    bottom: 0;
+ 
+    background: #fde url('../images/people-children-slippers.jpg') no-repeat fixed left top;
+ background-size: cover;
+    position: absolute;
+    opacity: 0.9;
+  justify-content: center;
+  align-items: center;
+    z-index: -1;
+}
+.donate-background:before{
+ content:'';
+ display: block;
+ position: absolute;
+ height:100%;
+ width:100%;
+ background-color:  rgba(2, 17, 85, 0.74)
+}
+.donate-container{
+    display:flex;
+    position: absolute;  
+flex-direction: row;
+   width: 100%;
+  
+   
+  justify-content: center;
+  align-items: center;
+  margin: 0px !important;
+ 
+  
+    
+}
+
+.form-container{
+    background-color: rgba(53, 5, 92, 0.267);
+    border-radius: 2px;
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1px !important;
+  
+    
+}
+.logo-rotate{
+    animation: rotate 0.9s infinite ease-in ;
+    -webkit-animation:  rotate 0.9s infinite ease-in;
+    -o-animation:  rotate  0.9s infinite ease-in;
+    -moz-animation:  rotate 0.9s  infinite ease-in;
+    transition: all 0.4;
+    align-self: center;
+    display: flex;
+
+}
+.f-name{
+   color:white;
+   font-weight: 800;
+  
+   width: 100%;
+   text-align: center;
+   align-self: center;
+   
+}
+.f-name:after{
+content:'';
+position: relative;
+display: block;
+height: 5px;
+width:100%;
+background-color: rgba(250, 119, 11, 0.75);
+}
+
+.f-name:hover{
+  color:rgba(250, 119, 11, 0.75);
+   }
+   .g-tks{
+      font-family: Felipa;
+      font-weight: 900;
+  font-size:1.5rem;
+      text-align: center;
+   }
+
+   .input-container{
+      display:flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      background: white;
+      width:100%;
+   }
+
+
+
+/** BEGIN: Non Openmrs CSS **/
+
+
+div.container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-around;
+	margin-top: 30px;
+	border: 1px solid whitesmoke;
+	padding: 21px;
+	border-radius: 4px;
+}
+h4.title {
+	text-align: center;
+	margin-bottom: 45px;
+}
+:root {
+	--omrs-color-ink-lowest-contrast: rgba(47, 60, 85, 0.18);
+	--omrs-color-ink-low-contrast: rgba(60, 60, 67, 0.3);
+	--omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+	--omrs-color-interaction: #1e4bd1;
+	--omrs-color-interaction-minus-two: rgba(73, 133, 224, 0.12);
+	--omrs-color-danger: #b50706;
+	--omrs-color-bg-low-contrast: #eff1f2;
+	--omrs-color-ink-high-contrast: #121212;
+	--omrs-color-bg-high-contrast: #ffffff;
+	
+}
+
+div.omrs-input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 20.4375rem;
+
+}
+
+.form_input::placeholder{
+   color:transparent;
+}
+.form_input:placeholder-shown ~ .form_label{
+  
+   cursor: text;
+   top: 20px;
+}
+.form_input:hover ~ .form_label{
+   background-color: burlywood;
+}
+.form_input:focus ~ .form_label{
+   top: 0;
+}
+.form-holder{
+   position: relative;
+   padding: 15px 0 0;
+   margin-top: 10px;
+   width: 50%;
+}
+.form_input{
+   font-family: inherit;
+   width: 100%;
+   border: 0;
+   border-bottom: 2px solid grey;
+   outline: 0;
+  
+   color:black;
+   padding: 7px 0;
+   background: transparent;
+   transition: border-color 0.2s;
+}
+.form_label{
+   position: absolute;
+  top: 0;
+  background: none;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: black;
+}
+.bbhf_input{
+   border:none;
+   border-radius: 0.5rem ;
+   width: 100%;  
+   line-height: 146%;
+   outline: 0;
+   height: 2.5rem;
+   margin-top: 0.3rem;
+   background: none !important;
+   padding-left: 0.4rem;;
+   transition: all 0.4s;
+    
+   font-size: 1.0625rem;
+  
+}
+
+.bbhf_input::placeholder{
+   color: transparent;
+}
+.bbhf_input_label{
+   position:absolute;
+   top: 0;
+   color:rgba(19, 19, 21, 0.6);
+   font-size: 1.0625rem;
+   transition: all 0.4s ease-in;
+   z-index: 3;
+}
+.bbhf_input:placeholder-shown ~ .bbhf_input_label{
+   top: 1rem;
+   transition: all 0.4s ease-in;
+}
+.bbhf_input:focus ~ .bbhf_input_label{
+   top:0;
+   font-size: 0.8rem;
+   transition: 0.4s ease-in;
+   font-weight: 900;
+   color: rgba(250, 119, 11, 0.75)
+}
+.valid{
+   color:green !important;
+}
+.invalid{
+   color:red !important;
+}
+.bbhf_input_holder{
+width:100%;
+display: flex;
+padding: 0.1rem;
+position: relative;
+border:0.025rem solid rgba(47, 60, 85, 0.18);
+border-radius: 0.1rem;
+
+
+}
+.bbhf_input_holder:hover,.bbhf_input_holder:focus{
+   border-color: rgba(250, 119, 11, 0.75);
+}
+.form_group{
+   width:100%;
+   margin: 0.02rem;
+   padding: 0.02rem;
+   margin-bottom: 1rem;
+}
+.form{
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin: 0.5rem;
+}
+.bbhf_btn{
+   border:0;
+   width:100%;
+   height: 2.5em;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+}
+.bbhf_btn_green{
+   color:white;
+   background: rgba(2, 17, 85, 0.74);
+   transition: all 0.4s ease
+}
+.bbhf_btn_green:hover,.bbhf_btn_green:focus{
+   color:white;
+   background: rgba(2, 17, 200, 0.9);
+   border:0 !important;
+   outline:none
+}
+
+.loader{
+   height:2.3em !important;
+   animation: rotate 0.5s infinite ease-in ;
+   -webkit-animation:  rotate 0.5s infinite ease-in;
+   -o-animation:  rotate  0.5s infinite ease-in;
+   -moz-animation:  rotate 0.5s  infinite ease-in;
+   transition: all 0.4;
+   display:flex;
+   align-self: center;
+
+}
+@keyframes rotate{
+    
+     100%{
+        transform: rotate(360deg);
+     }
+}
+@-webkit-keyframes rotate{
+    
+   100%{
+      -webkit-transform: rotate(360deg);
+   }
+}
+@-moz-keyframes rotate{
+    
+   100%{
+      -moz-transform: rotate(360deg);
+   }
+}
+@-o-keyframes rotate{
+    
+   100%{
+      -o-transform: rotate(360deg);
+   }
+}

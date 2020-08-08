@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\category;
-class services
+
+class servicescheck
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,6 @@ class services
      */
     public function handle($request, Closure $next)
     {
-      if ($request->section != null){
-       $find = category::where('category',base64_decode($request->section))->firstorFail();
-      }
         return $next($request);
     }
 }
