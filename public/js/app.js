@@ -67045,7 +67045,6 @@ var Donate = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "Success", function (response) {
       console.log(response);
-      var trxref = response.trxref;
       var redirecturl = response.redirecturl; //for production
 
       axios.get(redirecturl).then(function (resp) {

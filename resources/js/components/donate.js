@@ -116,7 +116,7 @@ async componentDidUpdate(prevprops,prevstate){
 
     Success = (response)=>{
         console.log(response)
-        let {trxref} = response;
+     
         let {redirecturl } = response; //for production
         axios.get(redirecturl)
         .then(resp=>console.log(resp));
