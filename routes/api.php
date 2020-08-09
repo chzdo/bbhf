@@ -21,7 +21,7 @@ return response()->json(['code'=>1,"message"=>$result]);
 
 /**  Donation Routes */
 Route::post('/donation/create',"donors@create");
-Route::get('/donation/payment/verify/',"donors@verify");
+Route::get('/donation/payment/verify/',"donors@verify")->middleware('cors');
 
 
 Route::get('/category/{category_id}/project', function(Request $req){
