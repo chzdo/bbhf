@@ -15,7 +15,7 @@
        <link rel="apple-touch-icon" href="{{asset('images/icon-logo.png')}}" />
        <link rel="dns-prefetch" href="//fonts.gstatic.com">
        <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Literata" rel="stylesheet">
-       <link href='https://fonts.googleapis.com/css?family=Carrois Gothic' rel='stylesheet'>
+     
           <title>@yield('title')</title>
     </head>
     <body>
