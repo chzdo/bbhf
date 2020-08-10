@@ -24,7 +24,7 @@
    <p> Goal - N6000 </p> <p> 50% </p> <p> Raised - N3000</p>
  </div>
  </div>
- <a href="" class="donate-btn"> Donate </a>
+ <a href="/donate" class="donate-btn"> Donate </a>
  </div>
  </div>
  </div>

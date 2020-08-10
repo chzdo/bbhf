@@ -22,10 +22,33 @@
 <?php 
 
 ?>
+  <div id="d-bg">
+    <div id="d-bg-overlay">
+        @include('head')
+    
+  
+    <Donate id="donateBG" 
+    @if($project != null)
+    project={{ $project}}
+    @endif
+    @if($category != null)
+    category={{ $category}}
+    @endif
+    
+    path = {{ asset('images/')}}
+    
+    />
+</div>
+  </div>
 
-        <div class="react-head">
+
+
+{{--
+
+      <div class="donate-background">
+          <div class="donate-background-overlay">
             @include('head')
-        </div>
+  
       
         <Donate id="donateBG" 
         @if($project != null)
@@ -38,7 +61,9 @@
         path = {{ asset('images/')}}
         
         />
-    
+          </div>
+    </div>
+    --}}
         <script src="{{   mix('js/app.js')}}" ></script>
         <script src="{{   asset('js/header.js')}}" ></script>
     </body>

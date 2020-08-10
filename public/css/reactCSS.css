@@ -1,44 +1,73 @@
-body{
+body,html{
    font-family: Alegreya Sans SC;
    font-size: 1rem;
    height: 100%;
+   width:100%;
+
 }
 
+
 .react-head{
-   position: absolute;
+   position: relative;
    width:100%;
    height: fit-content;
 }
+#donateBG{
+   margin: 1px;
+}
+#d-bg{
+  position:absolute;
+  display:flex;
+  background-color: #000;
+  width:100%;
+ 
+  background:#000 url('../images/people-children-slippers.jpg') no-repeat ;
+  background-size: cover;
+}
+#d-bg-overlay{
+   display: flex;
+   position: relative;
+   flex-direction: column;
+   height:100%;
+   width:100%;
+   background-color:  rgba(2, 17, 85, 0.74)
+}
 .donate-background{
-    display: flex;
-    flex-direction: row;
+    display: block;
+    flex-direction: column;
     width:100vw;
+   
     top:0;
     bottom: 0;
+    min-height: 100%;
  
-    background: #fde url('../images/people-children-slippers.jpg') no-repeat fixed left top;
+    background:#000 url('../images/people-children-slippers.jpg') no-repeat fixed left top;
  background-size: cover;
-    position: absolute;
+    position: relative;
     opacity: 0.9;
+    
   justify-content: center;
   align-items: center;
     z-index: -1;
 }
+.donate-background-overlay{
+   display: block;
+   position: relative;
+   height:100%;
+   width:100%;
+   background-color:  rgba(2, 17, 85, 0.74)
+}
 .donate-background:before{
  content:'';
- display: block;
- position: absolute;
- height:100%;
- width:100%;
- background-color:  rgba(2, 17, 85, 0.74)
+
 }
 .donate-container{
     display:flex;
-    position: absolute;  
+    position: relative;  
 flex-direction: row;
    width: 100%;
-  
-   
+
+   ;
   justify-content: center;
   align-items: center;
   margin: 0px !important;
@@ -55,7 +84,7 @@ flex-direction: row;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1px !important;
+
   
     
 }
@@ -190,7 +219,7 @@ div.omrs-input-group {
    width: 100%;  
    line-height: 146%;
    outline: 0;
-   height: 2.5rem;
+   height: 5vh;
    margin-top: 0.3rem;
    background: none !important;
    padding-left: 0.4rem;;
@@ -212,7 +241,7 @@ div.omrs-input-group {
    z-index: 3;
 }
 .bbhf_input:placeholder-shown ~ .bbhf_input_label{
-   top: 1rem;
+   top: 0.5rem;
    transition: all 0.4s ease-in;
 }
 .bbhf_input:focus ~ .bbhf_input_label{
@@ -284,6 +313,101 @@ border-radius: 0.1rem;
    display:flex;
    align-self: center;
 
+}
+.toastBody{
+   width:100%;
+   padding:1px;
+   margin: 1px;
+   font-size: 0.9rem;
+}
+
+#toast{
+      width:300px;
+      height:fit-content;
+      position: absolute;
+      top:0;
+      
+      right:0;
+      display: flex;
+  
+    
+      color:white;
+      flex-wrap: wrap;
+      word-wrap: break-word;
+      transition: all 0.5s ease-in-out;
+    visibility: hidden;
+  
+      z-index: 2000;
+    transition: visibility 0.5s;
+      
+
+}
+.toastGreen{
+   background-color: rgba(2, 44, 8, 0.778);
+}
+#toast.toastGreen{
+   border: 0.6px solid rgba(30, 206, 53,1);
+}
+#toast.toastGreen > .toast-head{
+   background-color: rgba(30, 206, 53,1);
+}
+.toastRed{
+   background-color: rgba(44, 2, 8, 0.778);
+}
+#toast.toastRed{
+   border: 0.6px solid rgba(206, 30, 53,1);
+}
+#toast.toastRed > .toast-head{
+   background-color:  rgba(206, 30, 53,1);
+}
+.show{
+   animation: toast-in 0.5s forwards ;
+   transition: 0.4s;
+   visibility: visible !important;
+}
+.hide{
+   animation:  toast-out 0.5s forwards;
+   transition: 0.4s;
+   visibility: hidden !important;
+}
+#toast-close{
+   position:absolute;
+  
+   border-radius: 50%;
+ background: transparent;
+   padding: 1px;
+   right:0;
+   cursor: pointer;
+   margin-right: 3px;
+  
+}
+
+.toast-head{
+   width:100%;
+   height:fit-content;
+padding-left: 3px;
+   font-size: 1.3rem;
+
+
+}
+
+
+@keyframes toast-in{
+   from{
+      right:0;opacity:0;top:0;
+   }
+   to{
+      right: 5%;opacity:1;top:15%;
+   }
+}
+
+@keyframes toast-out{
+   from{
+      right:5%;opacity:1;top:15%;
+   }
+   to{
+      right: 0;opacity:0;top:0;
+   }
 }
 @keyframes rotate{
     

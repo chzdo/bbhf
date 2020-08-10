@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePaystackPayment, PaystackButton, PaystackConsumer } from 'react-paystack';
 import Loader from './loader'
 
@@ -19,22 +19,32 @@ const onSuccess = (reference) => {
     
 };
 
+
 const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
    setLoader(false)
 }
-const [loader, setLoader ] = useState(false)
-        
+const [loader, setLoader ] = useState(props.loader)
+const [disabled, setDisabled ] = useState(props.disabled)
+        useEffect(()=>{
+            if(props.loader != loader){
+                setLoader(props.loader)
+            }
+            if(props.disabled != disabled){
+                setDisabled(props.disabled)
+            }
+        },[props.loader, props.disabled])
 const PaystackBtn = () => {
     const initializePayment = usePaystackPayment(config);
     return (
         
             <button className="bbhf_btn bbhf_btn_green" onClick={(e) => {
                 setLoader(true)
+                setDisabled(true)
                 e.preventDefault()
                 initializePayment(props.onSuccess,  onClose)
             }}
-            disabled = {props.disabled}
+            disabled = {disabled}
             >
                 
                 

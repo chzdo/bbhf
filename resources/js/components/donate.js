@@ -8,6 +8,7 @@ import Paystack from './paystack'
 import { usePaystackPayment, PaystackButton, PaystackConsumer } from 'react-paystack';
 import { post } from 'jquery';
 import Axios from 'axios';
+import Toast from './toast'
 class Donate extends React.Component{
  async componentDidMount(){
 
@@ -23,13 +24,13 @@ let uri = this.props.project != null? '/api/category/'+project : '/api/category'
         if(response.code==1){
      let category =   this.props.category != null? this.props.category:""
      let project = this.props.project != null? this.props.project: '';
-        this.setState(prev=>({...prev,category: response.message,category_loader:false,donor:{...prev.donor,category:category,project:project}}))
+        this.setState(prev=>({...prev,category: response.message,category_loader:false,config:{...prev.config,category:category,project:project}}))
         }else{
             this.setState(prev=>({...prev,category_loader:false}))
      
         }
        
-        console.log(response)
+       
     }
     ).catch(error=>console.log(error))
 //await this.setState({loading: !this.state.loading})
@@ -37,12 +38,16 @@ let uri = this.props.project != null? '/api/category/'+project : '/api/category'
 }
 
 async componentDidUpdate(prevprops,prevstate){
-    const {fullname,email,phone,amount,category,project } = this.state.donor
-    if(prevstate.donor.category !=  category){
+    const {name,email,phone,amount,category,project } = this.state.config
+    if(prevstate.config.category !=  category){
         this.getProjects(category)
     }
- 
-
+   if (prevstate.reset && this.state.reset){
+       this.setState({reset: !this.state.reset})
+   }
+   if (prevstate.loader && this.state.loader){
+    this.setState({loader: !this.state.loader})
+}
   
 }
     constructor(props){
@@ -50,23 +55,26 @@ async componentDidUpdate(prevprops,prevstate){
    
         this.state = {
           validate:false,
+          toastRed:false,
+          toast:false,
+          toastGreen:false,
+          toastMessage:"",
+          toasttitle:'',
             config : {
                
                 email: "",
                 amount: 0,
                
                 firstname: '',
-                lastname: ''
-            },
-            donor:{
-                fullname:'',
+                lastname: '',
+                name:'',
                 phone:'',
-                email:'',
+         
                 category:'',
                 project:'',
-                amount:''
+               
             },
-            category:[
+                      category:[
              
             ],
               project:[],
@@ -80,31 +88,35 @@ async componentDidUpdate(prevprops,prevstate){
       
     }
 
-  
-   sucessCallBack= (reference) =>{
-       console.log("2",reference)
-   }
-  
-
+  cleanToast = () =>{
+      
+     
+     this.setState({
+        toastRed: false,
+        toastGreen:false,
+        toast:false,
+        toasttitle:'',
+        toastMessage:''
+     })
+  }
+ 
 
 
     getValues = async(event,state)=>{
-        const name = event.target.id
+        const id = event.target.id
         const value=  state? event.target.value : ''
-         console.log(name,event.target.value );
+     
          
-    await this.setState(prevState=>({...prevState,donor:{...prevState.donor,[name]:value}, valid:false}));
-    const {fullname,email,phone,amount,category,project } = this.state.donor
-    if(fullname != '' && phone != '' &&  email != '' && category != '' && project != '' && amount != ''){
+    await this.setState(prevState=>({...prevState,config:{...prevState.config,[id]:value}, valid:false}));
+    const {name,email,phone,amount,category,project } = this.state.config
+    if(name != '' && phone != '' &&  email != '' && category != '' && project != '' && amount != ''){
       
         await this.setState(prevState=>({
             ...prevState,valid:true,config:{
                    ...prevState.config,
-                  email : this.state.donor.email,
-                  phone : this.state.donor.phone,
-                  amount : parseFloat(this.state.donor.amount) * 100,
-                  firstname: this.state.donor.fullname.split(" ")[0],
-                  lastname: this.state.donor.fullname.split(" ")[1],
+                  amount : parseFloat(this.state.config.amount) * 100,
+                  firstname: this.state.config.name.split(" ")[0],
+                  lastname: this.state.config.name.split(" ")[1],
         }
     }
     )
@@ -114,52 +126,122 @@ async componentDidUpdate(prevprops,prevstate){
 
     }
 
-    Success = (response)=>{
-        console.log(response)
-     
+    Success = async (response)=>{
+
+        let {trxref} = response;
         let {redirecturl } = response; //for production
         axios.get(redirecturl)
-        .then(resp=>console.log(resp));
+        .then(resp=>
+            {
+        
+               if (resp.data.message.data.status == "success"){
+                 
+                  fetch('/api/donation/create',{
+                      method:'post',
+                      body:JSON.stringify({
+                        "name":this.state.config.name,
+                        "email":this.state.config.email,
+                       "donation_reference":resp.data.message.data.reference,
+                         "donation_category":this.state.config.category,
+                         "donation_project":this.state.config.project,
+                         "donation_amount":this.state.config.amount
+                      }),
+
+                      headers:{
+                          "Accept":'application/json',
+                          "Content-Type":'application/json'
+                      }
+                  }).then(resp=>resp.json()).then(async (resp)=>{
+                 
+                   if(resp.code == 1){
+                            
+                       this.setState({valid:false,loader:false,reset:true,toast:true,toastGreen:true,toastMessage:resp.message,toasttitle:'Succesfull!',
+                       config : {
+                          email: "",
+                        amount: 0,                     
+                        firstname: '',
+                        lastname: '',
+                        name:'',
+                        phone:'',                 
+                        category:'',
+                        project:'',
+                       
+                    }
+                    
+                    });
+                           
+                       }else{
+                         let {message } = resp;
+                    
+                        // let error = JSON.parse(message)
+                        let err = '';
+                         for(var error in message){
+                         
+                           
+                                 err +=   message[error][0] + "\n"
+                           
+                         }
+                       
+                           
+                        this.setState({toast:true,toastRed:true,toastMessage:err,toasttitle:'Failure'});
+                       }
+            
+                   }
+               ).catch(error=>console.log(error));
+          
+               }else{
+                this.setState({toast:true,toastRed:true,toastMessage:"Transaction was not successful",toasttitle:'Failure'});
+               }
+            }
+        )
 
  
  
    
     }
-close = ()=>{
 
-}
+
 
 
 
 
 getProjects=(id='')=>{
-    console.log(id)
-this.setState(prevState=>({...prevState,donor:{...prevState.donor,project:''}, project_loader:true,project:[]}));
+   
+this.setState(prevState=>({...prevState,config:{...prevState.config,project:''}, project_loader:true,project:[]}));
     fetch('/api/category/'+id+'/project',{
         method:"get",
        
         }).then(response=>response.json()).then(response=>{
        if(response.code == 1){
        this.setState({project: response.message,project_loader: false})
-       console.log(response.message);
+  
           }else{
         this.setState(prev=>({...prev,project_loader:false}))
  
     }
       
-    console.log(response)}
+ }
    ).catch(error=>console.log(error))
 }
     render(){
-        
-   
+
    
         return (
             <>
      
-            <div className="donate-background">  </div>
+          
+          
+        
             <div className="donate-container row"> 
-               <div className="form-container col-md-4 mx-auto">
+            <Toast
+
+show = {this.state.toast? "show":''}
+color = {this.state.toastGreen? "toastGreen" : "toastRed"}
+title = {this.state.toasttitle}
+message = {this.state.toastMessage}
+cleanToast = {this.cleanToast}
+/>
+               <div className="form-container col-md-7 col-lg-4 col-xl-4  col-sm-7 mx-auto">
                <LOGO  path={this.props.path} />
                   
                   <div className="f-name">
@@ -175,29 +257,32 @@ this.setState(prevState=>({...prevState,donor:{...prevState.donor,project:''}, p
                   <form className="form" >
                           <InputText 
                             type="text"
-                            id="fullname"
+                            id="name"
                             label="Name"
-                            value = {this.state.donor.fullname}
+                            value = {this.state.config.name}
                             helper="Enter your Full Name"
                             getValues = {this.getValues}
-                            constraint={{required:true,fullname:true}}
+                            constraint={{required:true,name:true}}
+                            reset = {this.state.reset}
                             />
                              <InputText 
                             type="number"
                             id="phone"
                             label="Phone Number"
-                            value = {this.state.donor.phone}
+                            value = {this.state.config.phone}
                             getValues = {this.getValues}
                             constraint={{required:true,max:11,min:11}}
+                            reset = {this.state.reset}
                             />
                              <InputText 
                             type="email"
                             id="email"
                             label="Email"
-                            value = {this.state.donor.email}
+                            value = {this.state.config.email}
                             helper="Enter your Full Name"
                             getValues = {this.getValues}
                             constraint={{required:true,email:true}}
+                            reset = {this.state.reset}
                             />
                             <SelectInput
                                  id="category"
@@ -205,8 +290,9 @@ this.setState(prevState=>({...prevState,donor:{...prevState.donor,project:''}, p
                                   data = {this.state.category}
                                   label ="Category"
                                   valueKeys = {{"value":"id","label":"category"}}
-                                  value ={this.state.donor.category}
+                                  value ={this.state.config.category}
                                   getValues = {this.getValues}
+                                  reset = {this.state.reset}
                                />
                                  <SelectInput
                                  id="project"
@@ -214,17 +300,18 @@ this.setState(prevState=>({...prevState,donor:{...prevState.donor,project:''}, p
                                   data = {this.state.project}
                                   label ="Project"
                                    valueKeys = {{"value":"id","label":"project"}}
-                                  value ={this.state.donor.project}
+                                  value ={this.state.config.project}
                                   getValues = {this.getValues}
+                                  reset = {this.state.reset}
                                />
                                   <InputText 
                             type="number"
                             id="amount"
                             label="Amount"
-                            value = {this.state.donor.amount}
+                            value = {this.state.config.amount}
                             step = "0.0001"
                             getValues = {this.getValues}
-                            
+                            reset = {this.state.reset}
                             constraint={{required:true,number:true,min:0}}
                         
                             />
@@ -238,6 +325,8 @@ this.setState(prevState=>({...prevState,donor:{...prevState.donor,project:''}, p
                              firstname = {this.state.config.firstname} 
                              lastname =  {this.state.config.lastname} 
                              text = "Donate"
+                             loader = {this.state.loader}
+                            
                              disabled = {!this.state.valid}
                              onSuccess = {this.Success}
                              onClose = {this.close}
@@ -253,7 +342,7 @@ this.setState(prevState=>({...prevState,donor:{...prevState.donor,project:''}, p
                   
                </div>
                           
-            
+               
             </>
         )
     }

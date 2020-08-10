@@ -29,6 +29,25 @@ scrollTop: $('.footer-holder').offset().top
 $(".mobile-nav").append($('.navigator .nav-link-holder').html())
 console.log($(".navigator").height())
 $(".donate-container").css({
-  top:$(".navigator").height()
+  //top:  parseInt($(".navigator").height()) 
        } )
 
+   //   $donatecontainer = $(".donate-container").offset().top +  $(".donate-container").height();
+    //  $dbg = $(".d-b").offset().top +  $(".donate-container").height();
+    const dgb =  $("#d-bg").height();
+    function dbgHeight(){
+    let height = 0;
+    if ($(window).height() >  $("#d-bg").height()){
+      height = $(window).height()
+    }else{
+      height =  dbg + 10
+    }
+    $("#d-bg").css({
+      height: height
+    })
+  }
+   
+  dbgHeight();
+    var $window = $(window) ;
+    $window.on('resize', dbgHeight);
+     //  $window.trigger('scroll');

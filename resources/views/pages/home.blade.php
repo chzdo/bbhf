@@ -196,7 +196,7 @@
             <p class="member-card-article">
               Are you passionate about impact and rendering services to your immediate community?
          </p>
-         <a class="donate-btn" href="#"> JOIN NOW </a>
+         <a class="donate-btn donate-btn-orange" href="#"> JOIN NOW </a>
           </div>
           <div class="member-card">
             <img class="round-icon" src={{URL::asset('images/member.png')}}>
@@ -204,7 +204,7 @@
             <p class="member-card-article">
                  Join the BBHF team to changing lives through giving.
             </p>
-            <a class="donate-btn" href="#"> JOIN NOW </a>
+            <a class="donate-btn donate-btn-orange" href="#"> JOIN NOW </a>
           </div>
      
           <div class="member-card">
@@ -213,7 +213,7 @@
             <p class="member-card-article">
               Join the BBHF team to changing lives through giving.
          </p>
-         <a class="donate-btn" href="#"> JOIN NOW </a>
+         <a class="donate-btn donate-btn-orange" href="#"> JOIN NOW </a>
           </div>
   </div>
   
@@ -223,7 +223,7 @@
      
        </section>
 
-       <section class="section  " style="margin-top: -50px !important;">
+       <section class="section  " >
         <div class="section-wrapper ">
            <div class="section-header-wrapper">
              <div class="section-header">
@@ -244,7 +244,7 @@
            <p class="news-desc">
             Are you passionate about impact and rendering services to your immediate community?
        </p>
-           <a class="donate-btn" href="#"> READ MORE </a>
+           <a class="continue-link" href="#"> READ MORE </a>
             </div>
             <div class="news-card">
               <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
@@ -255,7 +255,7 @@
              <p class="news-desc">
               Are you passionate about impact and rendering services to your immediate community?
          </p>
-             <a class="donate-btn" href="#"> READ MORE </a>
+             <a class="continue-link" href="#"> READ MORE </a>
               </div>
               <div class="news-card">
                 <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
@@ -266,7 +266,7 @@
                <p class="news-desc">
                 Are you passionate about impact and rendering services to your immediate community?
            </p>
-               <a class="donate-btn" href="#"> READ MORE </a>
+               <a class="continue-link" href="#"> READ MORE </a>
                 </div>
                </div>
     

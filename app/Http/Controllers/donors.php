@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\projects;
 use App\category;
 use App\donation;
+use App\Exceptions;
+use Illuminate\Support\Facades\Route;
 use App\Http\Requests\donorValid;
 use Unicodeveloper\Paystack\Facades\Paystack;
 class donors extends Controller
@@ -40,10 +42,14 @@ class donors extends Controller
 
     public function verify(Request $req)
     {
-        var_dump($req);
+        try{
         $paymentDetails = Paystack::getPaymentData();
-      
-        dd($paymentDetails);
+        return   response()->json(["code"=>1,"message"=>$paymentDetails],200);
+        }
+        catch(\Exception $e){
+            return response()->json(['code'=>0,"message"=>"something went wrong"],500);
+        }
+     
         // Now you have the payment details,
         // you can store the authorization_code in your db to allow for recurrent subscriptions
         // you can then redirect or do whatever you want

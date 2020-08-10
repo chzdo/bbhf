@@ -14,7 +14,11 @@ export default class InputText extends React.Component {
         }
         this.validate = this.validate.bind(this)
     }
-
+componentDidUpdate(prevprops,prevstate){
+     if(prevprops.reset != this.props.reset && this.props.reset){
+                 document.getElementById(this.props.id).value = '';
+     }
+}
     validate(value) {
 
         var constraint = this.state.constraint;
@@ -25,7 +29,7 @@ export default class InputText extends React.Component {
             return false;
         }
         var reg = /^\w+\s\w+$/
-        if (constraint.fullname && !reg.test(value)) {
+        if (constraint.name && !reg.test(value)) {
             this.setState({ 'errorMessages': "Enter First and Last name", "helperhidden": false })
 
             return false;
@@ -83,11 +87,11 @@ export default class InputText extends React.Component {
                         max={this.props.max}
                         min={this.props.min}
                         minLength={this.props.minLength}
-                       
+                     
                         maxLength={this.props.maxLength}
                         step={this.props.step}
                         onChange={(e) => {
-                  
+                                    
                             this.props.getValues(e, this.validate(e.target.value))
 
                         }
