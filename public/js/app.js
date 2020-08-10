@@ -67069,6 +67069,8 @@ var Donate = /*#__PURE__*/function (_React$Component) {
                 redirecturl = response.redirecturl; //for production
 
                 axios.get(redirecturl).then(function (resp) {
+                  console.log(resp);
+
                   if (resp.data.message.data.status == "success") {
                     fetch('/api/donation/create', {
                       method: 'post',
@@ -67123,7 +67125,6 @@ var Donate = /*#__PURE__*/function (_React$Component) {
                                   }
 
                                   _this.setState({
-                                    valid: false,
                                     loader: false,
                                     toast: true,
                                     toastRed: true,
@@ -67148,7 +67149,6 @@ var Donate = /*#__PURE__*/function (_React$Component) {
                     });
                   } else {
                     _this.setState({
-                      valid: false,
                       loader: false,
                       toast: true,
                       toastRed: true,
@@ -67157,8 +67157,9 @@ var Donate = /*#__PURE__*/function (_React$Component) {
                     });
                   }
                 })["catch"](function (err) {
+                  console.log(err);
+
                   _this.setState({
-                    valid: false,
                     loader: false,
                     toast: true,
                     toastRed: true,

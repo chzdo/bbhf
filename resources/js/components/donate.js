@@ -133,7 +133,7 @@ async componentDidUpdate(prevprops,prevstate){
         axios.get(redirecturl)
         .then(resp=>
             {
-        
+        console.log(resp)
                if (resp.data.message.data.status == "success"){
                  
                   fetch('/api/donation/create',{
@@ -183,18 +183,19 @@ async componentDidUpdate(prevprops,prevstate){
                          }
                        
                            
-                        this.setState({valid:false,loader:false,toast:true,toastRed:true,toastMessage:err,toasttitle:'Failure'});
+                        this.setState({loader:false,toast:true,toastRed:true,toastMessage:err,toasttitle:'Failure'});
                        }
             
                    }
                ).catch(error=>console.log(error));
           
                }else{
-                this.setState({valid:false,loader:false,toast:true,toastRed:true,toastMessage:"Transaction was not successful",toasttitle:'Failure'});
+                this.setState({loader:false,toast:true,toastRed:true,toastMessage:"Transaction was not successful",toasttitle:'Failure'});
                }
             }
         ).catch(err=>{
-            this.setState({valid:false,loader:false,toast:true,toastRed:true,toastMessage:err.message,toasttitle:'Failure'});
+            console.log(err)
+            this.setState({loader:false,toast:true,toastRed:true,toastMessage:err.message,toasttitle:'Failure'});
         })
 
  
