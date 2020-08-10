@@ -42,7 +42,7 @@ class donors extends Controller
 
     public function verify(Request $req)
     {
-        var_dump($req);return;
+        
         try{
         $paymentDetails = Paystack::getPaymentData();
         return   response()->json(["code"=>1,"message"=>$paymentDetails],200);
