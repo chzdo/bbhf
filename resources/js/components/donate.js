@@ -183,17 +183,19 @@ async componentDidUpdate(prevprops,prevstate){
                          }
                        
                            
-                        this.setState({toast:true,toastRed:true,toastMessage:err,toasttitle:'Failure'});
+                        this.setState({valid:false,loader:false,toast:true,toastRed:true,toastMessage:err,toasttitle:'Failure'});
                        }
             
                    }
                ).catch(error=>console.log(error));
           
                }else{
-                this.setState({toast:true,toastRed:true,toastMessage:"Transaction was not successful",toasttitle:'Failure'});
+                this.setState({valid:false,loader:false,toast:true,toastRed:true,toastMessage:"Transaction was not successful",toasttitle:'Failure'});
                }
             }
-        )
+        ).catch(err=>{
+            this.setState({valid:false,loader:false,toast:true,toastRed:true,toastMessage:err.message,toasttitle:'Failure'});
+        })
 
  
  

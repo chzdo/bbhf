@@ -67123,6 +67123,8 @@ var Donate = /*#__PURE__*/function (_React$Component) {
                                   }
 
                                   _this.setState({
+                                    valid: false,
+                                    loader: false,
                                     toast: true,
                                     toastRed: true,
                                     toastMessage: err,
@@ -67146,12 +67148,23 @@ var Donate = /*#__PURE__*/function (_React$Component) {
                     });
                   } else {
                     _this.setState({
+                      valid: false,
+                      loader: false,
                       toast: true,
                       toastRed: true,
                       toastMessage: "Transaction was not successful",
                       toasttitle: 'Failure'
                     });
                   }
+                })["catch"](function (err) {
+                  _this.setState({
+                    valid: false,
+                    loader: false,
+                    toast: true,
+                    toastRed: true,
+                    toastMessage: err.message,
+                    toasttitle: 'Failure'
+                  });
                 });
 
               case 3:
