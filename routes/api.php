@@ -37,7 +37,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::post('/register',"users@create");
 Route::fallback(function(){
     return response()->json(['code'=>0, "message"=>"page not found"]);
 });

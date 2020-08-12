@@ -50,7 +50,7 @@ const PaystackBtn = () => {
                 
                 {
                 
-                (loader)? <Loader />:
+                (loader)? <span style={{display:"flex"}}><Loader />Processing</span> :
                 props.text}</button>
         
     );

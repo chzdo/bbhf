@@ -1,0 +1,53 @@
+body{
+    font-family: "Kaushan Script";
+    font-size: 13px;
+}
+
+.main-holder{
+    width:100%;
+    background-color: lavender;
+   
+    position:relative;
+    justify-content: center;
+    align-items: center;
+    display:flex;
+    flex-direction: column;
+    
+    padding: 12px;
+}
+.inner-holder{
+    width:50%;
+    height:100%;
+    background-color: white;
+    display:flex;
+    padding: 1em;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+}
+.inner-holder img{
+
+    width:200px;
+    height:150px;
+}
+.inner-holder h2{
+
+   font-size: 1.5em !important;
+   font-weight: bolder !important;
+   align-self: center;
+   text-align: center !important;
+   color: black;
+   width: 100%;
+}
+.message{
+    width: 100%;
+padding: 0.23em;
+    font-size: 1.2em;
+    text-align: left;
+}
+@media screen and (max-width: 787px){
+    .inner-holder{
+        width: 100%;
+    }
+}

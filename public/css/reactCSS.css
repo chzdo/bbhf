@@ -1,10 +1,4 @@
-body,html{
-   font-family: Alegreya Sans SC;
-   font-size: 1rem;
-   height: 100%;
-   width:100%;
 
-}
 
 
 .react-head{
@@ -286,7 +280,7 @@ border-radius: 0.1rem;
 .bbhf_btn{
    border:0;
    width:100%;
-   height: 2.5em;
+   height: 2.8em;
    display:flex;
    justify-content: center;
    align-items: center;
@@ -301,6 +295,24 @@ border-radius: 0.1rem;
    background: rgba(2, 17, 200, 0.9);
    border:0 !important;
    outline:none
+}
+.bbhf_btn_orange{
+   color:white;
+   background: rgba(250, 119, 11,10.5);
+   transition: all 0.4s ease;
+   font-weight:900
+}
+.bbhf_btn_orange:hover,.bbhf_btn_orange:focus{
+   color:white;
+   background: rgba(250, 119, 11,1);
+   border:0 !important;
+   outline:none
+}
+select > * {
+   top:-10px !important;
+}
+option:hover{
+ background:rgba(250, 119, 11, 0.75)
 }
 
 .loader{
@@ -391,7 +403,114 @@ padding-left: 3px;
 
 }
 
+.join-container{
+   display:flex;
+   width:100vw;
+   height:100vh;
+   position: relative;
+   flex: 1 100%;
+   background-color: var(--omrs-color-danger);
+}
+.side-image{
+   display:flex;
+   width:33.33333%;
+   height:100%;
+   position: relative;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   color: #eff1f2;
+z-index: 2;
+   flex: 1 1 33.33333%;
+   background-color: blue;
+   background: url('../images/medical2.jpg') no-repeat;
+   background-size: cover;
+   opacity: 0.9;
+}
+.side-image:before{
+   content:'';
+   position: absolute;
+   transform: skew(10deg);
+   height:100%;
 
+   width: 100%;
+   background-color: rgba(2, 17, 85, 0.74);
+}
+.side-image > * {
+   z-index:4;
+ 
+}
+.side-image  h6 {
+ text-align: center;
+ text-transform: uppercase;
+  font-size: 1.4em;
+  padding: 1px;
+}
+ blockquote {
+   text-align: center;
+  
+    font-size: 1em;
+   
+  }
+.react-dom{
+   display:flex;
+   position:relative;
+   flex-direction:column;
+   flex:2 1 66.666666%;
+   width: 66.666666%;
+   height: 100%;
+   background-color: white;
+   z-index: 1;
+}
+.nav-holder{
+ 
+   width:100%;
+   font-size:1.5em;
+   height:fit-content;
+ 
+}
+.nav-holder a{
+   text-decoration:none;
+  
+   color:rgba(0, 0, 0, 0.75)
+}
+.login-holder{
+   display:flex;
+   flex-direction:column;
+   justify-content:center;
+   align-items:center;
+   height:100%;
+ 
+   width:100%;
+}
+Join{
+   width:50%;
+   padding:0.5em;
+}
+#m-intro{
+   display:none;
+}
+.login-container{
+
+   background:white;
+   border-top-left-radius: 1em;
+   border-top-right-radius: 1em;
+  
+}
+.fp-holder{
+   display:flex;
+   justify-content: space-between;
+}
+.fp-holder a{
+  text-decoration:none;
+  color:rgba(2, 17, 85, 0.74);
+  font-weight:900;
+  transition:all 0.4s
+}
+.fp-holder a:hover{
+   color:rgba(250, 119, 11, 1);
+   transition:all 0.4s
+}
 @keyframes toast-in{
    from{
       right:0;opacity:0;top:0;

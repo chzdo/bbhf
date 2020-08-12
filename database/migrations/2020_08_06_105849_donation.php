@@ -20,6 +20,7 @@ class Donation extends Migration
             $table->dateTime('date_donated');
             $table->string('donation_reference',20);
             $table->integer('donation_status');
+            $table->string('donation_amount');
             $table->integer('donation_category')->unsigned();
              $table->integer('donation_project')->unsigned();
              $table->foreign('donation_category')->references('id')->on('category');

@@ -28,7 +28,7 @@ $temp = \App\category::all() ?>
 
  <a class="nav-link active" href="/news" > News </a>
  <a class="nav-link active" href="#" id="contact"> Contact </a>
- <a class="link-button" href="/donate" > join us </a>
+ <a class="link-button" href="/dashboard/login" > join us </a>
 </div>
 <a href="javascript:void(0)" data-role="mobile-nav" onclick="$( ()=>{ $('#scrollspy').hide(); $('.mobile-nav').css('display','flex'); $('html,body').css({overflow:'hidden', width: '100%'})})"  > MENU  &nbsp; <i class="fa fa-bars" ></i></a>
 </nav>

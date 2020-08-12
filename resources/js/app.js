@@ -14,3 +14,7 @@ require('./bootstrap');
 
 require('./components/Example');
 require('./components/Donate');
+require('./components/Join');
+require('./components/Register');
+require('./components/Forget');
+require('./components/Reset');

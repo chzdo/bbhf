@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageAndWriteupToCategory extends Migration
+class Passwordrecovery extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddImageAndWriteupToCategory extends Migration
      */
     public function up()
     {
-        Schema::table('category', function (Blueprint $table) {
-            $table->string('image');
-            $table->longText('write_up');
+        Schema::create('passwordrecovery', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->string('hash_code');
+            $table->dateTime('expiry_date');
+
         });
     }
 
@@ -26,9 +29,6 @@ class AddImageAndWriteupToCategory extends Migration
      */
     public function down()
     {
-        Schema::table('category', function (Blueprint $table) {
-            $table->dropColumn('image');
-            $table->dropColumn('write_up');
-        });
+       Schema::dropIfExists('passwordrecovery');
     }
 }

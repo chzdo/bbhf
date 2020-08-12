@@ -40,7 +40,7 @@ $(".donate-container").css({
     if ($(window).height() >  $("#d-bg").height()){
       height = $(window).height()
     }else{
-      height =  dbg + 10
+      height =  dgb + 10
     }
     $("#d-bg").css({
       height: height

@@ -14,6 +14,7 @@ class category extends Seeder
 
 
       DB::table('category')->insert([
+          
             array(
             'category'=>"Community Development Projects"
             ),

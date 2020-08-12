@@ -1,9 +1,12 @@
 
 body,html{
     margin: 0;
-    font-family: 'Crimson Pro', serif;
+   /*   font-family: 'Raleway', sans-serif;
+  font-family: 'Crimson Pro', serif; 
+   font-family: 'Kaushan Script', cursive;*/
+   font-family: 'Itim', cursive;
     margin : 0;
-    font-size: 16px;
+    font-size: 14px;
 
 }
 ::after, ::before{
@@ -434,7 +437,7 @@ text-align: center;
 font-size: 2em;
 width:100%;
 font-weight: 1000;
-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 color: white;
 text-shadow: 0px 0px 1px #ddd;
   }
@@ -753,7 +756,17 @@ margin-bottom: 10px;
            height:60vh;
         
           }
-         
+          .side-image{
+            display:none !important;
+          }
+          .nav-holder{
+            background-color: rgba(2, 17, 85, 0.75)
+
+          }
+          .nav-holder a{
+           color: white !important;
+
+          }
           .slide-text-1{
        
             font-size:  1.2em !important;
@@ -778,5 +791,13 @@ margin-bottom: 10px;
            .feedback-holder{
              margin-bottom: 10px;
            }
-       
+           Join{
+             width:100% !important;
+           }
+           #m-intro{
+            display:flex !important;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+         }
         }

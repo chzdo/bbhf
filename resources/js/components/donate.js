@@ -133,7 +133,7 @@ async componentDidUpdate(prevprops,prevstate){
         axios.get(redirecturl)
         .then(resp=>
             {
-        console.log(resp)
+       
                if (resp.data.message.data.status == "success"){
                  
                   fetch('/api/donation/create',{
@@ -194,7 +194,7 @@ async componentDidUpdate(prevprops,prevstate){
                }
             }
         ).catch(err=>{
-            console.log(err)
+      
             this.setState({loader:false,toast:true,toastRed:true,toastMessage:err.message,toasttitle:'Failure'});
         })
 
