@@ -16,9 +16,12 @@ class registration extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $name;
+    public $id;
+    public function __construct($name,$id)
     {
-        //
+    $this->name = $name;
+    $this->id = $id;
     }
 
     /**
@@ -28,6 +31,6 @@ class registration extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.registration')->from('chido@c.com','BBHF');
+        return $this->markdown('emails.registration')->from('noreply@bbhf.com','BBHF Registration');
     }
 }

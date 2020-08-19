@@ -12,9 +12,8 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
-require('./components/Donate');
-require('./components/Join');
-require('./components/Register');
-require('./components/Forget');
-require('./components/Reset');
+require('./components/register');
+require('./components/donate');
+    require('./components/join');
+    require('./components/reset');
+    require ('./components/forget')

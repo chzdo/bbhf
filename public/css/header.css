@@ -799,5 +799,9 @@ margin-bottom: 10px;
             flex-direction:column;
             justify-content:center;
             align-items:center;
+            margin-top:10px;
+         }
+         .login-holder{
+             justify-content: start !important;
          }
         }

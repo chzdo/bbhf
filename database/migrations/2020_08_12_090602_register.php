@@ -20,8 +20,7 @@ class Register extends Migration
         $table->string('last_name');
         $table->string('email',100)->unique();
         $table->string('phone_number',11);
-        $table->string('state_of_residence');
- 
+        $table->string('state_of_residence'); 
         $table->foreignId('role_id')->unsigned();
     });
     }

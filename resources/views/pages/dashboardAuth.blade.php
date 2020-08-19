@@ -38,13 +38,13 @@
       </div>
       <div class="react-dom">
           <div class="nav-holder">
-              <a href="/" ><i class="fa fa-arrow-left"></i> Home</a>
+              <a href="/" ><i class="fa fa-home float-right mr-5"></i></a>
           </div>
           <div 
               class="login-holder"
               >
               <div class="w-100" id="m-intro">
-              <img class="logo-rotate" src="{{ asset('images/main-logo.png')}}" style="width:100px; height:100px"/>
+              <img class="logo-rotate" src="{{ asset('images/main-logo.png')}}" style="width:80px; height:80px"/>
               <h6><strong>BLESSED TO BLESS HANDS FOUNDATION </strong></h6>
                   <blockquote>
                       Join us as we transform the world through Entrepenuership, Scholarships, Community Projecrs

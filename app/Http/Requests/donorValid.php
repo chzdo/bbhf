@@ -18,7 +18,7 @@ class donorValid extends FormRequest
         return true;
     }
     protected function failedValidation(Validator $validator) {
-       throw new HttpResponseException(response()->json(["code"=>0,"message"=>$validator->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
+       throw new HttpResponseException(response()->json(["code"=>0,"message"=>$validator->errors()], 210));
      
     }
 

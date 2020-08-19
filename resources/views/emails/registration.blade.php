@@ -1,68 +1,29 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
-        <link rel="stylesheet" href="{{URL::asset('css/dist/css/bootstrap.min.css')}}" >
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-       <link rel="stylesheet" href="{{URL::asset('css/styles.css')}}" />
-       <link rel="stylesheet" href="{{URL::asset('css/email.css')}}" />
-
-     
-       <link rel="dns-prefetch" href="//fonts.gstatic.com"> 
-       <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Literata" rel="stylesheet">
-       <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-       <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
-       <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
-          <title>@yield('title')</title>
-    </head>
-    <body>
-     
-<div class="main-holder">
-     <div class="inner-holder">
-              <img src={{ asset('images/main-logo.png')}} />
-              <h2> BLESSED TO BLESS HANDS FOUNDATION </h2>
-              <div class="message">
-                 <p> Dear Stanley, </p>
-                 <p>
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                  Thank you for registrating with us. You profile link is 12909
-                 </p>
-              </div>
-     </div>
-     <hr>
-     copyright BBHF 2020
-</div>
-
-
-
-        <script src="{{URL::asset('css/dist/js/jquery-3.3.1.min.js')}}" ></script>
-        <script src="{{URL::asset('css/dist/js/bootstrap.min.js')}}" ></script>
-     
-
-        <script src="{{URL::asset('js/flicky.js')}}" ></script>
-        <script src="{{URL::asset('js/animationCounter.js')}}" ></script>
-        <script src="{{URL::asset('js/owl.carousel.min.js')}}" ></script>
-        <script src="{{URL::asset('js/active.js')}}" ></script>
+@extends('emails.main')
+@section('body')
+  <table class="main" width="100%" cellpadding="0" cellspacing="0" itemprop="action" itemscope itemtype="http://schema.org/ConfirmAction" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; background-color: #fff; margin: 0; border: 1px solid #e9e9e9;" bgcolor="#fff"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-wrap" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 20px;" valign="top">
+    <meta itemprop="name" content="Confirm Email" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;" /><table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+           <p> hello <strong> {{$name}}, </strong> </p>
       
-      
-        @stack('headerJs')
-
-    </body>
-
-</html>
+            Please continue registration by clicking the link below.
+        </td>
+      </tr>
+      <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+          <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+         Incase you could not complete registration at the time, you can always use the  link  below to complete your registration.
+         </td>
+      </tr>
+      <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+          <td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+          <a href="{{route('confirm',$id)}}" class="btn-primary" itemprop="url" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;">Confirm email address</a>
+        </td>
+      </tr>
+      <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+          &mdash; The  BBHF Team
+        </td>
+      </tr>
+  </table>
+</td>
+</tr>
+</table>
+@endsection

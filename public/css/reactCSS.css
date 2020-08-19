@@ -480,6 +480,7 @@ z-index: 2;
    justify-content:center;
    align-items:center;
    height:100%;
+   
  
    width:100%;
 }
@@ -489,6 +490,7 @@ Join{
 }
 #m-intro{
    display:none;
+   margin-top: 10%;
 }
 .login-container{
 

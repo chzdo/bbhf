@@ -18,7 +18,10 @@ Route::get('/category', function(){
 $result =    App\category::select('id','category')->get();
 return response()->json(['code'=>1,"message"=>$result]);
 });
-
+Route::get('/roles', function(){
+    $result = App\Role::all();
+    return response()->json(['code'=>1,"message"=>$result]);
+});
 /**  Donation Routes */
 Route::post('/donation/create',"donors@create");
 Route::get('/donation/payment/verify/',"donors@verify");
@@ -33,11 +36,14 @@ Route::get('/category/{category_id}/project', function(Request $req){
     return  response()->json(["code"=>0,"message"=>"Not Found"],404);
    }
    });
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('/i',function(Request $req){
+    var_dump($req->input());
+});
 Route::post('/register',"users@create");
+
 Route::fallback(function(){
     return response()->json(['code'=>0, "message"=>"page not found"]);
 });

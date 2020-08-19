@@ -1,11 +1,11 @@
 import React from 'react'
-
+import Image from '../main-logo.png'
 
 export default function Loader (props){
 
     return (
     <>
-    <img src={'images/main-logo.png'}  className=" loader" id="logo-rotate" />
+    <img src={Image}  className=" loader" id="logo-rotate" />
     </>
     )
 }

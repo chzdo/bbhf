@@ -15,9 +15,7 @@ export default class InputText extends React.Component {
         this.validate = this.validate.bind(this)
     }
 componentDidUpdate(prevprops,prevstate){
-     if(prevprops.reset != this.props.reset && this.props.reset){
-                 document.getElementById(this.props.id).value = '';
-     }
+   
 }
     validate(value) {
 
@@ -87,7 +85,7 @@ componentDidUpdate(prevprops,prevstate){
                         max={this.props.max}
                         min={this.props.min}
                         minLength={this.props.minLength}
-                     
+                        value = {this.props.value}
                         maxLength={this.props.maxLength}
                         step={this.props.step}
                         onChange={(e) => {

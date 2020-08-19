@@ -8,5 +8,6 @@ class register extends Model
 {
     protected $table = 'register';
 
+    protected $guarded = [];
     public  $timestamps = false;
 }

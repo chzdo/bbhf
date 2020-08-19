@@ -1,10 +1,20 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import InputText from './input'
+import Axios from 'axios'
 
 
 export default class Join extends React.Component{
+componentDidMount(){
+   Axios.get('http://localhost:8000/sanctum/csrf-cookie').then(
+ Axios.post('http://localhost:8000/auth',{
+        'users_email': 'c@gj.ll',
+       'password':'password'
+    },{
 
+    }).then(ressp=>console.log(ressp))
+   );
+}
     constructor(props){
         super(props)
 
@@ -15,7 +25,14 @@ export default class Join extends React.Component{
         }
         console.log(props)
     }
-
+test=(e)=>{
+    e.preventDefault();
+    Axios.defaults.withCredentials = true;
+Axios.get('http://localhost:8000/api/user',{
+  
+}
+    );
+}
     render(){
         return(
          <>
@@ -47,7 +64,7 @@ export default class Join extends React.Component{
                               />
                                 Remember Me
                               </span>
-                           <button className="bbhf_btn bbhf_btn_green">Login </button>
+                           <button className="bbhf_btn bbhf_btn_green" onClick={this.test}>Login </button>
                          
                    
                   </form>
