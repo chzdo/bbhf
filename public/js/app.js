@@ -68494,7 +68494,7 @@ var Register = /*#__PURE__*/function (_React$Component) {
                   role_id: role_id.value
                 };
                 _context2.next = 6;
-                return _axios__WEBPACK_IMPORTED_MODULE_4__["default"].sendPost('http://localhost:8000/api/register', cred);
+                return _axios__WEBPACK_IMPORTED_MODULE_4__["default"].sendPost('api/register', cred);
 
               case 6:
                 register = _context2.sent;
@@ -68608,7 +68608,7 @@ var Register = /*#__PURE__*/function (_React$Component) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_5___default.a.all([axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('http://locationsng-api.herokuapp.com/api/v1/states'), axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('http://localhost:8000/api/roles')]);
+                return axios__WEBPACK_IMPORTED_MODULE_5___default.a.all([axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('http://locationsng-api.herokuapp.com/api/v1/states'), axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('api/roles')]);
 
               case 2:
                 states = _context3.sent;
@@ -68657,7 +68657,7 @@ var Register = /*#__PURE__*/function (_React$Component) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _axios__WEBPACK_IMPORTED_MODULE_4__["default"].get('http://localhost:8000/api/roles');
+                return _axios__WEBPACK_IMPORTED_MODULE_4__["default"].get('/api/roles');
 
               case 2:
                 a = _context4.sent;
