@@ -4,13 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
         <link rel="stylesheet" href="{{URL::asset('css/dist/css/bootstrap.min.css')}}" >
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+   
 
        <link rel="stylesheet" href="{{URL::asset('css/styles.css')}}" />
        <link rel="stylesheet" href="{{URL::asset('css/header.css')}}" />
-       <link rel="stylesheet" href="{{URL::asset('css/flicky.css')}}" />
-          <link rel="stylesheet" href="{{URL::asset('css/owl.carousel.min.css')}}" />
-          <link rel="stylesheet" href="{{URL::asset('css/owl.theme.default.css')}}" />
+
        <link rel="icon" href="{{asset('images/icon.jpg')}}" />
        <link rel="apple-touch-icon" href="{{asset('images/icon-logo.png')}}" />
        <link rel="dns-prefetch" href="//fonts.gstatic.com"> 
