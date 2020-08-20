@@ -103,6 +103,7 @@ export default class Register extends React.Component {
 
         let states = await axios.all([axios.get('http://locationsng-api.herokuapp.com/api/v1/states'),
         axios.get('api/roles')]);;
+        console.log(states)
         let response = await states;
         let roles = {};
         if (response[1].data.code == 1) {

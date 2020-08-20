@@ -66845,8 +66845,7 @@ var apiClient = /*#__PURE__*/function () {
 
     this.axios.create({
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'baseURL': 'http://localhost:8000/api/'
+      'Content-Type': 'application/json'
     });
   }
 
@@ -68613,10 +68612,11 @@ var Register = /*#__PURE__*/function (_React$Component) {
               case 2:
                 states = _context3.sent;
                 ;
-                _context3.next = 6;
+                console.log(states);
+                _context3.next = 7;
                 return states;
 
-              case 6:
+              case 7:
                 response = _context3.sent;
                 roles = {};
 
@@ -68633,7 +68633,7 @@ var Register = /*#__PURE__*/function (_React$Component) {
                   });
                 });
 
-              case 10:
+              case 11:
               case "end":
                 return _context3.stop();
             }
