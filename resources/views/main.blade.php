@@ -4,11 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
         <link rel="stylesheet" href="{{URL::asset('css/dist/css/bootstrap.min.css')}}" >
-        <script src="https://use.fontawesome.com/b684480b9d.js"></script>
+ 
 
        <link rel="stylesheet" href="{{URL::asset('css/styles.css')}}" />
        <link rel="stylesheet" href="{{URL::asset('css/header.css')}}" />
-
+       <link rel="stylesheet" href="{{URL::asset('css/flicky.css')}}" />
+          <link rel="stylesheet" href="{{URL::asset('css/owl.carousel.min.css')}}" />
+          <link rel="stylesheet" href="{{URL::asset('css/owl.theme.default.css')}}" />
        <link rel="icon" href="{{asset('images/icon.jpg')}}" />
        <link rel="apple-touch-icon" href="{{asset('images/icon-logo.png')}}" />
        <link rel="dns-prefetch" href="//fonts.gstatic.com"> 
@@ -33,7 +35,10 @@
         <script src="{{URL::asset('css/dist/js/bootstrap.min.js')}}" ></script>
      
 
- 
+        <script src="{{URL::asset('js/flicky.js')}}" ></script>
+        <script src="{{URL::asset('js/animationCounter.js')}}" ></script>
+        <script src="{{URL::asset('js/owl.carousel.min.js')}}" ></script>
+        <script src="{{URL::asset('js/active.js')}}" ></script>
       
       
         @stack('headerJs')
