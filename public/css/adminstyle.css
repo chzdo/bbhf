@@ -1,0 +1,44 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 19, 2020, 4:30:20 AM
+    Author     : RVMP GLOBAL
+*/
+
+.pillars{
+min-height: 100%;
+      
+}
+.form-cont{
+    position:relative;
+    top:0px;
+   padding: 10%;
+   margin: 10%;
+   min-height: 500px;
+  
+      background: white;
+    box-shadow: 5px 5px 5px 5px #cccccc;
+}
+.note{
+    display: block;
+    z-index: 20000;
+    position: absolute;
+    width: 500px;
+    top:25%;
+    left:20%;
+    height: 500px;
+    background: white;
+    box-shadow: 5px 1px 1px 5px #cccccc;
+    
+}
+.logo{
+    height:150px;
+    width:400px;
+    position: relative;
+    top:10px;
+    left:25%;
+    right:40px;
+}
