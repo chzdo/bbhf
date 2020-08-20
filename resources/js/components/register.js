@@ -102,7 +102,7 @@ export default class Register extends React.Component {
     async componentWillMount() {
 
         let states = await axios.all([axios.get('http://locationsng-api.herokuapp.com/api/v1/states'),
-        axios.get('http://localhost:8000/api/roles')]);;
+        axios.get('api/roles')]);;
         let response = await states;
         let roles = {};
         if (response[1].data.code == 1) {
@@ -116,7 +116,7 @@ export default class Register extends React.Component {
 
 
     async componentDidMount() {
-        let a = await apiClient.get('http://localhost:8000/api/roles');
+        let a = await apiClient.get('/api/roles');
         console.log("het", a)
     }
 
@@ -165,7 +165,7 @@ register = async (e) =>{
     state_of_residence:state_of_residence.value,
     role_id:role_id.value,
   }
-    let register = await  apiClient.sendPost('http://localhost:8000/api/register',cred)
+    let register = await  apiClient.sendPost('api/register',cred)
     let {message, code } = register;                   
 
     let toastConfig = {
