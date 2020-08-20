@@ -35,10 +35,7 @@
         <script src="{{URL::asset('css/dist/js/bootstrap.min.js')}}" ></script>
      
 
-        <script src="{{URL::asset('js/flicky.js')}}" ></script>
-        <script src="{{URL::asset('js/animationCounter.js')}}" ></script>
-        <script src="{{URL::asset('js/owl.carousel.min.js')}}" ></script>
-        <script src="{{URL::asset('js/active.js')}}" ></script>
+ 
       
       
         @stack('headerJs')
