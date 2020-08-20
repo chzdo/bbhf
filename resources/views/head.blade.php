@@ -32,11 +32,11 @@ $temp = \App\category::all() ?>
  <a class="nav-link active" href="#" id="contact"> Contact </a>
  <a class="link-button" href="/dashboard/login" > join us </a>
 </div>
-<a href="javascript:void(0)" data-role="mobile-nav" onclick="$( ()=>{ $('#scrollspy').hide(); $('.mobile-nav').css('display','flex'); $('html,body').css({overflow:'hidden', width: '100%'})})"  > MENU  &nbsp; <i class="fa fa-bars" ></i></a>
+<a href="javascript:void(0)" data-role="mobile-nav" onclick="$( ()=>{ $('#scrollspy').hide(); $('.mobile-nav').css('display','flex'); $('html,body').css({overflow:'hidden', width: '100%'})})"  ><i class="zmdi zmdi-menu " ></i></a>
 </nav>
 
 <nav class="mobile-nav"  >
-<a href="javascript::void(0)" data-role="mobile-nav-close" onclick="$( ()=>{ $('#scrollspy').show(); $('.mobile-nav').css('display','none'); $('html,body').css({overflow:'auto', width: '100%'})})"  > CLOSE &nbsp; <i class="fa fa-times" ></i></a>
+<a href="javascript::void(0)" data-role="mobile-nav-close" onclick="$( ()=>{ $('#scrollspy').show(); $('.mobile-nav').css('display','none'); $('html,body').css({overflow:'auto', width: '100%'})})"  >  <i class="zmdi zmdi-close-circle" ></i></a>
 
 </nav>
 
