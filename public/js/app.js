@@ -68607,7 +68607,7 @@ var Register = /*#__PURE__*/function (_React$Component) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_5___default.a.all([axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('http://locationsng-api.herokuapp.com/api/v1/states'), axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('api/roles')]);
+                return axios__WEBPACK_IMPORTED_MODULE_5___default.a.all([axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('http://locationsng-api.herokuapp.com/api/v1/states'), axios__WEBPACK_IMPORTED_MODULE_5___default.a.get('/api/roles')]);
 
               case 2:
                 states = _context3.sent;
@@ -68632,8 +68632,9 @@ var Register = /*#__PURE__*/function (_React$Component) {
                     roles: roles
                   });
                 });
+                console.log(thi.state);
 
-              case 11:
+              case 12:
               case "end":
                 return _context3.stop();
             }

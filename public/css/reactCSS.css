@@ -256,7 +256,7 @@ width:100%;
 display: flex;
 padding: 0.1rem;
 position: relative;
-border:0.025rem solid rgba(47, 60, 85, 0.18);
+border:0.5rem solid rgba(47, 60, 85, 0.18);
 border-radius: 0.1rem;
 
 

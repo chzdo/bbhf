@@ -102,7 +102,7 @@ export default class Register extends React.Component {
     async componentWillMount() {
 
         let states = await axios.all([axios.get('http://locationsng-api.herokuapp.com/api/v1/states'),
-        axios.get('api/roles')]);;
+        axios.get('/api/roles')]);;
         console.log(states)
         let response = await states;
         let roles = {};
@@ -112,7 +112,7 @@ export default class Register extends React.Component {
         this.setState(prev => ({
             ...prev, stateloading: false, rolesloading: false, states: response[0].data, roles: roles
         }))
-
+            console.log(thi.state)
     }
 
 
