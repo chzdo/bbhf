@@ -112,7 +112,7 @@ export default class Register extends React.Component {
         this.setState(prev => ({
             ...prev, stateloading: false, rolesloading: false, states: response[0].data, roles: roles
         }))
-            console.log(thi.state)
+            console.log(this.state)
     }
 
 
@@ -166,7 +166,7 @@ register = async (e) =>{
     state_of_residence:state_of_residence.value,
     role_id:role_id.value,
   }
-    let register = await  apiClient.sendPost('api/register',cred)
+    let register = await  apiClient.sendPost('/api/register',cred)
     let {message, code } = register;                   
 
     let toastConfig = {

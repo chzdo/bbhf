@@ -68493,7 +68493,7 @@ var Register = /*#__PURE__*/function (_React$Component) {
                   role_id: role_id.value
                 };
                 _context2.next = 6;
-                return _axios__WEBPACK_IMPORTED_MODULE_4__["default"].sendPost('api/register', cred);
+                return _axios__WEBPACK_IMPORTED_MODULE_4__["default"].sendPost('/api/register', cred);
 
               case 6:
                 register = _context2.sent;
@@ -68632,7 +68632,7 @@ var Register = /*#__PURE__*/function (_React$Component) {
                     roles: roles
                   });
                 });
-                console.log(thi.state);
+                console.log(this.state);
 
               case 12:
               case "end":
