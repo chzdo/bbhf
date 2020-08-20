@@ -1,4 +1,6 @@
 <header>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" >
+      
 <nav class="navigator">
 <div class="icon-holder">
 <img id="logo-icon" src="{{URL::asset('images/nav-icon-200.png')}}" />
