@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
         <link rel="stylesheet" href="{{URL::asset('css/dist/css/bootstrap.min.css')}}" >
- 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" >
+        
 
        <link rel="stylesheet" href="{{URL::asset('css/styles.css')}}" />
        <link rel="stylesheet" href="{{URL::asset('css/header.css')}}" />
