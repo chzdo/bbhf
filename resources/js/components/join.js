@@ -44,6 +44,7 @@ export default class Join extends React.Component {
     }
     login=  async () => {
           this.setState({loader:true,invalid:true})
+          console.log(this.state)
         Axios.defaults.withCredentials = true;
         Axios.get('/sanctum/csrf-cookie'
         ).then(async resp=>{
