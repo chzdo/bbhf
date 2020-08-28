@@ -45,7 +45,7 @@ export default class Join extends React.Component {
     login=  async () => {
           this.setState({loader:true,invalid:true})
         Axios.defaults.withCredentials = true;
-        Axios.get('http://localhost:8000/sanctum/csrf-cookie'
+        Axios.get('/sanctum/csrf-cookie'
         ).then(async resp=>{
          let    cred={
                 users_email: this.state.config.email.value,
