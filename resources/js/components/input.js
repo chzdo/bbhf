@@ -6,7 +6,7 @@ export default class InputText extends React.Component {
         super(props)
 
         this.state = {
-
+         nothidden:false,
             helperhidden: true,
             errorMessages: '',
             value: '',
@@ -59,6 +59,11 @@ componentDidUpdate(prevprops,prevstate){
             this.setState({ 'errorMessages': "Enter maximum number is  " + constraint.min, "helperhidden": false })
             return false;
         }
+
+        if (constraint.repassword && this.props.mainpassword != value){
+            this.setState({ 'errorMessages': "Password must Match " , "helperhidden": false })
+            return false;
+        }
         this.setState({ 'errorMessages': "", "helperhidden": true })
         return true;
     }
@@ -81,7 +86,7 @@ componentDidUpdate(prevprops,prevstate){
 
                     <input
                         id={this.props.id}
-                        type={this.props.type}
+                        type={this.state.nothidden? 'text':this.props.type}
                         max={this.props.max}
                         min={this.props.min}
                         minLength={this.props.minLength}
@@ -97,6 +102,18 @@ componentDidUpdate(prevprops,prevstate){
                         }
                         className="bbhf_input "
                         placeholder={this.props.label} />
+                        { this.props.type=='password'?
+                        <span className={  ` ${ !this.state.nothidden? "fa fa-eye" : "fa fa-eye-slash"}`}
+                        onClick={
+                            ()=>{
+                             this.setState({nothidden: !this.state.nothidden})
+                            }
+                        }
+                        
+                        
+                        
+                        ></span>
+                    :null}
                     <span className="bbhf_input_label">
                         {this.props.label}
                     </span>

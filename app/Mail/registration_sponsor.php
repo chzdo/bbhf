@@ -34,6 +34,6 @@ class registration_sponsor extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.registration_sponsor')->from('noreply@bbhf.com','BBHF Registration');;
+        return $this->view('emails.registration_sponsor')->from('noreply@bbhf.org','BBHF Registration');;
     }
 }

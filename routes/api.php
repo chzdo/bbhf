@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,13 +37,23 @@ Route::get('/category/{category_id}/project', function(Request $req){
     return  response()->json(["code"=>0,"message"=>"Not Found"],404);
    }
    });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+   //Route::post('/m','users@approve');
+   Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/user', 'users@user');
+    Route::middleware('admin')->group(function(){
+    Route::get('/members/application','members@application');
+    Route::get('/members/application/{id}','members@applicationID');
+    Route::post('/members/application/approve','users@approve');
+    Route::get('/members/list','members@members');
+    Route::get('/members/list/{id}','users@info');
 });
-Route::post('/i',function(Request $req){
-    var_dump($req->input());
+
 });
+
+
 Route::post('/register',"users@create");
+Route::post('/forgot',"users@requestRecovery");
+Route::post('/reset','users@resetpassword');
 
 Route::fallback(function(){
     return response()->json(['code'=>0, "message"=>"page not found"]);

@@ -11,12 +11,14 @@ class apiClient{
         
         })
     }
-
-async sendPost(url,cred){
+    canceltoken = Axios.CancelToken;
+    source = this.canceltoken.source();
+async sendPost(url,cred,config={}){
      let data = {
 
      }
-      await axios.post(url,cred,{Accept:'application/json'}).then(resp=>{ 
+     
+      await axios.post(url,cred,{...config,Accept:'application/json'}).then(resp=>{ 
           
         let {message} = resp.data;
             
@@ -32,22 +34,28 @@ async sendPost(url,cred){
      }
         data.message = res;
     }
-        console.log(resp)  ;  }
+        ;  }
         ).catch(error=>{  
             data.code = 0;
-     data.message = error;
+     data.message = "Something went Wrong";
 
     })
     return data;
 }
 
-async get(url){
+async get(url,config={}){
     let data = null
-  await  Axios.get(url).then(resp=>{
+    
+  await  Axios.get(url,config).then(resp=>{
        
         data = resp.data
     }).catch(error=>{
-        data = error;
+     
+            // handle error
+            data = error;
+            console.log(error);
+         
+   
     })
     return data
 }

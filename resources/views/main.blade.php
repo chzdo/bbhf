@@ -31,8 +31,8 @@
 
 
 
-        <script src="{{URL::asset('css/dist/js/jquery-3.3.1.min.js')}}" ></script>
-        <script src="{{URL::asset('css/dist/js/bootstrap.min.js')}}" ></script>
+<script src="{{URL::asset('js/jquery.min.js')}}" ></script>
+   <script src="{{URL::asset('css/dist/js/bootstrap.min.js')}}" ></script>
      
 
         <script src="{{URL::asset('js/flicky.js')}}" ></script>

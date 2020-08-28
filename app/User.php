@@ -33,7 +33,14 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $primaryKey = 'email';
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function validRole(){
+        return 'a';
+        $role = \App\Role::find($this->role_id);
+        return $role != null;
+    }
 }

@@ -1,4 +1,6 @@
 import React, { useState }  from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 export default class Toast extends React.Component{
@@ -45,7 +47,7 @@ render(){
         <div className="toast-head">
             <span id="">    {this.props.title} </span>
 
-            <span id="toast-close" className=" fa fa-times-circle" onClick={this.close}></span>
+            <span id="toast-close"  onClick={this.close}><FontAwesomeIcon icon={faTimesCircle}/></span>
         </div>
         <div className="toastBody">
 

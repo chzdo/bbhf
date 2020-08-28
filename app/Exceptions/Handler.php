@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Exceptions;
+use Throwable;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\ValidationException;
-use Throwable;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -52,10 +53,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if($exception  instanceof ValidationException) {
-            return response()->json(['code'=> 0, 'message' => $exception->validator->errors()], 210);
+      //  if($exception  instanceof ValidationException && $request->wantsJson()) {
+          // return response()->json(['code'=> 0, 'message' => $exception->validator->errors()], 210);
 
-        }
+    //   }
+       if ( $exception instanceof MethodNotAllowedHttpException && $request->wantsJson()){
+        return response()->json(['code'=> 0, 'message' => $exception->getMessage()], 215);
+       }
         if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
             return response()->json(['code'=> 0, 'message' => 'Not Found!'], 404);
         }

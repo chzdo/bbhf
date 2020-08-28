@@ -31,6 +31,6 @@ class registration extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.registration')->from('noreply@bbhf.com','BBHF Registration');
+        return $this->markdown('emails.registration')->from('noreply@bbhf.org','BBHF Registration');
     }
 }

@@ -10,4 +10,9 @@ class register extends Model
 
     protected $guarded = [];
     public  $timestamps = false;
+
+
+    function application(){
+        return $this->hasOne('App\application','email','email');
+    }
 }

@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\category;
+use App\Jobs\SendEmail;
 use App\Mail\registration;
+use App\Mail\rejection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 
@@ -25,13 +27,14 @@ Route::get('/', function () {
 })->middleware('services');
 Route::get('/email', function () {
 
-  $v = Mail::to('chido.nduaguibe@gmail.com')->send(new registration("stanley",1));
+  //$v = Mail::to('chido.nduaguibe@gmail.com')->send(new registration("stanley",1));
 
-   if (Mail::failures()) {
+  // if (Mail::failures()) {
     // return failed mails
-    return new Error(Mail::failures()); 
-}
-    return new registration("stanley",1);
+   // return new Error(Mail::failures()); 
+//}
+dispatch(new SendEmail('chido@c.j'));
+    return new rejection("stanley");
   
 })->middleware('services');
 Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
@@ -39,12 +42,23 @@ Route::get('/about', function(){
  return view('pages.about');
 })->name('about');
 
+Route::prefix('dashboard')->group(function(){
+    Route::get('/login','users@login')->name('login')->middleware('check');
+    Route::post('/login','users@auth')->name('auth');
+    Route::get('/forgot','users@forgot');
+    Route::get('/register','users@register');
+    Route::get('/reset/{hash}','users@reset')->name('recovery')->where('hash','.*');
+    Route::get('/continue/{id}','users@confirm')->name('confirm');
+    Route::post('/continue','users@continue');
+    Route::get('/logout','users@logout');
+   // Route::get('/in',function(){
+      //  return view('dashboard.index');
+   // })->middleware('auth')->name('dash');
+   
+    Route::view('/in/{path?}','dashboard.index')->middleware(['auth','checkrole'])->name('dash')->where('path','.*');
 
-Route::get('/dashboard/login','users@login')->name('login');
-Route::get('/dashboard/forgot','users@forgot');
-Route::get('/dashboard/register','users@register');
-Route::get('/dashboard/reset/{email}/','users@reset');
-Route::get('dasboard/continue/{id}','users@confirm')->name('confirm');
+});
+
 
 Route::get('/donate/{category?}/{project?}',"donors@showWeb")->name('donations');
 Route::get('/services/{section?}', "services@index" )->name('services')->middleware('services');

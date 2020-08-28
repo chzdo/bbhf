@@ -17,3 +17,4 @@ require('./components/donate');
     require('./components/join');
     require('./components/reset');
     require ('./components/forget')
+    require ('./components/dashboard/index')

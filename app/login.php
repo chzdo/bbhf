@@ -16,6 +16,14 @@ class login extends Authenticatable
     protected $hidden = ['password','remember_token'];
     protected $fillable = ['email','password'];
 
+
+    function user(){
+        return $this->belongsTo('App\users','users_email','email');
+
+    }
+    function isAdmin(){
+        return $this->user() ;
+    }
     
    
 }
