@@ -46,7 +46,7 @@ export default class Join extends React.Component {
           this.setState({loader:true,invalid:true})
           console.log(this.state)
         Axios.defaults.withCredentials = true;
-        Axios.get('/sanctum/csrf-cookie'
+        Axios.get('http://bbhf.herokuapp.com/sanctum/csrf-cookie'
         ).then(async resp=>{
          let    cred={
                 users_email: this.state.config.email.value,
