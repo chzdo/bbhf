@@ -66,11 +66,11 @@ class users extends Controller
     {
         return view('pages.dashboard.forgot');
     }
-    function createUser($user,$id)
+    function createUser($user, $id)
     {
-     
-      
-        $ini = $user->role_id == 1 ? 'V' : ($user->role_id == 2 ? 'M' : ($user->role_id== 3 ? 'S': 'A'));
+
+
+        $ini = $user->role_id == 1 ? 'V' : ($user->role_id == 2 ? 'M' : ($user->role_id == 3 ? 'S' : 'A'));
         $count = (int) \App\users::all()->max('id');
         $zeros = "000";
         if ($count >= 999) {
@@ -83,22 +83,22 @@ class users extends Controller
         $user->user_number = $ini . $zeros . (++$count);
         $v = collect($user)->except('id');
         $u = $v->toArray();
-       $validateUser = FacadesValidator::make(['email' => $u['email']], ['email' => "bail|required|unique:users,email|email"], ["email" => "This user already Exist"]);
-               if($validateUser->fails()){
-                return response()->json(['code'=>0, "message"=>$validateUser->errors()]);
-               }
+        $validateUser = FacadesValidator::make(['email' => $u['email']], ['email' => "bail|required|unique:users,email|email"], ["email" => "This user already Exist"]);
+        if ($validateUser->fails()) {
+            return response()->json(['code' => 0, "message" => $validateUser->errors()]);
+        }
         $result = user::create($u);
-      
+
         if ($result->exists()) {
-        
+
             $login_validated = FacadesValidator::make(['users_email' => $result->email], ["users_email" => 'unique:logins|email|exists:users,email|required']);
             if ($login_validated->fails()) {
-                 $result->delete();
-                 if($id == 3){
-                 $user->application->where('status',1)->first()->update(['status'=>0]);
-                 }
-                 return response()->json(['code'=>0,"message"=>$login_validated->errors()]);
-          }
+                $result->delete();
+                if ($id == 3) {
+                    $user->application->where('status', 1)->first()->update(['status' => 0]);
+                }
+                return response()->json(['code' => 0, "message" => $login_validated->errors()]);
+            }
             $login = new login();
             $login->users_email = $result->email;
             $pass =  Str::random(10);
@@ -107,12 +107,13 @@ class users extends Controller
 
             $login->save();
             if ($login->exists()) {
-
-                Mail::to($result->email)->send(new acceptance($result->first_name, $pass));
-                if (Mail::failures()) {
-                    return   response()->json(['code' => 0, "message" => Mail::failures()], 400);
+                try {
+                    Mail::to($result->email)->send(new acceptance($result->first_name, $pass));
+                } catch (\Exception $e) {
+                    return   response()->json(['code' => 0, "message" => Mail::failures()], 215);
                 }
-                $message = ($id ==3)? "Check your mail to continue": "user created";
+
+                $message = ($id == 3) ? "Check your mail to continue" : "user created";
                 return   response()->json(['code' => 1, "message" => "user created"]);
             } else {
                 $result->delete();
@@ -126,21 +127,21 @@ class users extends Controller
         try {
 
             if ($validate['role_id'] == 3) {
-              $this->createUser((Object)$validate,3);
+                $this->createUser((object)$validate, 3);
             } else {
                 $result = register::create($validate);
                 if ($result->exists()) {
-                  
-                    Mail::to($result->email)->send(new registration($result->first_name, base64_encode($result->email)));
-                    if (Mail::failures()) {
+                    try {
+                        Mail::to($result->email)->send(new registration($result->first_name, base64_encode($result->email)));
+                    } catch (\Exception $e) {
                         $result->delete();
-                        return   response()->json(['code' => 0, "message" => Mail::failures()], 400);
+                        return   response()->json(['code' => 0, "message" => Mail::failures()], 215);
                     }
                 }
             }
             return   response()->json(['code' => 1, "message" => "Check Your mail to continue"], 200);
         } catch (\Exception $e) {
-            return \response()->json(['code' => 0, "message" => $e->getMessage()], 500);
+            return \response()->json(['code' => 0, "message" => $e->getMessage()], 215);
         }
     }
 
@@ -167,11 +168,18 @@ class users extends Controller
             "exists" => "This user does not exist ",
             "required" => "this field is required"
         ]);
+
+        $check = \App\application::find($v['email']);    
+      
+            if($check != null && ($check->status == 0 || $check->status == 1)){
+                return back()->withInput()->with('error', 'You have already applied');
+            }
+     
         $result = \App\application::create($v);
         if ($result->exists()) {
             return back()->with('result', 'Thank you for completing your registration! we will contact you.');
         } else {
-            return back()->withInput()->with('result', 'Something went wrong');
+            return back()->withInput()->with('error', 'Something went wrong');
         }
     }
     function auth(LoginRequest $req)
@@ -224,8 +232,10 @@ class users extends Controller
         if (!$response) {
             return response()->json(['code' => 0, "message" => "Something went wrong"], 212);
         }
-        Mail::to($validate['email'])->send(new passwordrecovery($hash));
-        if (Mail::failures()) {
+
+        try {
+            Mail::to($validate['email'])->send(new passwordrecovery($hash));
+        } catch (\Exception $e) {
             return   response()->json(['code' => 0, "message" => Mail::failures()], 400);
         }
         return response()->json(['code' => 1, "message" => "Please Check your mail"], 200);
@@ -263,12 +273,12 @@ class users extends Controller
     function approve(Request $req)
     {
 
-    $validate = FacadesValidator::make($req->input(), [
+        $validate = FacadesValidator::make($req->input(), [
             "email" => "bail|required|email|exists:applications,email",
             "code" => "bail|required|in:1,2|numeric"
         ]);
-        if($validate->fails()){
-            return response()->json(['code'=>0,"message"=>$validate->errors()]);
+        if ($validate->fails()) {
+            return response()->json(['code' => 0, "message" => $validate->errors()]);
         }
 
         $applicat = \App\application::findorFail($req->email);
@@ -277,20 +287,21 @@ class users extends Controller
         if ($response) {
             $details =  $applicat->register;
             if ($req->code == 1) {
-              //  return response()->json(['code'=>0,"message"=>$details]);
-   
-                return   $this->createUser($details,0);
-           
-            }else{
-                 $resp =  $details->delete();
-              if($resp) {
-                 Mail::to($details->email)->send(new rejection($details->first_name));
-               
-                  return response()->json(['code'=>0,"message"=>"User Rejected"]);
-              }
-               else{
-               return response()->json(['code'=>0,"message"=>"Someting went wrong"]);
-               }
+                //  return response()->json(['code'=>0,"message"=>$details]);
+
+                return   $this->createUser($details, 0);
+            } else {
+                $resp =  $details->delete();
+                if ($resp) {
+                    try {
+                        Mail::to($details->email)->send(new rejection($details->first_name));
+                    } catch (\Exception $e) {
+                        return   response()->json(['code' => 0, "message" => Mail::failures()], 215);
+                    }
+                    return response()->json(['code' => 1, "message" => "User Rejected"]);
+                } else {
+                    return response()->json(['code' => 0, "message" => "Someting went wrong"]);
+                }
             }
         }
 
@@ -300,19 +311,65 @@ class users extends Controller
         return response()->json(['code' => 0, 'message' => "hi"]);
     }
 
-    function info(Request $req){
+    function info(Request $req)
+    {
 
-      $val =   FacadesValidator::make(['email'=>$req->id],['email'=>"bail|email|required|exists:users,email"]);
-    
-      if($val->fails()){
-           return response()->json(['code'=>0,'message'=>$val->errors()]);
+        $val =   FacadesValidator::make(['email' => $req->id], ['email' => "bail|email|required|exists:users,email"]);
+
+        if ($val->fails()) {
+            return response()->json(['code' => 0, 'message' => $val->errors()]);
+        }
+
+        $resp =  user::where('email', $req->id)->get()->first();
+        $user_info = collect($resp)->except(['id', 'role_id']);
+        return response()->json(['code' => 1, 'message' => $user_info]);
+    }
+
+    function revoke(Request $req){
+
+        $validate = FacadesValidator::make($req->input(),['email'=>"bail|required|email|exists:users,email|exists:logins,users_email","code"=>"bail|required|numeric|in:0,1"]);
+        if($validate->fails()){
+            return response()->json(['code'=>0,'message'=>$validate->errors()]);
+        }
+   
+       $user= login::where('users_email','=',$req->email)->get()->first();
+       $user->status = $req->code;
+       
+       $mes = ($req->code == 1)? "Access Restored" : "Access Revoked";
+       if($user->save()){
+        return response()->json(['code'=>1,'message'=>$mes]);
        }
-      
-        $resp =  user::where('email',$req->id)->get()->first();
-         $user_info = collect($resp)->except(['id','role_id']);
-         return response()->json(['code'=>1,'message'=>$user_info]);
-     
+       return response()->json(['code'=>0,'message'=>'Something went wrong']);
+    }
 
+
+    function updateRole(Request $req){
+       // var_dump($req->input());
+        $validate = FacadesValidator::make($req->input(),['email'=>"bail|required|email|exists:users,email|exists:logins,users_email","role_id"=>"bail|required|numeric|exists:role,id"]);
+        if($validate->fails()){
+            return response()->json(['code'=>0,'message'=>$validate->errors()]);
+        }
+   
+       $update = user::where('email',$req->email)->get()->first()->update(['role_id'=>$req->role_id]);
+     
+       if($update){
+        return response()->json(['code'=>1,'message'=>"Role Changed"]);
+       }
+       return response()->json(['code'=>0,'message'=>'Something went wrong']);
+    }
+    function getstatus(Request $req){
+  
+        $validate = FacadesValidator::make(['email'=>$req->email],['email'=>"bail|required|email|exists:users,email|exists:logins,users_email"]);
+        if($validate->fails()){
+            return response()->json(['code'=>0,'message'=>$validate->errors()],210);
+        }
+   
+       $update = login::select('status')->where('users_email','=',$req->email)->get()->first();
+
+    
+       
+        return response()->json(['code'=>1,'message'=>$update->status]);
+     
 
     }
 }

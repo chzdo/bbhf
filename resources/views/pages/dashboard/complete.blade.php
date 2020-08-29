@@ -65,6 +65,26 @@
                          </div>
                      </div>
                      @endif
+                     @if(session('error'))
+                     <div id="toast" class='
+                         toastRed
+ 
+                         show'
+                         >
+ 
+                          <div class="toast-head">
+                              <span id="">   FAILURE </span>
+                  
+                              <span id="toast-close" class=" fa fa-times-circle" onclick="$( ()=> $('#toast').removeClass().addClass('hide') )"></span>
+                          </div>
+                          <div className="toastBody">
+                  
+                             {{ session('error') }}
+                  
+                                           
+                          </div>
+                      </div>
+                      @endif
                     @csrf
                     <label class="h5 text-warning"> Enter the information below truthfully </label>
                     <hr>

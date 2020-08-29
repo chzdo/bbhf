@@ -41,13 +41,43 @@ Route::get('/category/{category_id}/project', function(Request $req){
    Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', 'users@user');
     Route::middleware('admin')->group(function(){
-    Route::get('/members/application','members@application');
-    Route::get('/members/application/{id}','members@applicationID');
-    Route::post('/members/application/approve','users@approve');
-    Route::get('/members/list','members@members');
-    Route::get('/members/list/{id}','users@info');
-});
 
+        //members route
+  
+            Route::get('/members/application','members@application');
+            Route::get('/members/application/{id}','members@applicationID');
+            Route::post('/members/application/approve','users@approve');
+            Route::get('/members/list','members@members');
+            Route::get('/members/list/{id}','users@info');
+            Route::post('/members/revoke','users@revoke');
+            Route::post('/members/update','users@updateRole');
+      
+  
+
+
+        //volunteer routes
+       // volunteers
+            Route::get('/volunteers/application','volunteers@application');
+            Route::get('/volunteers/application/{id}','volunteers@applicationID');
+            Route::post('/volunteers/application/approve','users@approve');
+            Route::get('/volunteers/list','volunteers@members');
+            Route::get('/volunteers/list/{id}','users@info');
+            Route::post('/volunteers/revoke','users@revoke');
+            Route::post('/volunteers/update','users@updateRole');
+       
+            
+        
+            Route::get('/sponsors/list','sponsors@members');
+            Route::get('/sponsors/list/{id}','users@info');
+            Route::post('/sponsors/revoke','users@revoke');
+            Route::post('/sponsors/update','users@updateRole');
+
+            Route::get('/admin/list','admin@members');
+            Route::get('/admin/list/{id}','users@info');
+            Route::post('/admin/revoke','users@revoke');
+            Route::post('/admin/update','users@updateRole');
+});
+Route::get('/users/status','users@getstatus');
 });
 
 

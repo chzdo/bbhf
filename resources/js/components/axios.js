@@ -39,6 +39,7 @@ async sendPost(url,cred,config={}){
         ).catch(error=>{  
             data.code = 0;
      data.message = "Something went Wrong";
+     
 
     })
     return data;

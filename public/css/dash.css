@@ -252,11 +252,34 @@ display: flex !important;
 .breadcrumb-item+.breadcrumb-item::before{
     content:'>>' !important;
 }
+.profile-resize{
+    position: relative;
+    display:block;
+    width: 100px;
+    padding:4%;
+     height: 100px;
+}
 .bg-quote{
     background-color: whitesmoke !important;
     color: #333 !important;
     border-radius: 0.1em;
     padding: 0.5em;
+}
+.list-btn-cont{
+display:flex;
+width:100%;
+align-items: center;
+justify-content: space-between;
+flex:1;
+margin-top:2%;
+flex-wrap: wrap;
+}
+.list-btn-item{
+display:flex;
+
+justify-content: center;
+align-self: center;
+width:200px;
 }
 @keyframes modal{
     from{
@@ -298,5 +321,9 @@ display: flex !important;
         margin: 1% !important;
     }
 
- 
+    .profile-resize{
+          padding:1%;
+         height: 10% !important;
+         width:100%;
+    }
 }

@@ -11,7 +11,7 @@ import {TableWorker} from '../table'
 
 
 
-export class Application extends React.Component {
+export class Volunteer_Application extends React.Component {
     constructor(props) {
         super(props)
 
@@ -99,16 +99,16 @@ export class Application extends React.Component {
         return (
             <>
          
-                <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: '/dashboard/in/members/application', title: 'Members Application' }]} />
+                <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: '/dashboard/in/volunteers/application', title: 'Volunteers Application' }]} />
                 <TableWorker
                  keys={{ first_name: 0, other_name: 1, last_name: 2, email: 3, phone: 4 }}
                   user={{ email: '', phone: '', first_name: '', other_name: '', last_name: '' }} 
                   options={this.options} col={this.col} modalTitle={this.state.modalTitle}
                    ModalContent={ModalContent} 
                    modal_child={Application_list} 
-                   modalurl={{'userUrl':'/api/members/application/','approval':'/api/members/application/approve'}} 
+                   modalurl={{'userUrl':'/api/volunteers/application/','approval':'/api/volunteers/application/approve'}} 
                    tableTitle="Application List" 
-                   tableUrl='/api/members/application' />
+                   tableUrl='/api/volunteers/application' />
             </>
         )
     }
@@ -117,7 +117,7 @@ export class Application extends React.Component {
 
 
 
-export class MemberList extends React.Component {
+export class VolunteerList extends React.Component {
     constructor(props) {
         super(props)
 
@@ -127,7 +127,7 @@ export class MemberList extends React.Component {
 
             ],
             open: false,
-            modalTitle: "Member Information",
+            modalTitle: "Volunteer Information",
             user: {
                 name: '',
                 email: '',
@@ -198,16 +198,16 @@ export class MemberList extends React.Component {
         return (
             <>
 
-                <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: '/dashboard/in/members/application/list', title: 'Member List' }]} />
+                <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: '/dashboard/in/volunteers/application/list', title: 'Volunteer List' }]} />
                 <TableWorker
                  keys={{ first_name: 0, other_name: 1, last_name: 2, email: 3, phone: 4 }} 
                  user={{ email: '', phone: '', first_name: '', other_name: '', last_name: '' }} 
                  options={this.options} col={this.col} modalTitle={this.state.modalTitle} 
                  ModalContent={ModalContent} 
                  modal_child={List}
-                 modalurl={{'userUrl':'/api/members/list/','revoke':'/api/members/revoke','update':'/api/members/update'}} 
-                 tableTitle="Members List"
-                 tableUrl='/api/members/list' />
+                 modalurl={{'userUrl':'/api/volunteers/list/','revoke':'/api/volunteers/revoke','update':'/api/volunteers/update'}} 
+                 tableTitle="Volunteers List"
+                 tableUrl='/api/volunteers/list' />
             </>
         )
     }
