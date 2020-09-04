@@ -499,6 +499,11 @@ export class ChatComponent extends React.Component {
 
 
 	async componentDidMount() {
+		window.Echo.channel('demo')
+		.listen('websocket',(e)=>{
+			console.log(e)
+		}
+		)
 		let channel;
 		if (this.props.group == 1) {
 			channel = 'vol-chat';
@@ -509,7 +514,7 @@ export class ChatComponent extends React.Component {
 		} else {
 			channel = 'adm-chat';
 		}
-		window.Echo.join(channel)
+		window.Echo.channel(channel)
 			.here((user) => {
                     let a = user.map(e=>e.users_email)
 				this.setState({ online: a })
