@@ -46,7 +46,7 @@ try{
     if ( $req->group == 1 && ( $role == 1 || $role = 4)){
    // $r = VolunteerChat::with('user')->orderByDesc('id')->paginate(15);
     }else if ($req->group == 2 && ( $role == 2 || $role = 4)){
-     $r = Message::all();//orderByDesc('id')->paginate(15);
+     $r = Message::with('user')->orderByDesc('id')->paginate(15);
     }else if ($req->group == 3 && ( $role == 3 || $role = 4)){
     //  $r = SponsorChat::with('user')->orderByDesc('id')->paginate(15);
     }else if ($req->group == 4 && (  $role = 4)){
