@@ -499,8 +499,9 @@ export class ChatComponent extends React.Component {
 
 
 	async componentDidMount() {
+		console.log(window.Echo.channel('demo'))
 		window.Echo.channel('demo')
-		.listen('websocket',(e)=>{
+		.listen('.my-event',(e)=>{
 			console.log(e)
 		}
 		)
@@ -514,8 +515,8 @@ export class ChatComponent extends React.Component {
 		} else {
 			channel = 'adm-chat';
 		}
-		/**
-		window.Echo.channel(channel)
+		
+		window.Echo.join(channel)
 			.here((user) => {
                     let a = user.map(e=>e.users_email)
 				this.setState({ online: a })
@@ -535,7 +536,7 @@ export class ChatComponent extends React.Component {
 				this.setState({ message: message });
 
 			})
-			**/
+			
 		this.loadChat()
 	}
 

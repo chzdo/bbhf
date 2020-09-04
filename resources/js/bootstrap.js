@@ -54,11 +54,12 @@ window.Echo = new Echo({
     disableStats: false,
 });
 **/
+
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'a8eea806ae3328767ae7',
     cluster: 'eu',   
     forceTLS: true,
-    disableStats: true,
+    disableStats: false,
   });
 

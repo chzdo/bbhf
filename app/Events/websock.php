@@ -36,4 +36,8 @@ class websock implements ShouldBroadcastNow
     {
         return new Channel('demo');
     }
+    public function broadcastAs()
+    {
+        return 'my-event';
+    }
 }

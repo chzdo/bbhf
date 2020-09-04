@@ -40,7 +40,7 @@ class chat extends Controller
    */
   public function fetchMessages(Request $req)
   {
-    broadcast(new websock('hello'));
+    event(new websock('hello'));
   $role = Auth::user()->user->role_id;
  $r= null;
 try{
