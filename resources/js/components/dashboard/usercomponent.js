@@ -514,6 +514,7 @@ export class ChatComponent extends React.Component {
 		} else {
 			channel = 'adm-chat';
 		}
+		/**
 		window.Echo.channel(channel)
 			.here((user) => {
                     let a = user.map(e=>e.users_email)
@@ -534,6 +535,7 @@ export class ChatComponent extends React.Component {
 				this.setState({ message: message });
 
 			})
+			**/
 		this.loadChat()
 	}
 
