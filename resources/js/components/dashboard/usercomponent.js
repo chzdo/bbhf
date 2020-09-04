@@ -499,6 +499,7 @@ export class ChatComponent extends React.Component {
 
 
 	async componentDidMount() {
+		alert(1)
 		console.log(window.Echo.channel('demo'))
 		window.Echo.channel('demo')
 		.listen('.my-event',(e)=>{
