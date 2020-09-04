@@ -58,7 +58,7 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'a8eea806ae3328767ae7',
     cluster: 'eu',
-    wsHost: window.location.hostname,
+   
     forceTLS: true,
     disableStats: true,
   });
