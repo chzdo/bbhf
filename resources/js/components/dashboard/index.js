@@ -5,6 +5,9 @@ import apiClient from '../axios'
 import Admin  from './admin/index'
 import {HashRouter, BrowserRouter as Router} from 'react-router-dom'
 import { Network } from '../loader'
+import Provider from './usercontext'
+
+
 export default class Cont extends React.Component{
 
     constructor(props){
@@ -39,14 +42,21 @@ loadUser = async() =>{
   }
 }
 async componentDidMount(){
+
+    console.log(this.context)
 this.loadUser();
 
 }
     render(){
         return(
             <>
-         {this.state.loader?  <LOGO /> : this.state.network? <Network action={this.loadUser} />: <Router>
-           { this.state.user.role_id == this.users[3] ?  <Admin user = {this.state.user} />:null}
+         {this.state.loader?  <LOGO /> : this.state.network? 
+         <Network action={this.loadUser} />: 
+         <Router>
+           { this.state.user.role_id == this.users[3] ? 
+           <Provider.Provider value={this.state.user} >
+               <Admin  />
+               </Provider.Provider> :null }
                             </Router>
     }
         

@@ -120,13 +120,15 @@ justify-content: flex-start;
     -o-animation:  sub-menu 0.7s  backwards ;
 }
 .nav-head{
-    width:100%;
-    padding: 1%;
+    width:75%;
+    height:60px;
     display: flex;
     background-color: whitesmoke;
+    z-index:1000;
+    position:fixed;
     justify-content: space-between;
-    align-items: center;
-    border: 1px solid #ccc;
+  
+
 }
 .menu-slider{
     display:none;
@@ -134,11 +136,13 @@ justify-content: flex-start;
 }
 .profile-holder{
     display:flex;
+    
     color:black;
-    justify-content: center;
+     width:100%;
+  
+    justify-content: flex-end;
     align-items: center;
-    margin-left: auto;
-    align-self: end;
+  position: relative;
     font-weight: bold;
 }
 .profile-pix{
@@ -158,15 +162,34 @@ justify-content: flex-start;
     color: white
 }
 .page-head{
-  
+ 
     display: flex;
+    width:75%;
+    position:fixed;
+    height:30px;
     background: white;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #CCC;
+
     box-shadow: 0px 1px 1px 0px rgba(0,0,0, 0.3);
   
-    padding: 1%;
+    padding: 2px;
+}
+.main-content{
+     margin-top:60px;
+     display:flex;
+     flex-direction:column;
+     width:100%;
+     min-height: calc(100% - 60px)
+}
+
+.scroll-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top:30px;
+    width: 100%;
+
 }
 @keyframes sub-menu{
     from {
@@ -308,7 +331,7 @@ width:200px;
     .open:hover .sider-holder{
          left:0 !important;
     }
-    .content{
+    .content,.nav-head,.page-head,.main-container,.chat-header,.file-drawer{
         left:0% !important;
         width:100% !important;
     }

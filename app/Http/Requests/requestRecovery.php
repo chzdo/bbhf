@@ -32,7 +32,7 @@ class requestRecovery extends FormRequest
     public function rules()
     {
         return [
-           'email'=>"bail|email|required|exists:users,email"
+           'email'=>"bail|email|required|exists:users,email|exists:logins,users_email"
         ];
     }
 }

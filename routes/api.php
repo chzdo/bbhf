@@ -42,6 +42,14 @@ Route::get('/category/{category_id}/project', function(Request $req){
     Route::get('/user', 'users@user');
     Route::middleware('admin')->group(function(){
 
+
+        Route::get('/chat/message','chat@fetchMessages');
+        Route::post('/chat/message','chat@sendMessage');
+        Route::get('/chat/friends','chat@friends');
+      
+
+
+
         //members route
   
             Route::get('/members/application','members@application');
@@ -51,8 +59,7 @@ Route::get('/category/{category_id}/project', function(Request $req){
             Route::get('/members/list/{id}','users@info');
             Route::post('/members/revoke','users@revoke');
             Route::post('/members/update','users@updateRole');
-      
-  
+        
 
 
         //volunteer routes
@@ -77,7 +84,7 @@ Route::get('/category/{category_id}/project', function(Request $req){
             Route::post('/admin/revoke','users@revoke');
             Route::post('/admin/update','users@updateRole');
 });
-Route::get('/users/status','users@getstatus');
+Route::get('/users/status','users@getstatus'); 
 });
 
 

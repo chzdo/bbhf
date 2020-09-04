@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\category;
+use App\Events\websock;
 use App\Jobs\SendEmail;
 use App\Mail\registration;
 use App\Mail\rejection;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 
@@ -58,7 +60,10 @@ Route::prefix('dashboard')->group(function(){
     Route::view('/in/{path?}','dashboard.index')->middleware(['auth','checkrole'])->name('dash')->where('path','.*');
 
 });
-
+Route::get('demo',function(){
+    Broadcast(new websock('some'));
+    return view('pages.donate');
+});
 
 Route::get('/donate/{category?}/{project?}',"donors@showWeb")->name('donations');
 Route::get('/services/{section?}', "services@index" )->name('services')->middleware('services');

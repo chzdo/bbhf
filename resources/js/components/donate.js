@@ -12,7 +12,7 @@ import apiClient from './axios'
 import Toast from './toast'
 class Donate extends React.Component{
  async componentDidMount(){
-
+   
    let  {project,category} = this.props;
    this.state.category_loader = true;
    console.log(project)

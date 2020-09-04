@@ -24,6 +24,7 @@ async sendPost(url,cred,config={}){
         let {message} = resp.data;
             
         data.code = resp.data.code;
+        data.payload = resp.data.payload || null
         let res = '';
         data.message = message;
 
@@ -38,7 +39,7 @@ async sendPost(url,cred,config={}){
         ;  }
         ).catch(error=>{  
             data.code = 0;
-     data.message = "Something went Wrong";
+     data.message = "something went wrong";
      
 
     })

@@ -35,11 +35,11 @@
   
   
     <Donate id="donateBG" 
-    @if($project != null)
-    project={{ $project}}
+    @if($project ?? '' != null)
+    project={{ $project ?? ''}}
     @endif
-    @if($category != null)
-    category={{ $category}}
+    @if($category ?? '' != null)
+    category={{ $category ?? ''}}
     @endif
     
     path = {{ asset('images/')  }}
@@ -58,11 +58,11 @@
   
       
         <Donate id="donateBG" 
-        @if($project != null)
-        project={{ $project}}
+        @if($project ?? '' != null)
+        project={{ $project ?? ''}}
         @endif
-        @if($category != null)
-        category={{ $category}}
+        @if($category ?? '' != null)
+        category={{ $category ?? ''}}
         @endif
         
         path = {{ asset('images/')}}

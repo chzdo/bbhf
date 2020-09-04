@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import ReactDom from 'react-dom'
 import Sidebar from '../sidebar'
 
@@ -8,10 +8,13 @@ import { Switch, Route, history, withRouter, useLocation, useHistory, Router } f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Application, MemberList } from '../members'
 import { Volunteer_Application, VolunteerList } from '../volunteer'
-import {ApplicationComponent, ListComponent} from '../usercomponent'
+import {ApplicationComponent, ListComponent, ChatComponent } from '../usercomponent'
+import Provider from '../usercontext'
 
 
 function Admin(props) {
+
+    const context = useContext(Provider)
     const [open, setOpen] = useState(true)
 
 
@@ -171,7 +174,7 @@ function Admin(props) {
         {
             path: "/dashboard/in/members/chat",
 
-            main: () => <div>chat</div>
+            main: () => <ChatComponent group='2'/>
         },
         {
             path: "/dashboard/in/volunteers/application",
@@ -218,6 +221,8 @@ function Admin(props) {
     let r = routes();
     return (
         <>
+      
+          
             <div id='c' className="page-holder">
 
                 <Sidebar menu={menu} open={open} />
@@ -230,10 +235,13 @@ function Admin(props) {
 
                         }><FontAwesomeIcon icon={faHamburger} /></a>
                         <div className="profile-holder" >
-                            <span className="username">{props.user.first_name + '  ' + props.user.last_name}</span>
-                            <img src={props.user.photo || '/images/default.png'} className="profile-pix" />
+                            <span className="username">{context.first_name + '  ' + context.last_name}</span>
+                            <img src={context.photo || '/images/default.png'} className="profile-pix" />
                         </div>
                     </div>
+                     
+                        <>
+                        <div className='main-content'>
                     <Router history={props.history}>
                         <Switch>
                             <Route
@@ -258,10 +266,14 @@ function Admin(props) {
 
                         </Switch>
                     </Router>
+                    </div>
+                    </>
+                  
                 </div>
 
             </div>
 
+            
         </>
 
 

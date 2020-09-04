@@ -219,7 +219,7 @@ class users extends Controller
 
     function requestRecovery(requestRecovery $req)
     {
-
+  
         $validate = $req->validated();
         $date = Carbon::now();
         $expiry = $date->addHours(2);
@@ -236,7 +236,7 @@ class users extends Controller
         try {
             Mail::to($validate['email'])->send(new passwordrecovery($hash));
         } catch (\Exception $e) {
-            return   response()->json(['code' => 0, "message" => Mail::failures()], 400);
+            return   response()->json(['code' => 0, "message" => $e->getMessage()], 217);
         }
         return response()->json(['code' => 1, "message" => "Please Check your mail"], 200);
     }
