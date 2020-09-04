@@ -42,6 +42,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import Echo from "laravel-echo"
 
 window.Pusher = require('pusher-js');
+/**
 console.log(window.Laravel)
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -52,4 +53,13 @@ window.Echo = new Echo({
      
     disableStats: false,
 });
+**/
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'a8eea806ae3328767ae7',
+    cluster: 'eu',
+    wsHost: window.location.hostname,
+    forceTLS: true,
+    disableStats: true,
+  });
 

@@ -256,7 +256,7 @@ const getDate = (d) => {
 
 function ChatMessage({ callback, message, email, loading, network, current, next_page_url, setUrl, scroll, setScroll, shouldScroll, setshouldScroll }) {
 
-
+  const [element, setElement] = useState(null)
 
 	let bottom = useRef(null)
 
@@ -265,8 +265,6 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 		if (!scroll) return
 		
 		bottom.scrollIntoView({ behavior: 'smooth' })
-
-
 
 	}, [scroll])
 
@@ -285,13 +283,15 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 	let c;
 	useEffect(() => {
 		if (!shouldScroll) return
-		c.scrollTo(0, (c.scrollHeight / current) - 100)
+
+		element.scrollIntoView({behavior : 'smooth'})
+		//c.scrollTo(0, (c.scrollHeight / current) - 100)
 		setshouldScroll()
 
 
 	}, [shouldScroll])
 
-
+    
 
 	const firstElement = useCallback(node => {
 		if (loading) return
@@ -301,7 +301,7 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 		observe.current = new IntersectionObserver(entry => {
 
 			if (entry[0].isIntersecting && next_page_url != null && scroll != true) {
-
+                     setElement(node)
 
 				setUrl();
 			}
