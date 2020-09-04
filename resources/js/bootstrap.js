@@ -57,8 +57,7 @@ window.Echo = new Echo({
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'a8eea806ae3328767ae7',
-    cluster: 'eu',
-   
+    cluster: 'eu',   
     forceTLS: true,
     disableStats: true,
   });

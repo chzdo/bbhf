@@ -42,7 +42,7 @@ class chat extends Controller
   {
   $role = Auth::user()->user->role_id;
  
- 
+ return $role;
     if ( $req->group == 1 && ( $role == 1 || $role = 4)){
     $r = VolunteerChat::with('user')->orderByDesc('id')->paginate(15);
     }else if ($req->group == 2 && ( $role == 2 || $role = 4)){
