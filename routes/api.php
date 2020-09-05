@@ -91,6 +91,9 @@ Route::get('/users/status','users@getstatus');
 Route::post('/register',"users@create");
 Route::post('/forgot',"users@requestRecovery");
 Route::post('/reset','users@resetpassword');
+Route::get('/zoomToken','chat@zoomAuth')
+
+
 
 Route::fallback(function(){
     return response()->json(['code'=>0, "message"=>"page not found"]);

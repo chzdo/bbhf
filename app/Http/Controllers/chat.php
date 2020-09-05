@@ -104,4 +104,9 @@ if ($req->filled('group')){
   return response()->json(['code' => 0, 'message' =>'invalid request', 'payload'=>null]);
 }
 }
+
+function zoomAuth(Request $req){
+
+  return response()->json($req->code);
+}
 }

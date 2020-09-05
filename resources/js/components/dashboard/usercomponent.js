@@ -577,7 +577,7 @@ export class ChatComponent extends React.Component {
                         :
 					<div className="main-container">
 
-						  Video 
+						  <VideoComponent />
 					</div>
 	}
 				</div>
@@ -665,3 +665,22 @@ function Friends({ aside, group, online }) {
 
 }
 
+class VideoComponent extends React.Component{
+
+	constructor(){
+		super()
+	}
+auth = ()=>{
+	fetch('https://zoom.us/oauth/authorize',{
+		method: 'get',
+		params:{
+			client_id : 'XpNZe1LlQ5eTdzxoo37pg'
+		}
+	})
+}
+	render(){
+		return(
+			<button onClick={this.auth} > Auth </button>
+		)
+	}
+}
