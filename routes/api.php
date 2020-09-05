@@ -91,7 +91,7 @@ Route::get('/users/status','users@getstatus');
 Route::post('/register',"users@create");
 Route::post('/forgot',"users@requestRecovery");
 Route::post('/reset','users@resetpassword');
-Route::get('/zoomToken','chat@zoomAuth')
+Route::get('/zoomToken','chat@zoomAuth');
 
 
 
