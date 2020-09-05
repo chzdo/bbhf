@@ -81,7 +81,7 @@ function Admin(props) {
                 },
                 {
                     title: 'Chat/Report',
-                    route: '/dashboard/in/members/chat',
+                    route: '/dashboard/in/sponsors/chat',
                     icon: faBriefcase,
 
                 }
@@ -188,7 +188,7 @@ function Admin(props) {
         {
             path: "/dashboard/in/volunteers/chat",
 
-            main: () => <div>chat</div>
+            main: () => <ChatComponent group='1'/>
         },
       
         {
@@ -199,7 +199,7 @@ function Admin(props) {
         {
             path: "/dashboard/in/sponsors/chat",
 
-            main: () => <div>chat</div>
+            main: () => <ChatComponent group='3'/>
         },
         {
             path: "/dashboard/in/admin/list",
@@ -209,7 +209,7 @@ function Admin(props) {
         {
             path: "/dashboard/in/admin/chat",
 
-            main: () => <div>chat</div>
+            main: () => <ChatComponent group='4'/>
         },
         
         {

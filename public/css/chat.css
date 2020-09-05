@@ -203,7 +203,10 @@ aside li h3{
 	margin:0;
 	position: relative;
 	width: 100%;
+  display:flex;
+ flex-direction:column-reverse; 
 
+  align-items: flex-end;
 	list-style-type:none;
 	overflow-y:scroll;
 	height: calc(100% - 120px);
@@ -315,9 +318,10 @@ main footer a{
 	flex-direction: column;
 }
 .chat-holder{
-	display: flex;
-	flex-flow: row;
-	flex: 1 100%;
+	display: inline-flex;
+	
+	width:100%;
+	
 	background: none;
 }
 .chatbox{

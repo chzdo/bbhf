@@ -17,9 +17,15 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('vol-chat', function ($user) {
+Broadcast::channel('{grp}-chat', function ($user) {
     return $user;
 });
+
+/**
 Broadcast::channel('mem-chat', function ($user) {
  return $user;
 });
+Broadcast::channel('mem-chat', function ($user) {
+    return $user;
+   });
+   **/

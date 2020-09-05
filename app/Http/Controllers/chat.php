@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use App\AdminChat;
-use App\MemberChat;
+use App\memberChat;
 use App\SponsorChat;
 use App\VolunteerChat;
 use Illuminate\Http\Request;
@@ -40,18 +40,18 @@ class chat extends Controller
    */
   public function fetchMessages(Request $req)
   {
-    event(new websock('hello'));
+   
   $role = Auth::user()->user->role_id;
  $r= null;
 try{
     if ( $req->group == 1 && ( $role == 1 || $role = 4)){
-   // $r = VolunteerChat::with('user')->orderByDesc('id')->paginate(15);
+    $r = VolunteerChat::with('user')->orderByDesc('id')->paginate(15);
     }else if ($req->group == 2 && ( $role == 2 || $role = 4)){
-     $r = VolunteerChat::with('user')->orderByDesc('id')->paginate(15);
+     $r = memberChat::with('user')->orderByDesc('id')->paginate(15);
     }else if ($req->group == 3 && ( $role == 3 || $role = 4)){
-    //  $r = SponsorChat::with('user')->orderByDesc('id')->paginate(15);
+      $r = SponsorChat::with('user')->orderByDesc('id')->paginate(15);
     }else if ($req->group == 4 && (  $role = 4)){
-    //  $r = AdminChat::with('user')->orderByDesc('id')->paginate(15);
+      $r = AdminChat::with('user')->orderByDesc('id')->paginate(15);
     }else{
     //  return  response()->json(['code' => 0, 'message' => 'invalid access']);
     }

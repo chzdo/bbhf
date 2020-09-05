@@ -203,6 +203,8 @@ function SendMessage({ message, setMessage, context, group }) {
 
 		} else if (response.code == 0 && message_[response.message].sendCode == response.message) {
 			message_[response.message].sendStatus = 2;
+		}else{
+			message_[newMe.sendCode].sendStatus = 2;
 		}
 	
 		await setMessage(message_)
@@ -281,15 +283,6 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 	let observe = useRef()
 
 	let c;
-	useEffect(() => {
-		if (!shouldScroll) return
-
-		element.scrollIntoView({behavior : 'smooth'})
-		//c.scrollTo(0, (c.scrollHeight / current) - 100)
-		setshouldScroll()
-
-
-	}, [shouldScroll])
 
     
 
@@ -300,10 +293,10 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 		}
 		observe.current = new IntersectionObserver(entry => {
 
-			if (entry[0].isIntersecting && next_page_url != null && scroll != true) {
-                     setElement(node)
-
-				setUrl();
+			if (entry[0].isIntersecting && next_page_url != null) {
+                   setUrl()
+                     
+				
 			}
 		})
 
@@ -314,9 +307,9 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 
 	return (
 		<ul id="chat" onScroll={handleChange} ref={r => c = r} >
-			{loading ? <span className="d-flex w-100 justify-content-center align-items-center"><Loader /> </span>: network ? <Network action={callback} /> : null}
+			
 			{Object.keys(message).map((data, i) => {
-				if (i == 0) {
+				if (message.length == i+1) {
 					return <li ref={firstElement} className={`chat-holder ${message[data].user.email == email ? 'me' : 'you'} `} key={i}>
 						<div className="cih">
 							<div className="entete">
@@ -352,6 +345,7 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 									}
 
 								</div> : null}
+								
 						</div>
 
 					</li>
@@ -400,6 +394,7 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 			}
 
 			<div ref={(el) => { bottom = el; }}></div>
+			{loading ? <span className="d-flex w-100 justify-content-center align-items-center"><Loader /> </span>: network ? <Network action={callback} /> : null}
 
 		</ul>
 
@@ -476,11 +471,10 @@ export class ChatComponent extends React.Component {
 				await this.setState(prev =>
 					({
 						...prev,
-						message: Object.values([...prev.message, ...resp[0].data.message.data]).sort((a, b) => a.id - b.id),
+						message: Object.values([...prev.message, ...resp[0].data.message.data]).sort((a, b) => b.id - a.id),
 						loading: false,
 						next_page_url: resp[0].data.message.next_page_url,
 						network: false,
-						scroll: scroll,
 						current: resp[0].data.message.current_page,
 						shouldScroll: !scroll
 					}))
@@ -499,13 +493,7 @@ export class ChatComponent extends React.Component {
 
 
 	async componentDidMount() {
-		alert(1)
-		console.log(window.Echo.channel('demo'))
-		window.Echo.channel('demo')
-		.listen('.my-event',(e)=>{
-			console.log(e)
-		}
-		)
+	
 		let channel;
 		if (this.props.group == 1) {
 			channel = 'vol-chat';
@@ -630,28 +618,29 @@ function Friends({ aside, group, online }) {
 	}
 	let cancel
 
+	let f = async () => {
+		let response = await apiClient.get('/api/chat/friends', {
+			params: {
+				group: group,
+				cancelToken: new Axios.CancelToken(c => cancel = c)
+			}
+		})
+
+		if (response.code == 1) {
+			setLoading(false)
+			setFriends(response.message)
+			setNetwork(false)
+		} else {
+			setLoading(false)
+			setNetwork(true)
+		}
+	}
+
 	const [loading, setLoading] = useState(true)
 	const [friends, setFriends] = useState([])
 	const [network, setNetwork] = useState(true)
 	const [searchkey, setKey] = useState('')
 	useEffect(() => {
-		let f = async () => {
-			let response = await apiClient.get('/api/chat/friends', {
-				params: {
-					group: group,
-					cancelToken: new Axios.CancelToken(c => cancel = c)
-				}
-			})
-
-			if (response.code == 1) {
-				setLoading(false)
-				setFriends(response.message)
-				setNetwork(false)
-			} else {
-				setLoading(false)
-				setNetwork(true)
-			}
-		}
 
 		f();
 		() => cancel()
@@ -664,7 +653,7 @@ function Friends({ aside, group, online }) {
 			<header>
 				<input type="text" placeholder="search" value={searchkey} onChange={(e) => setKey(e.target.value)} />
 			</header>
-			{loading ? <span className="w-100 d-flex justify-content-center align-items-center text-white"><FontAwesomeIcon icon={faSpinner} /></span> : network ? <Network /> :
+			{loading ? <span className="w-100 d-flex justify-content-center align-items-center text-white"><FontAwesomeIcon icon={faSpinner} /></span> : network ? <Network  action={f}/> :
 				<ul>
 					{a.map((data, i) => <Friendlist key={i} {...data} />)}
 
@@ -672,5 +661,7 @@ function Friends({ aside, group, online }) {
 			}
 		</aside>
 	)
+
+
 }
 
