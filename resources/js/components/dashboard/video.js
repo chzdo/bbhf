@@ -26,7 +26,7 @@ export default function VideoComponent(props) {
     let { path, url } = useRouteMatch()
 
     let auth = () => {
-        //	document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat';
+        	document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat';
         fetch('https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat', {
             mode: 'no-cors',
             credentials: 'include',
@@ -145,7 +145,10 @@ class CreateMeeting extends Component {
         }).then(r => this.setState({ timezone: r }))
 
     }
-
+    authCreate = () =>{
+        document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat&state='+this.state;
+     
+    }
 
     createmeeting= async ()=>{
             console.log(this.state.config)
