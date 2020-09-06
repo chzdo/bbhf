@@ -265,7 +265,7 @@ class CreateMeeting extends Component {
                             />
 
 
-                            <button onClick={(e) => { e.preventDefault(); this.createmeeting() }} className="bbhf_btn bbhf_btn_green" disabled={!this.activity.inputState() || this.state.invalid}>
+                            <button onClick={(e) => { e.preventDefault(); this.authCreate() }} className="bbhf_btn bbhf_btn_green" disabled={!this.activity.inputState() || this.state.invalid}>
                                 {this.state.loader ? <span style={{ display: "flex" }}><Loader />Processing</span> :
                                     "Create Meeting"}</button>
 
