@@ -8,7 +8,7 @@ import { Switch, Route, history, withRouter, useLocation, useHistory, Router } f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Application, MemberList } from '../members'
 import { Volunteer_Application, VolunteerList } from '../volunteer'
-import {ApplicationComponent, ListComponent, ChatComponent } from '../usercomponent'
+import ChatComponent,{ApplicationComponent, ListComponent }  from '../usercomponent'
 import Provider from '../usercontext'
 
 

@@ -65,7 +65,7 @@ Route::get('demo',function(){
     return view('pages.donate');
 });
 
-
+Route::get('/zoomToken','chat@zoomAuth');
 Route::get('/donate/{category?}/{project?}',"donors@showWeb")->name('donations');
 Route::get('/services/{section?}', "services@index" )->name('services')->middleware('services');
 Route::get('/news/{section?}', "services@news" )->name('news');

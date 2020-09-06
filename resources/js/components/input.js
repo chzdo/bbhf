@@ -173,11 +173,17 @@ componentDidMount(){
                         >
                             <option value=''>-Select-</option>
                             {this.props.data != null ? this.props.data.map((data, i) => 
-                          { let {value} =  this.props.valueKeys;
+                          { 
+                              if (this.props.valueKeys !== undefined){
+                            let {value} =  this.props.valueKeys;
                           let {label} =  this.props.valueKeys;                            
                                  return  <option key={i} value={data[value]}  >{data[label]}</option>
+                                }else{
+                                 
+                                    return  <option key={i} value={data}  >{data}</option>
+                                }   
                           }) : null
-                                                         }
+                                }
                         </select>
                         <span className="bbhf_input_label">
                             {this.props.label}
