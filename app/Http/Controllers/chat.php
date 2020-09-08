@@ -117,6 +117,7 @@ function zoomAuth(Request $req){
 function getAuth(Request $r){
   echo 'Please Wait.......';
 $state = json_decode($r->state);
+
  // https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fzoomtoken
   $response = Http::withHeaders([
     'Authorization' => 'Basic '.base64_encode('XpNZe1LlQ5eTdzxoo37pg:4RtdzIf9uxTGbjEL0EqvdAE4dLd07GeE'),
@@ -134,11 +135,12 @@ if(isset($meeting['error'])){
   return redirect($state->url.'?q='.base64_encode($meeting['error']).'&state='.json_encode($state));
 }
 
+
 $resp = Http::withHeaders([
   'Authorization' => 'Bearer '.$meeting['access_token'],
   "Content-Type" => "application/json"
  
-])->withBody($state,'application/json')->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings');
+])->withBody(json_encode($state),'application/json')->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings',);
 
 var_dump($resp->body());
 
