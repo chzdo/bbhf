@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         
 
-        if(!Request::getHost() == 'localhost'){
+        if(Request::getHost() != 'localhost'){
         URL::forceScheme('https');
         }
     }

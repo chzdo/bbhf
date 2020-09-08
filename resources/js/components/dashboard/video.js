@@ -276,7 +276,7 @@ class CreateMeeting extends Component {
 
                                 <SelectInput
                                     id="timezone"
-                                    isLoading={this.state.timezoneLoading}
+                                    isLoading={this.state.timezoneloading}
                                     data={this.state.timezone}
                                     label="Timezone"
 
