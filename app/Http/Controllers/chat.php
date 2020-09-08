@@ -149,7 +149,7 @@ $resp = $resp->json();
 if(isset($resp['code'])){
   return redirect($state->url.'?code=0&q='.base64_encode($resp['message']).'&state='.json_encode($state));
 }
-/** 
+
  $save = DB::table('meetings')->create([
   'meeting_id' => $resp['id'],
   'password' => $resp['passsword'],
@@ -159,7 +159,7 @@ if(isset($resp['code'])){
   'timezone'=> $resp['timezone'],
   'group'=> $state->group
 ]);
-
+/**
 if ($save){
   return redirect($state->url.'?code=1&q='.$resp['id']);
 }else{
