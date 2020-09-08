@@ -131,8 +131,9 @@ var_dump($meeting);
 
 var_dump($meeting['error']);
 if(isset($meeting['error'])){
-  return redirect()->route(url()->previous(),["message"=>base64_encode($meeting['error'])]);
+  return redirect()->route($state->url,["message"=>base64_encode($meeting['error'])]);
 }
+/** 
 $resp = Http::withHeaders([
   'Authorization' => 'Bearer '.$meeting['access_token'],
   "Content-Type" => "application/json"
@@ -140,7 +141,7 @@ $resp = Http::withHeaders([
 ])->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings');
 
 var_dump($resp->json());
-
+**/
 }
 
 
