@@ -73,14 +73,7 @@ class CreateMeeting extends Component {
         this.state = {
             loader: false,
             invalid: false,
-            stateloading: true,
-            states: [
-
-            ],
-            roles: [
-
-            ],
-            rolesloading: true,
+                    
             toast: {
                 show: false,
                 color: '',
@@ -138,13 +131,13 @@ class CreateMeeting extends Component {
     async componentDidMount() {
 
         let arr = {}
-        console.log(this.props.history.location.search)
+     
         if (this.props.history.location.search) {
             let a = this.props.history.location.search.toString().split('?')[1].split('&')
             a.forEach(element => {
 
                 let temp = element.split("=")
-                arr[temp[0]] = temp[1]
+                arr[temp[0]] = decodeURIComponent(temp[1])
             });
 
             let newV = JSON.parse(arr.state)
@@ -165,8 +158,10 @@ class CreateMeeting extends Component {
         }
         }
         authCreate = () => {
-              document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(this.state))}`;
-           // document.location.href = this.props.history.location.pathname + `?code=KlK9U2JDMy_zQ5GXzv7RdioJqRDK7xAcQ&state=${encodeURIComponent(JSON.stringify(this.state))}`
+
+            let stat = {"config":this.state.config,"timezoneloading":this.state.timezoneLoading}
+             document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fapi%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
+          //  document.location.href = this.props.history.location.pathname + `?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(stat))}`;
         }
 
         createmeeting = async () => {
@@ -198,13 +193,14 @@ class CreateMeeting extends Component {
                     "registrants_email_notification": true
                 }
             }
-
-            fetch('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings', {
-                authorization: "Bearer "+ this.state.code,
-                body: JSON.stringify(meetingObject),
-                Origin: 'loalhost:8000',
-                method: 'post'
-            }).then(resp => resp.json()).then(resp => console.log(resp))
+    let response = await apiClient.sendPost('/api/chat/meeting',{meetingObject,"code":this.state.code})
+    console.log(response)
+           // fetch('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings', {
+            //    authorization: "Bearer "+ this.state.code,
+             //   body: JSON.stringify(meetingObject),
+            //    Origin: 'loalhost:8000',
+           //     method: 'post'
+       ///     }).then(resp => resp.json()).then(resp => console.log(resp))
           
         }
 

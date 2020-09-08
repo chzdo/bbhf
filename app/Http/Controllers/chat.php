@@ -7,12 +7,13 @@ use App\AdminChat;
 use App\memberChat;
 use App\SponsorChat;
 use App\VolunteerChat;
+use App\Events\websock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Broadcast;
 use App\Events\MemberChat as EventsMemberChat;
-use App\Events\websock;
 
 class chat extends Controller
 {
@@ -108,5 +109,13 @@ if ($req->filled('group')){
 function zoomAuth(Request $req){
 
   return response()->json($req->code);
+}
+
+function createVideo(Request $r){
+var_dump($r->input()) return
+  $response = Http::get('https://zoom.us/oauth/token?grant_type=authorization_code&code=obBEe8ewaL_KdYKjnimT4KPd8KKdQt9FQ&redirect_uri=https://yourapp.com', [
+    'name' => 'Taylor',
+    'page' => 1,
+]);
 }
 }
