@@ -119,7 +119,7 @@
 
 @endsection
 @push('headerJs')
-<script  src="{{ asset('js/header.js')}}"></script>
-<script  src="{{ asset('js/body.js')}}"></script>
+<script src="{{Route::has('https')? secure_asset('js/header.js'): asset('js/header.js')}}" ></script>
+<script src="{{Route::has('https')? secure_asset('js/body.js'): asset('js/body.js')}}" ></script>
 
 @endpush

@@ -24,6 +24,8 @@ import Activity from '../reactact'
 
 export default function VideoComponent(props) {
     let { path, url } = useRouteMatch()
+    let params = useParams()
+    let history = useHistory()
 
     let auth = () => {
         	document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat';
@@ -40,7 +42,7 @@ export default function VideoComponent(props) {
         <>
             <div className="main-container">
                 <div className="video-container">
-                    <div class="met-menu">
+                    <div className="met-menu">
                         <Link to={`${url}/create`} className="met-menu-links"> Create Meeting </Link>
                         <Link to={url} className="met-menu-links"> Join Meeting </Link>
                     </div>
@@ -48,7 +50,7 @@ export default function VideoComponent(props) {
 
                     <Switch>
                         <Route exact path={path}>
-                            <CreateMeeting group={props.group} />
+                            <CreateMeeting group={props.group} history={history} params = {params}/>
                         </Route>
                         <Route path={`${path}/video`}>
                             <JoinMeeting group={props.group} />
@@ -67,6 +69,7 @@ class CreateMeeting extends Component {
         super(props)
 
         this.activity = new Activity(this)
+
         this.state = {
             loader: false,
             invalid: false,
@@ -82,8 +85,7 @@ class CreateMeeting extends Component {
                 show: false,
                 color: '',
                 title: '',
-                message: '',
-
+                message: ''
             },
             config: {
 
@@ -123,7 +125,6 @@ class CreateMeeting extends Component {
                 settings: {
                     "host_video": true,
                     "participant_video": true,
-
                     "join_before_host": true
                 }
 
@@ -135,7 +136,18 @@ class CreateMeeting extends Component {
     }
 
     async componentDidMount() {
-        fetch('http://worldtimeapi.org/api/timezone', {
+
+        let arr = {}
+       let  a = this.props.history.location.search.toString().split('?')[1].split('&')
+        a.forEach(element => {           
+         
+            let temp = element.split("=")
+            arr[temp[0]] = temp[1]
+        });
+           arr.state.code = arr.code
+        await   this.setState(arr.state)
+          console.log(this.state)
+              fetch('http://worldtimeapi.org/api/timezone', {
 
 
             method: 'get',
@@ -151,15 +163,18 @@ class CreateMeeting extends Component {
     }
 
     createmeeting= async ()=>{
-            console.log(this.state.config)
+           
+
     let {topic, start_time, duration, timezone, agenda, settings} = this.state.config
       let  $a =     new Date(this.state.config.start_date.value + ' ' + this.state.config.start_time.value ).toISOString()
       var password          = '';
       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       var charactersLength = characters.length;
+
       for ( var i = 0; i < length; i++ ) {
          password += characters.charAt(Math.floor(Math.random() * charactersLength));
       }
+
       let meetingObject = {
         "topic": topic.value,
         "type": 2,
@@ -170,13 +185,11 @@ class CreateMeeting extends Component {
         "agenda": "",
           "settings": {
           "host_video": true,
-          "participant_video": true,
-          
+          "participant_video": true,          
           "join_before_host": true,
-          "mute_upon_entry": false,
-       
+          "mute_upon_entry": false,       
           "registrants_email_notification": true
-        }
+           }
       }
           
          fetch('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings',{
@@ -187,10 +200,11 @@ class CreateMeeting extends Component {
          }).then(resp=> resp.json()).then(resp=> console.log(resp))
         console.log(meetingObject)
     }
-    render() {
+
+      render() {
         return (
             <>
-                <div class="create-cont">
+                <div className="create-cont">
                     <div className="login-container" style={{ borderRadius: '0px', padding: '2%' }}>
                         <Toast
 

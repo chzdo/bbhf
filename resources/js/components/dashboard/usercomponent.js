@@ -127,7 +127,7 @@ export function ListComponent(props) {
 
 function ChatComponent(props) {
 	let context = useContext(Provider)
-	console.log(props.history.location)
+
 	let { path, url } = useRouteMatch();
 	return (
 		<>
