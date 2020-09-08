@@ -47,8 +47,8 @@ Route::get('/category/{category_id}/project', function(Request $req){
         Route::post('/chat/message','chat@sendMessage');
         Route::get('/chat/friends','chat@friends');
       
-        Route::get('/chat/meeting','chat@createVideo');
-
+        Route::get('/chat/meeting','chat@getAuth');
+        Route::get('/chat/zoomtoken','chat@createVideo');
 
         //members route
   
