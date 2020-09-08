@@ -125,14 +125,14 @@ function getAuth(Request $r){
 
 
 $meeting = $response->json();
-var_dump($r->input('state'));
+
 
 var_dump(json_decode($r->input('state')));
 $resp = Http::withHeaders([
   'Authorization' => 'Bearer '.$meeting->access_token,
   "Content-Type" => "application/json"
  
-])->withBody($r->input('state'),'application/json')->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings');
+])->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings');
 
 var_dump($resp->json());
 
