@@ -28,7 +28,7 @@ export default function VideoComponent(props) {
     let history = useHistory()
 
     let auth = () => {
-        	document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat';
+        document.location.href = 'https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat';
         fetch('https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat', {
             mode: 'no-cors',
             credentials: 'include',
@@ -50,7 +50,7 @@ export default function VideoComponent(props) {
 
                     <Switch>
                         <Route exact path={path}>
-                            <CreateMeeting group={props.group} history={history} params = {params}/>
+                            <CreateMeeting group={props.group} history={history} params={params} />
                         </Route>
                         <Route path={`${path}/video`}>
                             <JoinMeeting group={props.group} />
@@ -138,160 +138,167 @@ class CreateMeeting extends Component {
     async componentDidMount() {
 
         let arr = {}
-       let  a = this.props.history.location.search.toString().split('?')[1].split('&')
-        a.forEach(element => {           
-         
-            let temp = element.split("=")
-            arr[temp[0]] = temp[1]
-        });
-           arr.state.code = arr.code
-        await   this.setState(arr.state)
-          console.log(this.state)
-              fetch('http://worldtimeapi.org/api/timezone', {
+        console.log(this.props.history.location.search)
+        if (this.props.history.location.search) {
+            let a = this.props.history.location.search.toString().split('?')[1].split('&')
+            a.forEach(element => {
+
+                let temp = element.split("=")
+                arr[temp[0]] = decodeURIComponent(temp[1])
+            });
+
+            let newV = JSON.parse(arr.state)
+            newV.code = arr.code
+
+            await this.setState(newV)
+           await  this.props.history.push(this.props.history.location.pathname)
+            this.createmeeting()
+        }else{
+            fetch('http://worldtimeapi.org/api/timezone', {
 
 
-            method: 'get',
+                method: 'get',
 
-        }).then(resp => {
-            return resp.json()
-        }).then(r => this.setState({ timezone: r }))
+            }).then(resp => {
+                return resp.json()
+            }).then(r => this.setState({ timezone: r ,timezoneloading:false}))
+        }
+        }
+        authCreate = () => {
+              document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(this.state))}`;
+           // document.location.href = this.props.history.location.pathname + `?code=KlK9U2JDMy_zQ5GXzv7RdioJqRDK7xAcQ&state=${encodeURIComponent(JSON.stringify(this.state))}`
+        }
 
-    }
-    authCreate = () =>{
-        document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state='+this.state;
-     
-    }
+        createmeeting = async () => {
 
-    createmeeting= async ()=>{
-           
 
-    let {topic, start_time, duration, timezone, agenda, settings} = this.state.config
-      let  $a =     new Date(this.state.config.start_date.value + ' ' + this.state.config.start_time.value ).toISOString()
-      var password          = '';
-      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      var charactersLength = characters.length;
+            let { topic, start_time, duration, timezone, agenda, settings } = this.state.config
+            let $a = new Date(this.state.config.start_date.value + ' ' + this.state.config.start_time.value).toISOString()
+            var password = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
 
-      for ( var i = 0; i < length; i++ ) {
-         password += characters.charAt(Math.floor(Math.random() * charactersLength));
-      }
+            for (var i = 0; i < charactersLength; i++) {
+                password += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
 
-      let meetingObject = {
-        "topic": topic.value,
-        "type": 2,
-        "start_time": $a,
-        "duration":duration,        
-        "timezone": timezone.value,
-        "password": password,
-        "agenda": "",
-          "settings": {
-          "host_video": true,
-          "participant_video": true,          
-          "join_before_host": true,
-          "mute_upon_entry": false,       
-          "registrants_email_notification": true
-           }
-      }
+            let meetingObject = {
+                "topic": topic.value,
+                "type": 2,
+                "start_time": $a,
+                "duration": duration,
+                "timezone": timezone.value,
+                "password": password,
+                "agenda": "",
+                "settings": {
+                    "host_video": true,
+                    "participant_video": true,
+                    "join_before_host": true,
+                    "mute_upon_entry": false,
+                    "registrants_email_notification": true
+                }
+            }
+
+            fetch('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings', {
+                authorization: "Bearer "+ this.state.code,
+                body: JSON.stringify(meetingObject),
+                Origin: 'loalhost:8000',
+                method: 'post'
+            }).then(resp => resp.json()).then(resp => console.log(resp))
           
-         fetch('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings',{
-             authorization: "Bearer XpNZe1LlQ5eTdzxoo37pg",
-             body: JSON.stringify(meetingObject),
-             Origin: 'loalhost:8000',
-             method:'post'
-         }).then(resp=> resp.json()).then(resp=> console.log(resp))
-        console.log(meetingObject)
-    }
+        }
 
-      render() {
-        return (
-            <>
-                <div className="create-cont">
-                    <div className="login-container" style={{ borderRadius: '0px', padding: '2%' }}>
-                        <Toast
+        render() {
+            return (
+                <>
+                    <div className="create-cont">
+                        <div className="login-container" style={{ borderRadius: '0px', padding: '2%' }}>
+                            <Toast
 
-                            show={this.state.toast.show ? "show" : ''}
-                            color={this.state.toast.color}
-                            title={this.state.toast.title}
-                            message={this.state.toast.message}
-                            cleanToast={this.activity.cleanToast}
-                        />
-
-                        <strong> Create Meeting</strong>
-                        <hr></hr>
-                        <form className="form" >
-                            <InputText
-                                type="text"
-                                id="topic"
-                                label="Topic"
-                                value={this.state.config.topic.value}
-                                getValues={this.activity.getValues}
-                                constraint={{ required: true }}
-                                reset={this.state.reset}
+                                show={this.state.toast.show ? "show" : ''}
+                                color={this.state.toast.color}
+                                title={this.state.toast.title}
+                                message={this.state.toast.message}
+                                cleanToast={this.activity.cleanToast}
                             />
 
-                            <InputText
-                                type="text"
-                                id="description"
-                                label="Description (Optional)"
-                                value={this.state.config.description.value}
-                                getValues={this.activity.getValues}
-                                constraint={{ required: true }}
-                                reset={this.state.reset}
-                            />
-                            <div  style={{display:'flex', justifyContent:'space-between',width:'100%'}}>
-                            <InputText
-                                type="date"
-                                id="start_date"
-                                label="Start Date"
-                                value={this.state.config.start_date.value}
-                                getValues={this.activity.getValues}
-                                constraint={{ required: true }}
-                                reset={this.state.reset}
-                            />
-                              <InputText
-                                type="time"
-                                id="start_time"
-                                label="Start Time"
-                                value={this.state.config.start_time.value}
-                                getValues={this.activity.getValues}
-                                constraint={{ required: true }}
-                                reset={this.state.reset}
-                            />
-                            </div>
-                            <InputText
-                                type="number"
-                                id="duration"
-                                label="Duration (mins)"
-                                value={this.state.config.duration.value}
-                                getValues={this.activity.getValues}
-                                constraint={{ required: true, max: 40, number: true }}
-                                reset={this.state.reset}
-                            />
+                            <strong> Create Meeting</strong>
+                            <hr></hr>
+                            <form className="form" >
+                                <InputText
+                                    type="text"
+                                    id="topic"
+                                    label="Topic"
+                                    value={this.state.config.topic.value}
+                                    getValues={this.activity.getValues}
+                                    constraint={{ required: true }}
+                                    reset={this.state.reset}
+                                />
 
-                            <SelectInput
-                                id="timezone"
-                                isLoading={this.state.timezoneLoading}
-                                data={this.state.timezone}
-                                label="Timezone"
+                                <InputText
+                                    type="text"
+                                    id="description"
+                                    label="Description (Optional)"
+                                    value={this.state.config.description.value}
+                                    getValues={this.activity.getValues}
+                                    constraint={{ required: true }}
+                                    reset={this.state.reset}
+                                />
+                                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                    <InputText
+                                        type="date"
+                                        id="start_date"
+                                        label="Start Date"
+                                        value={this.state.config.start_date.value}
+                                        getValues={this.activity.getValues}
+                                        constraint={{ required: true }}
+                                        reset={this.state.reset}
+                                    />
+                                    <InputText
+                                        type="time"
+                                        id="start_time"
+                                        label="Start Time"
+                                        value={this.state.config.start_time.value}
+                                        getValues={this.activity.getValues}
+                                        constraint={{ required: true }}
+                                        reset={this.state.reset}
+                                    />
+                                </div>
+                                <InputText
+                                    type="number"
+                                    id="duration"
+                                    label="Duration (mins)"
+                                    value={this.state.config.duration.value}
+                                    getValues={this.activity.getValues}
+                                    constraint={{ required: true, max: 40, number: true }}
+                                    reset={this.state.reset}
+                                />
 
-                                value={this.state.config.timezone.value}
-                                getValues={this.activity.getValues}
-                                reset={this.state.reset}
-                            />
+                                <SelectInput
+                                    id="timezone"
+                                    isLoading={this.state.timezoneLoading}
+                                    data={this.state.timezone}
+                                    label="Timezone"
+
+                                    value={this.state.config.timezone.value}
+                                    getValues={this.activity.getValues}
+                                    reset={this.state.reset}
+                                />
 
 
-                            <button onClick={(e) => { e.preventDefault(); this.authCreate() }} className="bbhf_btn bbhf_btn_green" disabled={!this.activity.inputState() || this.state.invalid}>
-                                {this.state.loader ? <span style={{ display: "flex" }}><Loader />Processing</span> :
-                                    "Create Meeting"}</button>
+                                <button onClick={(e) => { e.preventDefault(); this.authCreate() }} className="bbhf_btn bbhf_btn_green" disabled={!this.activity.inputState() || this.state.invalid}>
+                                    {this.state.loader ? <span style={{ display: "flex" }}><Loader />Processing</span> :
+                                        "Create Meeting"}</button>
 
 
-                        </form>
+                            </form>
 
+                        </div>
                     </div>
-                </div>
-            </>
-        )
+                </>
+            )
+        }
     }
-}
 
 
 function JoinMeeting(props) {
