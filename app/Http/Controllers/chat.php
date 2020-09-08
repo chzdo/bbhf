@@ -150,22 +150,21 @@ if(isset($resp['code'])){
   return redirect($state->url.'?code=0&q='.base64_encode($resp['message']).'&state='.json_encode($state));
 }
 
- $save = DB::table('meetings')->create([
+ $save = DB::table('meetings')->insert([
   'meeting_id' => $resp['id'],
-  'password' => $resp['passsword'],
+  'password' => $resp['password'],
   'start_time' => $resp['start_time'],
   'topic' => $resp['topic'],
   'duration' => $resp['duration'],
   'timezone'=> $resp['timezone'],
   'group'=> $state->group
 ]);
-/**
 if ($save){
   return redirect($state->url.'?code=1&q='.$resp['id']);
 }else{
   return redirect($state->url.'?code=0&q='.base64_encode("Something went wrong!"));
 }
-**/
+
 
 }
 
