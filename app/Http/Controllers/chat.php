@@ -127,7 +127,7 @@ function getAuth(Request $r){
 $meeting = $response->json();
 
 
-var_dump(json_decode($r->input('state')));
+var_dump($meeting->access_token);
 $resp = Http::withHeaders([
   'Authorization' => 'Bearer '.$meeting->access_token,
   "Content-Type" => "application/json"
