@@ -74,7 +74,7 @@ class CreateMeeting extends Component {
         this.state = {
             loader: false,
             invalid: false,
-                    
+
             toast: {
                 show: false,
                 color: '',
@@ -87,10 +87,7 @@ class CreateMeeting extends Component {
                     value: '',
                     state: false
                 },
-                description: {
-                    value: '',
-                    state: false
-                },
+              
                 start_time: {
                     value: '',
                     state: false
@@ -108,14 +105,8 @@ class CreateMeeting extends Component {
                     value: '',
                     state: false
                 },
-                password: {
-                    value: '',
-                    state: false
-                },
-                agenda: {
-                    value: '',
-                    state: false
-                },
+             
+             
                 settings: {
                     "host_video": true,
                     "participant_video": true,
@@ -132,7 +123,7 @@ class CreateMeeting extends Component {
     async componentDidMount() {
 
         let arr = {}
-     
+
         if (this.props.history.location.search) {
             let a = this.props.history.location.search.toString().split('?')[1].split('&')
             a.forEach(element => {
@@ -143,161 +134,154 @@ class CreateMeeting extends Component {
 
             let newV = JSON.parse(arr.state)
             newV.code = arr.code
+            if (newV.code == 0) {
+                this.setState({ config: newV.state })
+                this.activity.formend(0, atob(newV.q))
 
-            await this.setState(newV)
-           await  this.props.history.push(this.props.history.location.pathname)
-            this.createmeeting()
-        }else{
-            fetch('https://worldtimeapi.org/api/timezone', {
-
-
-                method: 'get',
-
-            }).then(resp => {
-                return resp.json()
-            }).then(r => this.setState({ timezone: r ,timezoneloading:false}))
-        }
-        }
-        authCreate = () => {
-            let { topic, start_time, duration, timezone, agenda, settings } = this.state.config
-            let $a = new Date(this.state.config.start_date.value + ' ' + this.state.config.start_time.value).toISOString()
-            var password = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-
-            for (var i = 0; i < 6; i++) {
-                password += characters.charAt(Math.floor(Math.random() * charactersLength));
+            } else {
+                this.activity.formend(1, "Meeting Created id is " + newV.q)
             }
 
-            let meetingObject = {
-                "topic": topic.value,
-                "type": 2,
-                "start_time": $a,
-                "duration": duration.value,
-                "timezone": timezone.value,
-                "password": password,
-                "agenda": "",
-                "settings": {
-                    "host_video": true,
-                    "participant_video": true,
-                    "join_before_host": true,
-                    "mute_upon_entry": false,
-                    "registrants_email_notification": true
-                }
+            await this.props.history.push(this.props.history.location.pathname)
+
+        }
+        fetch('https://worldtimeapi.org/api/timezone', {
+
+
+            method: 'get',
+
+        }).then(resp => {
+            return resp.json()
+        }).then(r => this.setState({ timezone: r, timezoneloading: false }))
+
+    }
+    authCreate = () => {
+        this.setState({loader:true,invalid:true})
+        let { topic, start_time, duration, timezone, agenda, settings } = this.state.config
+        let $a = new Date(this.state.config.start_date.value + ' ' + this.state.config.start_time.value).toISOString()
+        var password = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+
+        for (var i = 0; i < 6; i++) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        let meetingObject = {
+            "topic": topic.value,
+            "type": 2,
+            "start_time": $a,
+            "duration": duration.value,
+            "timezone": timezone.value,
+            "password": password,
+            "agenda": "",
+            "settings": {
+                "host_video": true,
+                "participant_video": true,
+                "join_before_host": true,
+                "mute_upon_entry": false,
+                "registrants_email_notification": true
             }
-            let stat = meetingObject
-            stat.group = this.props.group
-            stat.url = this.props.history.location.pathname
-             document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
-          //  document.location.href = this.props.history.location.pathname + `?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(stat))}`;
         }
+        let stat = meetingObject
+        stat.group = this.props.group
+        stat.url = this.props.history.location.pathname
+        document.location.href = `https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
+        //  document.location.href = this.props.history.location.pathname + `?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(stat))}`;
+    }
 
-        createmeeting = async () => {
 
+    render() {
+        return (
+            <>
+                <div className="create-cont">
+                    <div className="login-container" style={{ borderRadius: '0px', padding: '2%' }}>
+                        <Toast
 
-      
-    let response = await apiClient.sendPost('/api/chat/meeting',{meetingObject,"code":this.state.code})
-    console.log(response)
-           // fetch('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings', {
-            //    authorization: "Bearer "+ this.state.code,
-             //   body: JSON.stringify(meetingObject),
-            //    Origin: 'loalhost:8000',
-           //     method: 'post'
-       ///     }).then(resp => resp.json()).then(resp => console.log(resp))
-          
-        }
+                            show={this.state.toast.show ? "show" : ''}
+                            color={this.state.toast.color}
+                            title={this.state.toast.title}
+                            message={this.state.toast.message}
+                            cleanToast={this.activity.cleanToast}
+                        />
 
-        render() {
-            return (
-                <>
-                    <div className="create-cont">
-                        <div className="login-container" style={{ borderRadius: '0px', padding: '2%' }}>
-                            <Toast
-
-                                show={this.state.toast.show ? "show" : ''}
-                                color={this.state.toast.color}
-                                title={this.state.toast.title}
-                                message={this.state.toast.message}
-                                cleanToast={this.activity.cleanToast}
+                        <strong> Create Meeting</strong>
+                        <hr></hr>
+                        <form className="form" >
+                            <InputText
+                                type="text"
+                                id="topic"
+                                label="Topic"
+                                value={this.state.config.topic.value}
+                                getValues={this.activity.getValues}
+                                constraint={{ required: true }}
+                                reset={this.state.reset}
                             />
 
-                            <strong> Create Meeting</strong>
-                            <hr></hr>
-                            <form className="form" >
+                            <InputText
+                                type="text"
+                                id="description"
+                                label="Description (Optional)"
+                                value={this.state.config.description.value}
+                                getValues={this.activity.getValues}
+                                constraint={{ required: true }}
+                                reset={this.state.reset}
+                            />
+                            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                 <InputText
-                                    type="text"
-                                    id="topic"
-                                    label="Topic"
-                                    value={this.state.config.topic.value}
+                                    type="date"
+                                    id="start_date"
+                                    label="Start Date"
+                                    value={this.state.config.start_date.value}
                                     getValues={this.activity.getValues}
                                     constraint={{ required: true }}
                                     reset={this.state.reset}
                                 />
-
                                 <InputText
-                                    type="text"
-                                    id="description"
-                                    label="Description (Optional)"
-                                    value={this.state.config.description.value}
+                                    type="time"
+                                    id="start_time"
+                                    label="Start Time"
+                                    value={this.state.config.start_time.value}
                                     getValues={this.activity.getValues}
                                     constraint={{ required: true }}
                                     reset={this.state.reset}
                                 />
-                                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                                    <InputText
-                                        type="date"
-                                        id="start_date"
-                                        label="Start Date"
-                                        value={this.state.config.start_date.value}
-                                        getValues={this.activity.getValues}
-                                        constraint={{ required: true }}
-                                        reset={this.state.reset}
-                                    />
-                                    <InputText
-                                        type="time"
-                                        id="start_time"
-                                        label="Start Time"
-                                        value={this.state.config.start_time.value}
-                                        getValues={this.activity.getValues}
-                                        constraint={{ required: true }}
-                                        reset={this.state.reset}
-                                    />
-                                </div>
-                                <InputText
-                                    type="number"
-                                    id="duration"
-                                    label="Duration (mins)"
-                                    value={this.state.config.duration.value}
-                                    getValues={this.activity.getValues}
-                                    constraint={{ required: true, max: 40, number: true }}
-                                    reset={this.state.reset}
-                                />
+                            </div>
+                            <InputText
+                                type="number"
+                                id="duration"
+                                label="Duration (mins)"
+                                value={this.state.config.duration.value}
+                                getValues={this.activity.getValues}
+                                constraint={{ required: true, max: 40, number: true }}
+                                reset={this.state.reset}
+                            />
 
-                                <SelectInput
-                                    id="timezone"
-                                    isLoading={this.state.timezoneloading}
-                                    data={this.state.timezone}
-                                    label="Timezone"
+                            <SelectInput
+                                id="timezone"
+                                isLoading={this.state.timezoneloading}
+                                data={this.state.timezone}
+                                label="Timezone"
 
-                                    value={this.state.config.timezone.value}
-                                    getValues={this.activity.getValues}
-                                    reset={this.state.reset}
-                                />
+                                value={this.state.config.timezone.value}
+                                getValues={this.activity.getValues}
+                                reset={this.state.reset}
+                            />
 
 
-                                <button onClick={(e) => { e.preventDefault(); this.authCreate() }} className="bbhf_btn bbhf_btn_green" disabled={!this.activity.inputState() || this.state.invalid}>
-                                    {this.state.loader ? <span style={{ display: "flex" }}><Loader />Processing</span> :
-                                        "Create Meeting"}</button>
+                            <button onClick={(e) => { e.preventDefault(); this.authCreate() }} className="bbhf_btn bbhf_btn_green" disabled={this.activity.inputState() || this.state.invalid}>
+                                {this.state.loader ? <span style={{ display: "flex" }}><Loader />Processing</span> :
+                                    "Create Meeting"}</button>
 
 
-                            </form>
+                        </form>
 
-                        </div>
                     </div>
-                </>
-            )
-        }
+                </div>
+            </>
+        )
     }
+}
 
 
 function JoinMeeting(props) {

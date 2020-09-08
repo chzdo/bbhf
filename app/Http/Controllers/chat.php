@@ -9,6 +9,7 @@ use App\SponsorChat;
 use App\VolunteerChat;
 use App\Events\websock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -132,7 +133,7 @@ $meeting = $response->json();
 
 if(isset($meeting['error'])){
   
-  return redirect($state->url.'?q='.base64_encode($meeting['error']).'&state='.json_encode($state));
+  return redirect($state->url.'?code=0&q='.base64_encode($meeting['error']).'&state='.json_encode($state));
 }
 
 
@@ -142,7 +143,27 @@ $resp = Http::withHeaders([
  
 ])->withBody(json_encode($state),'application/json')->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings',);
 
-var_dump($resp->body());
+$resp = $resp->json();
+if(isset($resp['code'])){
+  return redirect($state->url.'?code=0&q='.base64_encode($resp['message']).'&state='.json_encode($state));
+}
+
+ $save = DB::table('meetings')->create([
+  'meeting_id' => $resp['id'],
+  'password' => $resp['passsword'],
+  'start_time' => $resp['start_time'],
+  'topic' => $resp['topic'],
+  'duration' => $resp['duration'],
+  'timezone'=> $resp['timezone'],
+  'group'=> $state->group
+]);
+
+if ($save){
+  return redirect($state->url.'?code=1&q='.$resp['id']);
+}else{
+  return redirect($state->url.'?code=0&q='.base64_encode("Something went wrong!"));
+}
+
 
 }
 
