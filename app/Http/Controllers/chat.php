@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Broadcast;
 use App\Events\MemberChat as EventsMemberChat;
+use Meetings;
 
 class chat extends Controller
 {
@@ -129,25 +130,27 @@ $state = json_decode($r->state);
 $meeting = $response->json();
 
 
-
+/** 
 
 if(isset($meeting['error'])){
   
   return redirect($state->url.'?code=0&q='.base64_encode($meeting['error']).'&state='.json_encode($state));
 }
-
+return
+*/
 
 $resp = Http::withHeaders([
-  'Authorization' => 'Bearer '.$meeting['access_token'],
+  'Authorization' => 'Bearer '.$meeting['error'],
   "Content-Type" => "application/json"
  
 ])->withBody(json_encode($state),'application/json')->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings',);
-return
+
+//$resp= $meeting;
 $resp = $resp->json();
 if(isset($resp['code'])){
   return redirect($state->url.'?code=0&q='.base64_encode($resp['message']).'&state='.json_encode($state));
 }
-
+var_dump($resp->json());
  $save = DB::table('meetings')->create([
   'meeting_id' => $resp['id'],
   'password' => $resp['passsword'],
