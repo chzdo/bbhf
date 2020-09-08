@@ -158,7 +158,7 @@ class CreateMeeting extends Component {
 
     }
     authCreate = () =>{
-        document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat&state='+this.state;
+        document.location.href ='https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state='+this.state;
      
     }
 
