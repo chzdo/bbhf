@@ -165,7 +165,7 @@ class CreateMeeting extends Component {
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             var charactersLength = characters.length;
 
-            for (var i = 0; i < charactersLength; i++) {
+            for (var i = 0; i < 6; i++) {
                 password += characters.charAt(Math.floor(Math.random() * charactersLength));
             }
 
@@ -173,7 +173,7 @@ class CreateMeeting extends Component {
                 "topic": topic.value,
                 "type": 2,
                 "start_time": $a,
-                "duration": duration,
+                "duration": duration.value,
                 "timezone": timezone.value,
                 "password": password,
                 "agenda": "",
