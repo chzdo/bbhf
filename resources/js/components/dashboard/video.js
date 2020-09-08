@@ -159,21 +159,6 @@ class CreateMeeting extends Component {
         }
         }
         authCreate = () => {
-         Axios.post(
-            'https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings'
-           ,{
-               'authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIwYzk3ODkyMy03NTFhLTRmODUtYjRlMi02ODg4MjY1MzZlOGIifQ.eyJ2ZXIiOjcsImF1aWQiOiJmMTBlM2MyMGJjZTkxNDM3Y2NmODkyZGQwMzgyNTQ2MSIsImNvZGUiOiJRelhlckJiZEFrX3pRNUdYenY3UmRpb0pxUkRLN3hBY1EiLCJpc3MiOiJ6bTpjaWQ6WHBOWmUxTGxRNWVUZHp4b28zN3BnIiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsInVpZCI6InpRNUdYenY3UmRpb0pxUkRLN3hBY1EiLCJuYmYiOjE1OTk1ODE2NjcsImV4cCI6MTU5OTU4NTI2NywiaWF0IjoxNTk5NTgxNjY3LCJhaWQiOiI3ZmFxZnVwNlNQSzE5emUtUDZPRFZ3IiwianRpIjoiZjU0Yjk5Y2EtMmIxNi00YmU0LWI3NzQtM2RkNzE3ZTVlOTllIn0.AdS7mtM47FJjrv1PaqsW_Pchqi55FUN481UHqncTz8Zz8Pbtz9U6DiEuaQOO0bNbfS2kLs6V1xlgPGxpLd05SA","token_type":"bearer","refresh_token":"eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIxZTVkZmE4Yi00ODhhLTRmOGItOGVjNS00Y2QzNmJhOWMwNzQifQ.eyJ2ZXIiOjcsImF1aWQiOiJmMTBlM2MyMGJjZTkxNDM3Y2NmODkyZGQwMzgyNTQ2MSIsImNvZGUiOiJRelhlckJiZEFrX3pRNUdYenY3UmRpb0pxUkRLN3hBY1EiLCJpc3MiOiJ6bTpjaWQ6WHBOWmUxTGxRNWVUZHp4b28zN3BnIiwiZ25vIjowLCJ0eXBlIjoxLCJ0aWQiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsInVpZCI6InpRNUdYenY3UmRpb0pxUkRLN3hBY1EiLCJuYmYiOjE1OTk1ODE2NjcsImV4cCI6MjA3MjYyMTY2NywiaWF0IjoxNTk5NTgxNjY3LCJhaWQiOiI3ZmFxZnVwNlNQSzE5emUtUDZPRFZ3IiwianRpIjoiMzc4YzdiZDQtYmVlNi00YzI1LTk0YTQtMzY5M2UzZmVkN2QwIn0.AHmzqeYdNyhfCS8vfbKhSYNL9eQyEphOgfxIRuQ-DkCsK-yrLfx2PL4f6jqjUPru8sd0_lAGvsPa8Bt-ZhkGOw'
-           }
-         ).then(resp=>console.log(resp.data));
-         return;
-            let stat = {"config":this.state.config,"timezoneloading":this.state.timezoneLoading}
-             document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
-          //  document.location.href = this.props.history.location.pathname + `?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(stat))}`;
-        }
-
-        createmeeting = async () => {
-
-
             let { topic, start_time, duration, timezone, agenda, settings } = this.state.config
             let $a = new Date(this.state.config.start_date.value + ' ' + this.state.config.start_time.value).toISOString()
             var password = '';
@@ -200,6 +185,15 @@ class CreateMeeting extends Component {
                     "registrants_email_notification": true
                 }
             }
+            let stat = meetingObject
+             document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
+          //  document.location.href = this.props.history.location.pathname + `?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(stat))}`;
+        }
+
+        createmeeting = async () => {
+
+
+      
     let response = await apiClient.sendPost('/api/chat/meeting',{meetingObject,"code":this.state.code})
     console.log(response)
            // fetch('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings', {
