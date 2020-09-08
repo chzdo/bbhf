@@ -147,7 +147,7 @@ $resp = $resp->json();
 if(isset($resp['code'])){
   return redirect($state->url.'?code=0&q='.base64_encode($resp['message']).'&state='.json_encode($state));
 }
-
+return
  $save = DB::table('meetings')->create([
   'meeting_id' => $resp['id'],
   'password' => $resp['passsword'],
