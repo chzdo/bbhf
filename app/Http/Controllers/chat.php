@@ -131,7 +131,7 @@ var_dump($state->url);
 
 if(isset($meeting['error'])){
   var_dump('hello');
-  return redirect()->route($state->url,["message"=>base64_encode($meeting['error'])]);
+  return redirect()->route($state->url);
 }
 /** 
 $resp = Http::withHeaders([
