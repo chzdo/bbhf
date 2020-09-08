@@ -130,17 +130,15 @@ $state = json_decode($r->state);
 $meeting = $response->json();
 
 
-/** 
+
 
 if(isset($meeting['error'])){
   
   return redirect($state->url.'?code=0&q='.base64_encode($meeting['error']).'&state='.json_encode($state));
 }
-return
-*/
 
 $resp = Http::withHeaders([
-  'Authorization' => 'Bearer '.$meeting['error'],
+  'Authorization' => 'Bearer '.$meeting['access_token'],
   "Content-Type" => "application/json"
  
 ])->withBody(json_encode($state),'application/json')->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings',);
