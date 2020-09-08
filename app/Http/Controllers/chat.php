@@ -112,7 +112,7 @@ function zoomAuth(Request $req){
 }
 
 function createVideo(Request $r){
-var_dump($r->input()) return
+var_dump($r->input()); return;
   $response = Http::get('https://zoom.us/oauth/token?grant_type=authorization_code&code=obBEe8ewaL_KdYKjnimT4KPd8KKdQt9FQ&redirect_uri=https://yourapp.com', [
     'name' => 'Taylor',
     'page' => 1,
