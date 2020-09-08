@@ -138,7 +138,7 @@ $resp = Http::withHeaders([
   'Authorization' => 'Bearer '.$meeting['access_token'],
   "Content-Type" => "application/json"
  
-])->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings');
+])->withBody($state,'application/json')->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings');
 
 var_dump($resp->body());
 
