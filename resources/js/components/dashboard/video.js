@@ -218,15 +218,7 @@ class CreateMeeting extends Component {
                                 reset={this.state.reset}
                             />
 
-                            <InputText
-                                type="text"
-                                id="description"
-                                label="Description (Optional)"
-                                value={this.state.config.description.value}
-                                getValues={this.activity.getValues}
-                                constraint={{ required: true }}
-                                reset={this.state.reset}
-                            />
+                         
                             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                 <InputText
                                     type="date"
