@@ -129,7 +129,7 @@ $meeting = $response->json();
 
 var_dump($meeting);
 
-var_dump($meeting['access_token']);
+var_dump($meeting['error']);
 $resp = Http::withHeaders([
   'Authorization' => 'Bearer '.$meeting->access_token,
   "Content-Type" => "application/json"
