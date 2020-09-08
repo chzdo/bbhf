@@ -144,7 +144,7 @@ class CreateMeeting extends Component {
             a.forEach(element => {
 
                 let temp = element.split("=")
-                arr[temp[0]] = decodeURIComponent(temp[1])
+                arr[temp[0]] = temp[1]
             });
 
             let newV = JSON.parse(arr.state)
@@ -154,7 +154,7 @@ class CreateMeeting extends Component {
            await  this.props.history.push(this.props.history.location.pathname)
             this.createmeeting()
         }else{
-            fetch('http://worldtimeapi.org/api/timezone', {
+            fetch('https://worldtimeapi.org/api/timezone', {
 
 
                 method: 'get',
