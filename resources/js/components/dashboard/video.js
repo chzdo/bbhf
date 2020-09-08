@@ -21,6 +21,7 @@ import axios from 'axios'
 import Toast from '../toast'
 
 import Activity from '../reactact'
+import Axios from 'axios';
 
 export default function VideoComponent(props) {
     let { path, url } = useRouteMatch()
@@ -158,9 +159,11 @@ class CreateMeeting extends Component {
         }
         }
         authCreate = () => {
+         Axios.post(
 
+         )
             let stat = {"config":this.state.config,"timezoneloading":this.state.timezoneLoading}
-             document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fapi%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
+             document.location.href =`https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
           //  document.location.href = this.props.history.location.pathname + `?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fdashboard%2Fin%2Fmembers%2Fchat%2Fvideo&state=${encodeURIComponent(JSON.stringify(stat))}`;
         }
 

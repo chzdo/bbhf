@@ -64,7 +64,8 @@ Route::get('demo',function(){
     Broadcast(new websock('some'));
     return view('pages.donate');
 });
-
+Route::get('/chat/meeting','chat@getAuth');
+Route::get('/chat/zoomtoken','chat@createVideo');
 Route::get('/zoomToken','chat@zoomAuth');
 Route::get('/donate/{category?}/{project?}',"donors@showWeb")->name('donations');
 Route::get('/services/{section?}', "services@index" )->name('services')->middleware('services');

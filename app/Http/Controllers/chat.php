@@ -114,13 +114,12 @@ function zoomAuth(Request $req){
 
 function getAuth(Request $r){
   echo 'Please Wait.......';
-
+ // https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fzoomtoken
   $response = Http::withHeaders([
-    'Authorization' => base64_encode('XpNZe1LlQ5eTdzxoo37pg:4RtdzIf9uxTGbjEL0EqvdAE4dLd07GeE'),
+    'Authorization' => 'Basic '.base64_encode('XpNZe1LlQ5eTdzxoo37pg:4RtdzIf9uxTGbjEL0EqvdAE4dLd07GeE'),
    
-])->post('https://zoom.us/oauth/token?grant_type=authorization_code&code='.$r->input('code').'&redirect_uri=https://bbhf.herokuapp.com/api/chat/zoomtoken&state='.$r->input('state'));
- 
-
+])->post('https://zoom.us/oauth/token?grant_type=authorization_code&code='.$r->input('code').'&redirect_uri=https://bbhf.herokuapp.com/chat/meeting&state='.$r->input('state'));
+ var_dump($response->body());
 
 }
 function createVideo(Request $r){
