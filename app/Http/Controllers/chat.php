@@ -140,7 +140,7 @@ $resp = Http::withHeaders([
  
 ])->post('https://api.zoom.us/v2/users/chido.nduaguibe@gmail.com/meetings');
 
-var_dump($resp->json());
+var_dump($resp->body());
 
 }
 
