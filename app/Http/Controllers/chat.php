@@ -127,10 +127,10 @@ $state = json_decode($r->state);
 $meeting = $response->json();
 
 
-var_dump($meeting);
+var_dump($state->url);
 
-var_dump($meeting['error']);
 if(isset($meeting['error'])){
+  var_dump('hello');
   return redirect()->route($state->url,["message"=>base64_encode($meeting['error'])]);
 }
 /** 
