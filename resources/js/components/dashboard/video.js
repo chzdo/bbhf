@@ -129,19 +129,18 @@ class CreateMeeting extends Component {
             a.forEach(element => {
 
                 let temp = element.split("=")
-                arr[temp[0]] = decodeURIComponent(temp[1])
+                arr[temp[0]] = temp[1]
             });
 
-            let newV = JSON.parse(arr.state)
-            newV.code = arr.code
-            if (newV.code == 0) {
-                this.setState({ config: newV.state })
-                this.activity.formend(0, atob(newV.q))
+           
+            if (arr.code == 0) {
+               
+      await     this.activity.formend({'code':0, 'message':atob(arr.q)})
 
             } else {
-                this.activity.formend(1, "Meeting Created id is " + newV.q)
+              await  this.activity.formend({'code':1, 'message':"Meeting Created id is " +arr.q} )
             }
-
+          
             await this.props.history.push(this.props.history.location.pathname)
 
         }
