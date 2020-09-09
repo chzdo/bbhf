@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Broadcast;
 use App\Events\MemberChat as EventsMemberChat;
+use Carbon\Carbon;
 use Meetings;
 
 class chat extends Controller
@@ -130,8 +131,6 @@ $state = json_decode($r->state);
 $meeting = $response->json();
 
 
-
-
 if(isset($meeting['error'])){
   
   return redirect($state->url.'?code=0&q='.base64_encode($meeting['error']).'&state='.json_encode($state));
@@ -153,12 +152,13 @@ if(isset($resp['code'])){
  $save = DB::table('meetings')->insert([
   'meeting_id' => $resp['id'],
   'password' => $resp['password'],
-  'start_time' => $resp['start_time'],
+  'start_time' => Carbon::createFromDate($resp['start_time']),
   'topic' => $resp['topic'],
   'duration' => $resp['duration'],
   'timezone'=> $resp['timezone'],
   'group'=> $state->group
 ]);
+
 if ($save){
   return redirect($state->url.'?code=1&q='.$resp['id']);
 }else{
