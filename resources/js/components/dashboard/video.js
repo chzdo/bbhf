@@ -118,10 +118,18 @@ class CreateMeeting extends Component {
             timezone: [],
             timezoneLoading: true
         }
+        this.default = this.state.config
     }
 
     async componentDidMount() {
+        fetch('https://worldtimeapi.org/api/timezone', {
 
+
+            method: 'get',
+
+        }).then(resp => {
+            return resp.json()
+        }).then(r => this.setState({ timezone: r, timezoneloading: false }))
         let arr = {}
 
         if (this.props.history.location.search) {
@@ -138,20 +146,15 @@ class CreateMeeting extends Component {
       await     this.activity.formend({'code':0, 'message':atob(arr.q)})
 
             } else {
-              await  this.activity.formend({'code':1, 'message':"Meeting Created id is " +arr.q} )
+                this.activity.formend({'code':1, 'message':"Meeting Created with id "+ arr.q})
+            
             }
           
             await this.props.history.push(this.props.history.location.pathname)
 
         }
-        fetch('https://worldtimeapi.org/api/timezone', {
-
-
-            method: 'get',
-
-        }).then(resp => {
-            return resp.json()
-        }).then(r => this.setState({ timezone: r, timezoneloading: false }))
+     
+    
 
     }
     authCreate = () => {
