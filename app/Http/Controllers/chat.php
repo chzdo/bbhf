@@ -153,6 +153,7 @@ if(isset($resp['code'])){
   'meeting_id' => $resp['id'],
   'password' => $resp['password'],
   'start_time' => Carbon::createFromDate($resp['start_time']),
+  "stop_time" => Carbon::createFromDate($resp['start_time'])->addMinutes($resp['duration']),
   'topic' => $resp['topic'],
   'duration' => $resp['duration'],
   'timezone'=> $resp['timezone'],
@@ -173,5 +174,15 @@ if ($save){
 function createVideo(Request $r){
   var_dump($r->input());
 
+}
+
+function meetings(Request $re){
+
+  if($re->has('group')){
+ $meetings =   DB::table('meetings')->where('group',$re->group)->where('stop_time','<=',Carbon::now())->orderbyDesc('start_time')->get();
+
+ return response()->json(['code'=>1, 'message'=>$meetings]);
+  }
+  return response()->json(['code'=>0, 'message'=>"Something went wrong"]);
 }
 }

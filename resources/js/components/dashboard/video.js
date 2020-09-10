@@ -28,16 +28,7 @@ export default function VideoComponent(props) {
     let params = useParams()
     let history = useHistory()
 
-    let auth = () => {
-        document.location.href = 'https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat';
-        fetch('https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Ffresh-shrimp-23.loca.lt%2Fdashboard%2Fin%2Fmembers%2Fchat', {
-            mode: 'no-cors',
-            credentials: 'include',
-            Origin: 'localhost:8000',
-            method: 'get'
 
-        }).then(resp => resp.text()).then(resp => console.log(resp))
-    }
 
     return (
         <>
@@ -51,10 +42,11 @@ export default function VideoComponent(props) {
 
                     <Switch>
                         <Route exact path={path}>
-                            <CreateMeeting group={props.group} history={history} params={params} />
-                        </Route>
-                        <Route path={`${path}/video`}>
                             <JoinMeeting group={props.group} />
+                        </Route>
+                        <Route path={`${path}/create`}>
+                            <CreateMeeting group={props.group} history={history} params={params} />
+
                         </Route>
                     </Switch>
                 </div>
@@ -63,6 +55,79 @@ export default function VideoComponent(props) {
     )
 
 }
+
+
+
+
+const timezone = [
+    {
+    "id":'Pacific/Midway',
+    "name":	'Midway Island, Samoa'
+},  
+ {
+    "id":'Pacific/Pago_Pago',
+    "name":	'Pago Pago'
+},
+{
+    "id":'Etc/Greenwich',
+    "name":	'Greenwich Mean Time'
+},
+{
+    "id":'Africa/Casablanca',
+    "name":	'Casablanca'
+},  
+ {
+    "id":'Africa/Nouakchott',
+    "name":	'Nouakchott'
+},
+{
+    "id":'Africa/Bangui',
+    "name":	'West Central Africa'
+},
+{
+    "id":'Africa/Algiers',
+    "name":	'Algiers'
+},  
+ {
+    "id":'Africa/Cairo',
+    "name":	'Cairo'
+},
+{
+    "id":'Africa/Tripoli',
+    "name":	'Tripoli'
+},
+{
+    "id":'Africa/Nairobi',
+    "name":	'Nairobi'
+},  
+ {
+    "id":'Africa/Harare',
+    "name":	'Harare, Pretoria'
+},
+{
+    "id":'Africa/Tunis',
+    "name":	'Tunis'
+},
+{
+    "id":'Africa/Mogadishu',
+    "name":	'Mogadishu'
+},
+{
+    "id":'Africa/Djibouti',
+    "name":	'Djibouti'
+},  
+ {
+    "id":'Africa/Khartoum',
+    "name":	'Khartoum'
+},
+{
+    "id":'Africa/Johannesburg',
+    "name":	'Johannesburg'
+},
+
+	
+	
+]
 
 
 class CreateMeeting extends Component {
@@ -87,7 +152,7 @@ class CreateMeeting extends Component {
                     value: '',
                     state: false
                 },
-              
+
                 start_time: {
                     value: '',
                     state: false
@@ -105,8 +170,8 @@ class CreateMeeting extends Component {
                     value: '',
                     state: false
                 },
-             
-             
+
+
                 settings: {
                     "host_video": true,
                     "participant_video": true,
@@ -122,14 +187,7 @@ class CreateMeeting extends Component {
     }
 
     async componentDidMount() {
-        fetch('https://worldtimeapi.org/api/timezone', {
-
-
-            method: 'get',
-
-        }).then(resp => {
-            return resp.json()
-        }).then(r => this.setState({ timezone: r, timezoneloading: false }))
+  
         let arr = {}
 
         if (this.props.history.location.search) {
@@ -140,27 +198,27 @@ class CreateMeeting extends Component {
                 arr[temp[0]] = temp[1]
             });
 
-           
+
             if (arr.code == 0) {
-               
-      await     this.activity.formend({'code':0, 'message':atob(arr.q)})
+
+                await this.activity.formend({ 'code': 0, 'message': atob(arr.q) })
 
             } else {
-                this.activity.formend({'code':1, 'message':"Meeting Created with id "+ arr.q})
-            
+                this.activity.formend({ 'code': 1, 'message': "Meeting Created with id " + arr.q })
+
             }
-          
+
             await this.props.history.push(this.props.history.location.pathname)
 
         }
-     
-    
+
+
 
     }
     authCreate = () => {
-        this.setState({loader:true,invalid:true})
+        this.setState({ loader: true, invalid: true })
         let { topic, start_time, duration, timezone, agenda, settings } = this.state.config
-        let $a = new Date(this.state.config.start_date.value + ' ' + this.state.config.start_time.value).toISOString()
+        let $a = new Date(this.state.config.start_date.value + 'T' + this.state.config.start_time.value)
         var password = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         var charactersLength = characters.length;
@@ -186,6 +244,7 @@ class CreateMeeting extends Component {
             }
         }
         let stat = meetingObject
+        console.log(stat)
         stat.group = this.props.group
         stat.url = this.props.history.location.pathname
         document.location.href = `https://zoom.us/oauth/authorize?response_type=code&client_id=XpNZe1LlQ5eTdzxoo37pg&redirect_uri=https%3A%2F%2Fbbhf.herokuapp.com%2Fchat%2Fmeeting&state=${encodeURIComponent(JSON.stringify(stat))}`;
@@ -220,7 +279,7 @@ class CreateMeeting extends Component {
                                 reset={this.state.reset}
                             />
 
-                         
+
                             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                                 <InputText
                                     type="date"
@@ -253,10 +312,10 @@ class CreateMeeting extends Component {
 
                             <SelectInput
                                 id="timezone"
-                                isLoading={this.state.timezoneloading}
-                                data={this.state.timezone}
+                                isLoading={false}
+                                data={timezone}
                                 label="Timezone"
-
+                                valueKeys = {{label:'name', value:'id'}}
                                 value={this.state.config.timezone.value}
                                 getValues={this.activity.getValues}
                                 reset={this.state.reset}
@@ -278,10 +337,68 @@ class CreateMeeting extends Component {
 }
 
 
-function JoinMeeting(props) {
+function JoinMeeting({ group }) {
+
+    function Meeting({topic , start_time, duration, meeting_id,group, password}) {
+
+       let {first_name, last_name, email ,role_id} = useContext(Provider)
+        let role = role_id == 4 ? 1:0
+        let { path, url } = useRouteMatch()
+        let params = {f:first_name,l:last_name,email:email,mid:meeting_id,role:role,pwd:password,url:url}
+        return (
+            <>
+                <div className="meeting-cont">
+                    <div className="m-group">
+                        <span className="topic ">{topic} </span>
+                        <span className="time">{start_time}</span>
+                        <span className="duration" >{`${duration} mins`}</span>
+                    </div>
+                    <div className="m-group">
+                      <a href={`/dashboard/video?${btoa(JSON.stringify(params))}`} className="a btn btn-warning">Join meeting</a>
+                      
+                    </div>
+                </div>
+
+                
+            </>
+        )
+    }
+const [meetings,setMeeting] = useState([])
+const [network,setNetwork] = useState(false)
+const [loading,setLoading] = useState(true)
+    useEffect(() => {
+        let cancel
+        Axios.get('/api/video/meetings', {
+            cancelToken: new Axios.CancelToken(e => cancel = e),
+            params: {
+                "group": group
+            }
+        }).then(resp => {
+            setLoading(false)
+            if (resp.data.code == 1) {
+                setMeeting(resp.data.message)
+
+                setNetwork(false)
+            } else {
+                setNetwork(true)
+            }
+        }
+        )
+
+        return () => cancel()
+    }, [group])
     return (
         <>
-            Create Meeting
+
+        
+            <div className="meetlist" >
+            {loading ? <span className="w-100 d-flex justify-content-center align-items-center text-white"><Loader  /></span> : network ? <Network action={f} /> :
+		  <div className="meetlist-inner">
+                {meetings.map((data,i)=><Meeting key={i} {...data}  />)}
+                </div>
+
+    }
+            </div>
         </>
     )
 }

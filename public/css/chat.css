@@ -35,6 +35,59 @@ align-self: center;
 	background: white;
 	height: 100%;
 }
+.meetlist{
+	display:flex;
+	width:100%;
+	position:relative;
+	overflow: scroll;
+	padding:1.5%;
+justify-content: center;
+
+	background:white;
+	flex:1;
+
+}
+.meetlist-inner{
+	display:flex;
+	flex-flow: column ;
+	padding:1%;
+	overflow:auto;
+
+	width:100%
+}
+.m-group{
+	display:flex;
+	flex-direction: column;
+}
+
+.m-group .topic{
+	font-size:1em;
+	font-weight: 900;
+	color:black
+}
+.m-group .duration, .m-group .time{
+	font-size:0.6em;
+
+	color:#888;
+}
+.m-group a{
+	display:none;
+}
+.meeting-cont:hover .m-group a{
+ display: block;
+  transition:all 0.6s ;
+}
+.meeting-cont:hover {
+	background: aliceblue;
+	 transition:all 0.6s ;
+   }
+.meeting-cont{
+	display:flex;
+	width:100%;
+	justify-content: space-between;
+	margin-bottom: 3px;
+
+}
 .met-menu > a{
 	text-decoration: none;
     color: white;

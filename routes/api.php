@@ -46,7 +46,8 @@ Route::get('/category/{category_id}/project', function(Request $req){
         Route::get('/chat/message','chat@fetchMessages');
         Route::post('/chat/message','chat@sendMessage');
         Route::get('/chat/friends','chat@friends');
-      
+        Route::get('/video/meetings','chat@meetings');
+        
        
 
         //members route

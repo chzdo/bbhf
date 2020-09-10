@@ -58,7 +58,8 @@ Route::prefix('dashboard')->group(function(){
    // })->middleware('auth')->name('dash');
    
     Route::view('/in/{path?}','dashboard.index')->middleware(['auth','checkrole'])->name('dash')->where('path','.*');
-
+   
+    Route::view('/video','dashboard.video')->middleware(['auth','checkrole'])->name('video');
 });
 Route::get('demo',function(){
     Broadcast(new websock('some'));

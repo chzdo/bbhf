@@ -18,3 +18,4 @@ require('./components/donate');
     require('./components/reset');
     require ('./components/forget')
     require ('./components/dashboard/index')
+  
