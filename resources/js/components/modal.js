@@ -161,11 +161,9 @@ export class ModalContent extends React.Component {
         let { email } = await this.props.user;
         this.setState(this.default)
         let response = await apiClient.get(this.props.modalurl.userUrl + email, {
-            cancelToken: new canceltoken(function executor(c) {
-                // An executor function receives a cancel function as a parameter
-                cancel = c;
-            }),
-            timeout: 10000
+            cancelToken: new Axios.CancelToken(c=>cancel = c)
+              ,
+            timeout: 20000
 
         })
         if (response.code == 1) {
@@ -193,7 +191,11 @@ export class ModalContent extends React.Component {
             await this.loadDetails()
         }
     }
-
+componentWillUnmount(){
+    if (cancel !== undefined) {
+        cancel();
+      }
+}
 
     render() {
         let { first_name, other_name, last_name, email, phone } = this.props.user

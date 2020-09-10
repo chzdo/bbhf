@@ -4,6 +4,7 @@ import apiClient from './axios'
 import MUIDataTable from "mui-datatables";
 import Loader, { Network, Head } from './loader';
 import Modal, { Application_list, ModalContent, List } from './modal'
+import Axios from 'axios';
 
 
 
@@ -13,7 +14,7 @@ import Modal, { Application_list, ModalContent, List } from './modal'
 
 
 
-
+let cancel
 
 
 export class TableWorker extends React.Component {
@@ -46,7 +47,10 @@ export class TableWorker extends React.Component {
     }
     reloadTable = async () => {
         await this.setState({ loader: true })
-        let response = await apiClient.get(this.props.tableUrl, { timeout: 50000 });
+        let response = await apiClient.get(this.props.tableUrl,  { 
+            
+            cancelToken: new Axios.CancelToken(c=>cancel = c),
+            timeout: 50000 });
         if (response.code == 1) {
             await this.setState({ loader: false, data: response.message, open: false, network: false })
         } else {
@@ -95,6 +99,8 @@ export class TableWorker extends React.Component {
             </>
         )
     }
-
+componentWillUnmount(){
+    cancel()
+}
 
 }

@@ -179,7 +179,7 @@ function createVideo(Request $r){
 function meetings(Request $re){
 
   if($re->has('group')){
- $meetings =   DB::table('meetings')->where('group',$re->group)->where('stop_time','<=',Carbon::now())->orderbyDesc('start_time')->get();
+ $meetings =   DB::table('meetings')->where('group',$re->group)->where('stop_time','>=',Carbon::now())->orderbyDesc('start_time')->get();
 
  return response()->json(['code'=>1, 'message'=>$meetings]);
   }

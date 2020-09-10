@@ -88,6 +88,16 @@ justify-content: center;
 	margin-bottom: 3px;
 
 }
+.friends-btn{
+position:absolute;
+top:0;
+left:0;
+border-radius:50%;
+box-shadow:0px 0px 1px 1px rgba(0, 0, 0, 0.171);
+background: royalblue;
+padding: 0.6em;
+z-index:5000000
+}
 .met-menu > a{
 	text-decoration: none;
     color: white;

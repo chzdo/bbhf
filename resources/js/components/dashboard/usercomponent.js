@@ -140,8 +140,7 @@ function ChatComponent(props) {
 				<div className="chat-menu">
 					<Link to={`${url}/video`}> <span className="text-primary m-1" style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faVideo} /> </span></Link>
 					<span className="text-warning m-1 " style={{ cursor: 'pointer' }} ><Link to={`${url}`}> <FontAwesomeIcon icon={faComment} /> </Link></span>
-					<span className="text-warning m-1 small-toggle" style={{ cursor: 'pointer' }} onClick={() => this.setState({ aside: !this.state.aside })}> <FontAwesomeIcon icon={faUserFriends} /> </span>
-				</div>
+					</div>
 			</header>
 
 			<Switch>

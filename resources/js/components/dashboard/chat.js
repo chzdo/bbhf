@@ -19,7 +19,7 @@ import { faFileUpload, faPaperPlane, faPaperclip, faVideo, faUserFriends, faComm
 
 let cancel;
 let canceltoken = Axios.CancelToken
-
+let channel;
 function SendMessage({ message, setMessage, context, group }) {
 
 	const [fs, setFs] = useState({ file: {}, drawer: false })
@@ -57,6 +57,7 @@ function SendMessage({ message, setMessage, context, group }) {
 			created_at: (new Date()),
 			user: context,
 			sendStatus: 0,
+			id : message[0].id + 1,
 			sendCode: message.length,
 			type: type
 		}
@@ -73,14 +74,17 @@ function SendMessage({ message, setMessage, context, group }) {
 
 		type == 1 ? await setFs({ file: {}, drawer: false }) : await setMs('')
 		message.push(newMe)
-		await setMessage(message)
+		let k = Object.values(message).sort((a, b) => b.id - a.id)
+		
+		await setMessage(k)
 
 
 
 		let response = await apiClient.sendPost('/api/chat/message', form, {
 			headers: {
 				Accept: 'multipart/form-data'
-			}
+			},
+			cancelToken: new Axios.CancelToken(c=>cancel = c)
 		})
 		var message_ = message
 
@@ -100,7 +104,9 @@ function SendMessage({ message, setMessage, context, group }) {
 
 	}
 
-
+	useEffect(()=>{
+		return ()=> cancel()
+	},[])
 	return (
 		<footer >
 			<div className={`${fs.drawer ? 'opendrawer' : ''} file-drawer`}>
@@ -324,7 +330,8 @@ export default class MessageComponent extends React.Component {
 			shouldScroll: false,
 			current: 1,
 			online: [],
-			switcher: false
+			switcher: false,
+			aside:false
 		}
 		console.log(props, process.env)
 	}
@@ -339,10 +346,7 @@ export default class MessageComponent extends React.Component {
 			params: {
 				group: this.props.group
 			},
-			cancelToken: new canceltoken(function executor(c) {
-				// An executor function receives a cancel function as a parameter
-				cancel = c;
-			}),
+			cancelToken: new Axios.CancelToken(c=>cancel = c),
 			timeout: 1000000
 		})]).then(async resp => {
 
@@ -376,7 +380,7 @@ export default class MessageComponent extends React.Component {
 
 	async componentDidMount() {
 
-		let channel;
+	
 		if (this.props.group == 1) {
 			channel = 'vol-chat';
 		} else if (this.props.group == 2) {
@@ -386,8 +390,8 @@ export default class MessageComponent extends React.Component {
 		} else {
 			channel = 'adm-chat';
 		}
-
-		window.Echo.join(channel)
+	
+		 window.Echo.join(channel)
 			.here((user) => {
 				let a = user.map(e => e.users_email)
 				this.setState({ online: a })
@@ -407,12 +411,12 @@ export default class MessageComponent extends React.Component {
 				this.setState({ message: message });
 
 			})
-
+			console.log(window.Echo)
 		this.loadChat()
 	}
 
 	setMessage = async (m) => {
-		await this.setState({ message: m, scroll: true });
+		await this.setState({ message: m});
 	}
 
 
@@ -422,6 +426,9 @@ export default class MessageComponent extends React.Component {
 
 	componentWillUnmount() {
 		cancel()
+		window.Echo.leave(channel)
+		console.log(window.Echo)
+    
 	}
 
 	componentDidUpdate(props, state) {
@@ -440,7 +447,8 @@ export default class MessageComponent extends React.Component {
 
 
 					<div className="main-container">
-
+					<span className="text-warning m-1 friends-btn small-toggle" style={{ cursor: 'pointer' }} onClick={() =>{ this.setState({ aside: !this.state.aside })}}> <FontAwesomeIcon icon={faUserFriends} /> </span>
+			
 						<main className={`${this.state.aside ? "closemain" : ''}`}>
 							<ChatMessage {...this.state} email={this.context.email} setUrl={() => this.setUrl()} setScroll={this.setScroll} setshouldScroll={() => this.setState({ shouldScroll: false })} callback={this.loadChat} />
 							<SendMessage message={this.state.message} setMessage={this.setMessage} context={this.context} group={this.props.group} />
@@ -513,7 +521,7 @@ function Friends({ aside, group, online }) {
 	useEffect(() => {
 
 		f();
-		() => cancel()
+	return	() => cancel()
 	}, [group])
 
 	let a = friends.filter(e => e.first_name.includes(searchkey) || e.last_name.includes(searchkey))
@@ -534,3 +542,5 @@ function Friends({ aside, group, online }) {
 
 
 }
+
+
