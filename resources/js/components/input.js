@@ -88,6 +88,7 @@ componentDidUpdate(prevprops,prevstate){
                         id={this.props.id}
                         type={this.state.nothidden? 'text':this.props.type}
                         max={this.props.max}
+                        disabled = {this.props.disabled}
                         min={this.props.min}
                         minLength={this.props.minLength}
                         value = {this.props.value}

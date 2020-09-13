@@ -1,7 +1,7 @@
-import React from 'react'
-import Image from '../main-logo.png'
+import { faArrowLeft, faNetworkWired } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faNetworkWired } from '@fortawesome/free-solid-svg-icons'
+import {Link} from 'react-router-dom'
+import React from 'react'
 
 export default function Loader (props){
 
@@ -26,11 +26,23 @@ export function Network(props){
     )
 }
 
+
+export function NotFound(props){
+   return(
+    <div className="d-flex flex-column m-5 "> 
+    <h3> Oops What you are looking for is not here..  <FontAwesomeIcon icon={faNetworkWired} /></h3>
+    <h6 style={{color:'#444'}}>Go Back</h6> 
+     <button onClick={props.action} className="bbhf_btn bbhf_btn_orange">
+         <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
+        </div>
+    )
+}
 export function Head(props) {
     return (<>
         <div className="page-head">
             <div className="breadcrumb">
-                {props.crumb.map((data,i)=> <a key={i} className="breadcrumb-item" href={data.route}>{data.title}</a>
+                {props.crumb.map((data,i)=> <Link key={i} className="breadcrumb-item" to={data.route}>{data.title}</Link>
   
                         )}
                </div>

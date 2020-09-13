@@ -61,6 +61,23 @@ Route::get('/category/{category_id}/project', function(Request $req){
             Route::post('/members/update','users@updateRole');
         
 
+            //project
+            Route::post('/projects/create','projects@createProject');
+            Route::get('/projects/list','projects@list');
+            Route::get('/donate/list','projects@donation');
+            Route::get('/projects/list/{id}','projects@project');
+            Route::post('/projects/active','projects@active');
+
+
+            //news
+             //project
+             Route::post('/news/create','news@create');
+             Route::get('/news/list','news@list');
+             Route::get('/news/list/new','news@new');
+             Route::get('/news/list/{id}','news@news');
+             Route::post('/news/list/approve','news@approve');
+             Route::post('/projects/active','news@active');
+
 
         //volunteer routes
        // volunteers

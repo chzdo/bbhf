@@ -3,14 +3,15 @@ import ReactDom from 'react-dom'
 import Sidebar from '../sidebar'
 
 import Donate from '../../donate'
-import { faUsers, faEye, faPaperclip, faArrowCircleDown, faUserFriends, faBriefcase, faEdit, faCheck, faHamburger } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faEye, faPaperclip, faArrowCircleDown, faUserFriends, faBriefcase, faEdit, faCheck, faHamburger, faMoneyCheck , faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import { Switch, Route, history, withRouter, useLocation, useHistory, Router } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Application, MemberList } from '../members'
 import { Volunteer_Application, VolunteerList } from '../volunteer'
 import ChatComponent,{ApplicationComponent, ListComponent }  from '../usercomponent'
 import Provider from '../usercontext'
-
+import CreateProject,{  ProjectList, DonateList } from '../project'
+import CreateNews,{  NewsList, ApproveList } from '../news'
 
 function Admin(props) {
 
@@ -114,13 +115,20 @@ function Admin(props) {
                 {
                     title: 'Create',
                     route: '/dashboard/in/projects/create',
-                    icon: faEye,
+                    icon: faPlusCircle,
 
                 },
                 {
-                    title: 'Chat/Report',
-                    route: '/dashboard/in/members/chat',
-                    icon: faBriefcase,
+                    title: 'Project List',
+                    route: '/dashboard/in/projects/list',
+                    icon: faPaperclip,
+
+                }
+                ,
+                {
+                    title: 'Donation',
+                    route: '/dashboard/in/donate/list',
+                    icon: faMoneyCheck,
 
                 }
             ]
@@ -136,8 +144,8 @@ function Admin(props) {
 
                 },
                 {
-                    title: 'View Active',
-                    route: '/dashboard/in/news/active/list',
+                    title: 'View News',
+                    route: '/dashboard/in/news/list',
                     icon: faEye,
 
                 },
@@ -211,12 +219,37 @@ function Admin(props) {
 
             main: () => <ChatComponent group='4'/>
         },
-        
+        {
+            path: "/dashboard/in/projects/create",
+
+            main: () => <CreateProject  />
+        },
+        {
+            path: '/dashboard/in/projects/list/:id',
+
+            main: () => <CreateProject  />
+        },
+        {
+            path: "/dashboard/in/projects/list",
+            
+            main: () => <ProjectList  />
+        },
+        {
+            path: "/dashboard/in/donate/list",
+            
+            main: () => <DonateList  />
+        },
+        {
+            path: "/dashboard/in/news/create",
+            
+            main: () => <CreateNews  />
+        },
         {
             path: "/shoelaces",
             sidebar: () => <div>shoelaces!</div>,
             main: () => <h2>Shoelaces</h2>
-        }
+        },
+      
     ];
     let r = routes();
     return (

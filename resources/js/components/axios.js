@@ -38,6 +38,10 @@ async sendPost(url,cred,config={}){
     }
         ;  }
         ).catch(error=>{  
+             if (this.axios.isCancel(error)) {
+            console.log("Request canceled", error.message);
+           return
+          }
             data.code = 0;
      data.message = "something went wrong";
      
@@ -53,7 +57,10 @@ async get(url,config={}){
        
         data = resp.data
     }).catch(error=>{
-     
+        if (this.axios.isCancel(error)) {
+            console.log("Request canceled", error.message);
+           return
+          }
             // handle error
             data = error;
             console.log(error);

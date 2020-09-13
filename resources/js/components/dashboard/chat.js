@@ -18,7 +18,7 @@ import { faFileUpload, faPaperPlane, faPaperclip, faVideo, faUserFriends, faComm
 
 
 let cancel;
-let canceltoken = Axios.CancelToken
+
 let channel;
 function SendMessage({ message, setMessage, context, group }) {
 
@@ -58,10 +58,12 @@ function SendMessage({ message, setMessage, context, group }) {
 			user: context,
 			sendStatus: 0,
 			id : message[0].id + 1,
-			sendCode: message.length,
+			sendCode: message[0].id + 1,
 			type: type
 		}
 
+		message.push(newMe)
+		let k = Object.values(message).sort((a, b) => b.id - a.id)
 
 		var form = new FormData()
 		form.append('user', context)
@@ -73,8 +75,7 @@ function SendMessage({ message, setMessage, context, group }) {
 		form.append(label, payload)
 
 		type == 1 ? await setFs({ file: {}, drawer: false }) : await setMs('')
-		message.push(newMe)
-		let k = Object.values(message).sort((a, b) => b.id - a.id)
+		
 		
 		await setMessage(k)
 
@@ -84,23 +85,25 @@ function SendMessage({ message, setMessage, context, group }) {
 			headers: {
 				Accept: 'multipart/form-data'
 			},
-			cancelToken: new Axios.CancelToken(c=>cancel = c)
-		})
-		var message_ = message
+			cancelToken: new Axios.CancelToken(e=> cancel = e)})
+	
+			let message_ =k
+		
+	
+			let obj = Object.values(k).filter(e=>{
+				if(e.sendCode == response.message ){
+					if (response.code == 1){
+					e.sendStatus = 1
+					e.filepath = response.payload
+					}else{
+						e.sendStatus = 2
+					}
+				}
+				return e
+			})
+	
 
-		if (response.code == 1 && message_[response.message].sendCode == response.message) {
-
-			message_[response.message].sendStatus = 1;
-
-			message_[response.message].file_path = response.payload;
-
-		} else if (response.code == 0 && message_[response.message].sendCode == response.message) {
-			message_[response.message].sendStatus = 2;
-		} else {
-			message_[newMe.sendCode].sendStatus = 2;
-		}
-
-		await setMessage(message_)
+		await setMessage(obj)
 
 	}
 
@@ -201,9 +204,11 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 
 
 	return (
-		<ul id="chat" onScroll={handleChange} ref={r => c = r} >
+		<>
+		{loading ? <span className="d-flex w-100 justify-content-center align-items-center">Loading...</span> : network ? <Network action={callback} /> : null}
 
-			{Object.keys(message).map((data, i) => {
+		<ul id="chat" onScroll={handleChange} ref={r => c = r} >
+				{Object.keys(message).map((data, i) => {
 				if (message.length == i + 1) {
 					return <li ref={firstElement} className={`chat-holder ${message[data].user.email == email ? 'me' : 'you'} `} key={i}>
 						<div className="cih">
@@ -217,10 +222,10 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 							</div>
 							<div className="chatbox">
 								<div className="chat-info">
-									<div className="message">
-										<span className="text-wrap ">{message[data].message}</span>
+								<div className="message">
+									<p class="main-message">{message[data].message}</p>	
 										{
-											message[data].type != 1 ? null : <span className="ml-2"><a style={{ border: '2px solid white', borderRadius: '50%', padding: '0.5em', textDecoration: 'none', color: "white" }} target='_blank' href={message[data].file_path} ><FontAwesomeIcon icon={faDownload} />  </a></span>
+											message[data].type != 1 ? null : <a className='dwl'  href={message[data].payload} target='_blank'><FontAwesomeIcon icon={faDownload} />  </a>
 										}
 									</div>
 								</div>
@@ -259,9 +264,9 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 							<div className="chatbox">
 								<div className="chat-info">
 									<div className="message">
-										<span className="text-wrap ">{message[data].message}</span>
+									<p class="main-message">{message[data].message}</p>	
 										{
-											message[data].type != 1 ? null : <span className="ml-2"><a style={{ border: '2px solid white', borderRadius: '50%', padding: '0.5em', textDecoration: 'none', color: "white" }} target='_blank' href={message[data].file_path} ><FontAwesomeIcon icon={faDownload} />  </a></span>
+											message[data].type != 1 ? null : <a className='dwl' href={message[data].file_path} target='_blank' ><FontAwesomeIcon icon={faDownload} />  </a>
 										}
 									</div>
 								</div>
@@ -289,11 +294,10 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 			}
 
 			<div ref={(el) => { bottom = el; }}></div>
-			{loading ? <span className="d-flex w-100 justify-content-center align-items-center"><Loader /> </span> : network ? <Network action={callback} /> : null}
-
+			
 		</ul>
 
-
+</>
 	)
 }
 
@@ -333,7 +337,7 @@ export default class MessageComponent extends React.Component {
 			switcher: false,
 			aside:false
 		}
-		console.log(props, process.env)
+	
 	}
 	setUrl = () => {
 		this.setState({ url: this.state.next_page_url })
@@ -341,16 +345,19 @@ export default class MessageComponent extends React.Component {
 
 	loadChat = () => {
 
+		 
 		this.setState({ loading: true })
-		Axios.all([Axios.get(this.state.url, {
+		Axios.get(this.state.url, {
 			params: {
 				group: this.props.group
 			},
-			cancelToken: new Axios.CancelToken(c=>cancel = c),
+			cancelToken: new Axios.CancelToken(function (c) {
+				cancel = c
+			}),
 			timeout: 1000000
-		})]).then(async resp => {
+		}).then(async resp => {
 
-			if (resp[0].data.code == 1 && resp[0].data.code == 1) {
+			if (resp.data.code == 1) {
 
 				let scroll = this.state.next_page_url == '' ? true : false;
 
@@ -373,7 +380,7 @@ export default class MessageComponent extends React.Component {
 		}).catch(e => {
 			this.setState({ loader: false, network: true })
 		})
-		return () => cancel()
+
 	}
 
 
@@ -408,10 +415,11 @@ export default class MessageComponent extends React.Component {
 
 				let { message } = this.state;
 				message.push(e.message);
-				this.setState({ message: message });
+				let k = Object.values(message).sort((a, b) => b.id - a.id)
+				this.setState({ message: k });
 
 			})
-			console.log(window.Echo)
+			
 		this.loadChat()
 	}
 
@@ -427,7 +435,7 @@ export default class MessageComponent extends React.Component {
 	componentWillUnmount() {
 		cancel()
 		window.Echo.leave(channel)
-		console.log(window.Echo)
+	
     
 	}
 
@@ -447,7 +455,7 @@ export default class MessageComponent extends React.Component {
 
 
 					<div className="main-container">
-					<span className="text-warning m-1 friends-btn small-toggle" style={{ cursor: 'pointer' }} onClick={() =>{ this.setState({ aside: !this.state.aside })}}> <FontAwesomeIcon icon={faUserFriends} /> </span>
+					<span className="m-1 friends-btn small-toggle" style={{ cursor: 'pointer' }} onClick={() =>{ this.setState({ aside: !this.state.aside })}}> <FontAwesomeIcon icon={faUserFriends} /> </span>
 			
 						<main className={`${this.state.aside ? "closemain" : ''}`}>
 							<ChatMessage {...this.state} email={this.context.email} setUrl={() => this.setUrl()} setScroll={this.setScroll} setshouldScroll={() => this.setState({ shouldScroll: false })} callback={this.loadChat} />
@@ -500,8 +508,9 @@ function Friends({ aside, group, online }) {
 		let response = await apiClient.get('/api/chat/friends', {
 			params: {
 				group: group,
-				cancelToken: new Axios.CancelToken(c => cancel = c)
-			}
+				
+			},
+			cancelToken: new Axios.CancelToken(c => cancel = c)
 		})
 
 		if (response.code == 1) {
@@ -523,6 +532,10 @@ function Friends({ aside, group, online }) {
 		f();
 	return	() => cancel()
 	}, [group])
+
+	useEffect(()=>{
+		return	() => cancel()
+	},[])
 
 	let a = friends.filter(e => e.first_name.includes(searchkey) || e.last_name.includes(searchkey))
 	return (
