@@ -3,7 +3,7 @@ import ReactDom from 'react-dom'
 import Sidebar from '../sidebar'
 
 import Donate from '../../donate'
-import { faUsers, faEye, faPaperclip, faArrowCircleDown, faUserFriends, faBriefcase, faEdit, faCheck, faHamburger, faMoneyCheck , faPlusCircle} from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faEye, faPaperclip, faArrowCircleDown, faUserFriends, faBriefcase, faEdit, faCheck, faHamburger, faMoneyCheck , faPlusCircle, faUserLock, faUserEdit} from '@fortawesome/free-solid-svg-icons'
 import { Switch, Route, history, withRouter, useLocation, useHistory, Router } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Application, MemberList } from '../members'
@@ -12,7 +12,7 @@ import ChatComponent,{ApplicationComponent, ListComponent }  from '../usercompon
 import Provider from '../usercontext'
 import CreateProject,{  ProjectList, DonateList } from '../project'
 import CreateNews,{  NewsList, ApproveList } from '../news'
-
+import {UserPassword, UserProfile} from '../settings'
 function Admin(props) {
 
     const context = useContext(Provider)
@@ -115,7 +115,7 @@ function Admin(props) {
                 {
                     title: 'Create',
                     route: '/dashboard/in/projects/create',
-                    icon: faPlusCircle,
+                    icon: faEdit,
 
                 },
                 {
@@ -153,6 +153,63 @@ function Admin(props) {
                     title: 'Approve',
                     route: '/dashboard/in/news/new/list',
                     icon: faCheck,
+
+                }
+                ,
+                {
+                    title: 'Others',
+                    route: '/dashboard/in/news/others',
+                    icon: faCheck,
+
+                }
+            ]
+        },
+       
+        {
+            title: 'Scholarship and Entreprenuership',
+            icon: faArrowCircleDown,
+            item: [
+                {
+                    title: 'Create',
+                    route: '/dashboard/in/grants/create',
+                    icon: faEdit,
+
+                },
+                {
+                    title: 'View Grants',
+                    route: '/dashboard/in/grants/list',
+                    icon: faEye,
+
+                },
+                {
+                    title: 'View All Winners',
+                    route: '/dashboard/in/grants/winners/all',
+                    icon: faCheck,
+
+                }
+                ,
+                {
+                    title: 'View Current Winners',
+                    route: '/dashboard/in/grants/winners/current',
+                    icon: faCheck,
+
+                }
+            ]
+        },
+         {
+            title: 'Settings',
+            icon: faArrowCircleDown,
+            item: [
+                {
+                    title: 'Change Password',
+                    route: '/dashboard/in/users/password',
+                    icon: faUserLock,
+
+                },
+                {
+                    title: 'Profile',
+                    route: '/dashboard/in/users/profile',
+                    icon: faUserEdit,
 
                 }
             ]
@@ -245,9 +302,44 @@ function Admin(props) {
             main: () => <CreateNews  />
         },
         {
-            path: "/shoelaces",
-            sidebar: () => <div>shoelaces!</div>,
-            main: () => <h2>Shoelaces</h2>
+            path: '/dashboard/in/news/list/:id',
+
+            main: () => <CreateNews geturl='/dashboard/in/news/list' title="News List" />
+        },
+        {
+            path: '/dashboard/in/news/new/list/:id',
+
+            main: () => <CreateNews geturl='/dashboard/in/news/new/list' title="New News List" />
+        },
+        {
+            path: '/dashboard/in/news/others/:id',
+
+            main: () => <CreateNews geturl='/dashboard/in/news/others' title="Disapproved List" />
+        },
+        {
+            path: "/dashboard/in/news/list",
+            
+            main: () => <NewsList posturl="/api/news/list" title="News List" geturl='/dashboard/in/news/list'  />
+        },
+        {
+            path: "/dashboard/in/news/new/list",
+            
+            main: () => <NewsList posturl="/api/news/list/new" title="New News List" geturl='/dashboard/in/news/new/list' />
+        },
+        {
+            path: "/dashboard/in/news/others",
+            
+            main: () => <NewsList posturl="/api/news/list/other" title="Disapproved List" geturl='/dashboard/in/news/others'  />
+        },
+        {
+            path: "/dashboard/in/users/password",
+            
+            main: () => <UserPassword   />
+        },
+        {
+            path: "/dashboard/in/users/profile",
+            
+            main: () => <UserProfile  />
         },
       
     ];

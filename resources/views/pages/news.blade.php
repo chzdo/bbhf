@@ -17,21 +17,24 @@
           LATEST NEWS
       </h3>
       <div class="latest-news-main row">
-         
+  
                         <div class="col-md-8">
-                            <img src="{{asset('images/people-children-slippers.jpg')}}"  class='news-image'/>
+                            <img src="{{$latest['image_1']}}"  class='news-image'/>
                         </div>
                         <div class="latest-news-main-heading  col-md-4">
                             <div class="service-news">
-                            Community development
+                                @foreach($latest['author'] as $author)  by    {{ strtoupper($author['first_name'].' '.$author['last_name'] )}}@endforeach<br>
+                                @foreach($latest['category'] as $cat)      {{$cat['category']}}  @endforeach<br>
+                                <small>  {{ Carbon\Carbon::parse($latest['created_at'])->format('d-m-y') }}</small>
                             </div>
                             <div class="heading-news">
-                              Bore Hole For Borno Community
+                                
+                                {{strtoupper($latest['title']) }} 
                               </div>
                               <div class="brief-news">
-                                  Six thousand powered air-purifying respirators, or PAPRs, donated by 3M, equip health workers across the U.S. California’s Imperial County, hard-hit by Covid-19, receives the largest industries and so on
-                                   </div>
-                                  <a  class="continue-link" href="#">
+                                {!! $latest['news'] !!}
+                                </div>
+                                  <a  class="continue-link mt-3" href="#">
                                       Read More
                                       </a>
                                       </div>
@@ -51,21 +54,28 @@
         <div class="section-header-wrapper mb-5">
             <div class="section-header">
                 More news
+                
             </div></div>
-         <a class="new-link " href="#">
+
+            @foreach($more['data'] as $new)
+         <a class="new-link " href='/news/full/{{$new['id']}}'>
         
-                    <img src="{{asset('images/people-children-slippers.jpg')}}"  class='news-image-mini'/>
+                    <img src="{{$new['image_1']}}"  class='news-image-mini'/>
                    
                  
                 <div class="holder-headline">
                     <div class="service-news">
-                        Community development
+                        
+                                @foreach($new['category'] as $cat)      {{$cat['category']}}  @endforeach<br>
+                            
+                            
                         </div>
                         <div class="mini">
-                          Bore Hole For Borno Community     Bore Hole For Borno Community
+                         {{$new['title']}}
                           </div>
                           <div class="time">
-                           27 Aug 2020
+                            @foreach($new['author'] as $author)  by    {{ strtoupper($author['first_name'].' '.$author['last_name'] )}}@endforeach<br>
+                            <small>  {{ Carbon\Carbon::parse($new['created_at'])->format('d-m-y') }}</small>
                             </div>
              
 
@@ -73,46 +83,18 @@
 
          </a>
 
-         <a class="new-link " href="#">
+    @endforeach
+
+<div class="row">
+    <div class="col-md-6 w-100 mx-auto flex-row">
+
+        <a href={{$more['first_page_url']}} class='btn donate-btn m-1'> First Page </a>
+        <a href={{$more['prev_page_url']}} class='btn donate-btn m-1'> prev page</a>
         
-            <img src="{{asset('images/people-children-slippers.jpg')}}"  class='news-image-mini'/>
-           
-         
-        <div class="holder-headline">
-            <div class="service-news">
-                Community development
-                </div>
-                <div class="mini">
-                  Bore Hole For Borno Community     Bore Hole For Borno Community
-                  </div>
-                  <div class="time">
-                   27 Aug 2020
-                    </div>
-     
-
-     </div>
-
- </a>
- <a class="new-link " href="#">
-        
-    <img src="{{asset('images/people-children-slippers.jpg')}}"  class='news-image-mini'/>
-   
- 
-<div class="holder-headline">
-    <div class="service-news">
-        Community development
-        </div>
-        <div class="mini">
-          Bore Hole For Borno Community     Bore Hole For Borno Community
-          </div>
-          <div class="time">
-           27 Aug 2020
-            </div>
-
-
+        <a href={{$more['next_page_url']}} class='btn donate-btn m-1'> next page</a>
+        <a href={{$more['last_page_url']}} class='btn donate-btn m-1'> last page</a>
+    </div>
 </div>
-
-</a>
     </div>
  </section>
 </div>

@@ -40,6 +40,9 @@ Route::get('/category/{category_id}/project', function(Request $req){
    //Route::post('/m','users@approve');
    Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', 'users@user');
+    Route::post('/users/password', 'users@password');
+    Route::post('/users/profile/photo', 'users@photo');
+    Route::post('/users/profile', 'users@update');
     Route::middleware('admin')->group(function(){
 
 
@@ -74,9 +77,10 @@ Route::get('/category/{category_id}/project', function(Request $req){
              Route::post('/news/create','news@create');
              Route::get('/news/list','news@list');
              Route::get('/news/list/new','news@new');
+             Route::get('/news/list/other','news@other');
              Route::get('/news/list/{id}','news@news');
-             Route::post('/news/list/approve','news@approve');
-             Route::post('/projects/active','news@active');
+             Route::post('/news/approve/{id}/{status}','news@approve');
+             Route::post('/news/update','news@update');
 
 
         //volunteer routes

@@ -1,4 +1,4 @@
-<section class="jk-slider">
+<section class="jk-slider" id="jk">
     <div class="bd-example">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -46,7 +46,7 @@
              
             </div>
           </div>
-          <a class="donate" href="#">DONATE </a>
+          <a class="donate" href="/donate">DONATE </a>
           <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>

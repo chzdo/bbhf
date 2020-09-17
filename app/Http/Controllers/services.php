@@ -17,8 +17,5 @@ class services extends Controller
        
     }
 
-    function news(Request $req){
-          //    var_dump($req->param);
-              return view('pages.news');
-    }
+  
 }

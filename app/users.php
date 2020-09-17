@@ -30,5 +30,7 @@ function messages($group){
         return $this->hasMany(AdminChat::class,'users_email','email');
 }
 
-
+function news(){
+      return $this->hasMany(news::class,'author','email');
+}
 }

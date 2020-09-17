@@ -1,6 +1,7 @@
 
 
 var footer = $('.footer-holder');
+var head = $('#jk');
 var $animation_elements = $('.section');
 var $window = $(window);
 
@@ -74,7 +75,7 @@ $window.trigger('scroll');
       var sTop = window_top_position = $window.scrollTop();
       var window_bottom_position = (window_top_position + window_height)-100;
     //  console.log("window" ,window_height,window_top_position)
-      if(footer.offset().top <= window_bottom_position ){
+      if(footer.offset().top <= window_bottom_position || window_top_position < head.height() ){
       
            $("#scrollspy").hide(1000);
          }else{

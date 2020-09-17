@@ -26,11 +26,8 @@
   flex-direction: row ;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transform: translate(-100%);
-  -webkit-transform: translate(-100%) ;
-  -moz-transform: translate(-100%) ;
-  -o-transform: translate(-100%) ;
+
+  
 }
 .section-wrapper{
   width: 100%;
@@ -136,23 +133,28 @@ color: rgba(250, 119, 11, 0.75);
   
 }
 
-
+.owl-item{
+  width: 236.875px;
+    margin-top: 2px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
 .card-item{
  
-  padding:0;
+  padding: 0;
   box-sizing: border-box;
   display: flex;
   align-self: center;
-  width:80%;
-  margin: 10%;
- flex-shrink: 0;
- flex-direction: column;
+  /* width: 80%; */
+  /* margin: 10%; */
+  flex-shrink: 0;
+  flex-direction: column;
   cursor: pointer;
   min-width: 30;
   position: relative;
   height: 400px;
   min-height: 300px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
   background-color: white;
   border-radius: 5px;
 
@@ -280,8 +282,12 @@ align-items: center;
   display: flex; 
   text-decoration: none !important;
   justify-content: center;
+  background-color: rgba(250, 119, 11);
  padding: 0.5em;
+ width:100px;
+ margin:10px;
 color:white;
+border-radius: 10px;
   text-align: center;
   text-transform: uppercase;
 
@@ -306,9 +312,9 @@ color: rgba(250, 119, 11, 0.75);
 }
 .progress-cont{
   width:100%;
-  height:40%;
+  height:10px;
   background: white ;
-  border-radius: 5%;
+  border-radius: 2px;
   display: block;
   position: relative;
 }
@@ -316,7 +322,7 @@ color: rgba(250, 119, 11, 0.75);
   width:50%;
   height:100%;
   background: rgba(250, 119, 11, 0.75) ;
-  border-radius: 5%;
+  border-radius: 2px;
   display: block;
   position: relative;
 }
@@ -375,19 +381,16 @@ text-align: center;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
 }
 .member-card{
- display: flex;
+  display: flex;
   height: 300px;
-
   flex-direction: column;
   border-radius: 5%;
-  margin:1%;
+  margin: 1%;
   position: relative;
-
- 
   min-height: 50%;
-align-self: center;
-  box-shadow: 0px 0px 19px 0px rgba(0, 0, 0, 0.1);
-flex: 0 0 300px;
+  align-self: center;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
+  flex: 0 0 300px;
 }
 .member-card .donate-btn{
 bottom: 10px;
@@ -421,7 +424,7 @@ position:absolute;
   display:flex;
    flex-direction: row;
    flex:1 100%;
-padding: 2em;
+
 justify-content: center;
   flex-flow: wrap;
  
@@ -432,16 +435,17 @@ justify-content: center;
  
 }
 .news-card{
-  display:flex;
+  display: flex;
   position: relative;
   flex-direction: column;
-  width:300px;
-  flex:0 ;
-  margin: 2em;
-  height:fit-content;
-height:300px;
-  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
-  border-radius:3%
+  width: 300px;
+  flex: 0;
+  margin: 10px;
+  /* margin: 2em; */
+  height: fit-content;
+  height: 400px;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 3%;
 
 }
 .news-icon{
@@ -553,11 +557,11 @@ text-align: justify;
 .brief-news{
  
 
- 
-  font-size: 2em;
+  font-size: 1.4em;
   line-height: 1em;
   max-height: 6em;
-  overflow:hidden;
+  min-height: 3em;
+  overflow: hidden;
   position: relative;
   padding-right: 1rem;
 
@@ -636,7 +640,7 @@ transform: translate(-1em) rotate(-40deg);
 .news-image-mini{
   display:flex;
   flex: 1 2 ;
-
+width:150px;
   height:200px;
   margin-right: 2px;
  

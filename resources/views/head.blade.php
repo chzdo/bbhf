@@ -30,13 +30,17 @@ $temp = \App\category::all() ?>
 
  <a class="nav-link active" href="/news" > News </a>
  <a class="nav-link active" href="#" id="contact"> Contact </a>
- <a class="link-button" href="/dashboard/login" > join us </a>
+ @if (Auth::check())
+ <a class="link-button" href="/dashboard/login/in/" >{{ Auth::user()->user->first_name}}  </a>
+ @else
+ <a class="link-button" href="/dashboard/login" >join us </a>
+ @endif
 </div>
-<a href="javascript:void(0)" data-role="mobile-nav" onclick="$( ()=>{ $('#scrollspy').hide(); $('.mobile-nav').css('display','flex'); $('html,body').css({overflow:'hidden', width: '100%'})})"  ><i class="zmdi zmdi-menu " ></i></a>
+<a href="javascript:void(0)" data-role="mobile-nav" onclick="$( ()=>{ $('#scrollspy').hide(); $('.mobile-nav').css('display','flex'); $('html,body').css({overflow:'hidden', width: '100%'})})"  ><i style='font-size:1.2em' class="zmdi zmdi-menu " ></i></a>
 </nav>
 
 <nav class="mobile-nav"  >
-<a href="javascript::void(0)" data-role="mobile-nav-close" onclick="$( ()=>{ $('#scrollspy').show(); $('.mobile-nav').css('display','none'); $('html,body').css({overflow:'auto', width: '100%'})})"  >  <i class="zmdi zmdi-close-circle" ></i></a>
+<a href="javascript:void(0)" data-role="mobile-nav-close" onclick="$( ()=>{ $('#scrollspy').show(); $('.mobile-nav').css('display','none'); $('html,body').css({overflow:'auto', width: '100%'})})"  >  <i style='font-size:1.2em'class="zmdi zmdi-close-circle" ></i></a>
 
 </nav>
 

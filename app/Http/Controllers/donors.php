@@ -28,17 +28,19 @@ class donors extends Controller
         $cat = null;
         $pro = null;
         if($req->category != null){
-         $category =    category::where('category', base64_decode($req->category))->firstorFail();
-      $cat = $category->id;
+         $category =    category::where('id',$req->category)->firstorFail();
+      
         }
+    
 
         if($req->project != null){
             
-            $proj =   category::find($category->id)->projects()->where('project', base64_decode($req->projects))->firstorFail();
-               $pro = $proj->id;     
+            $proj =   projects::where('id', $req->project)->where('category',$req->category)->firstorFail();
+               //$pro = $proj->id; 
+                
         }
          
-        return view('pages.donate',["category"=>$cat,"project"=>$pro]);
+        return view('pages.donate',["category"=>$req->category,"project"=>$req->project]);
     }
 
     public function verify(Request $req)

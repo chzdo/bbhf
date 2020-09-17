@@ -155,7 +155,7 @@ componentDidMount(){
                 <div className="form_group">
                     <div className="bbhf_input_holder">
                         <select
-                         
+                          disabled = {this.props.disabled}
                             value = {this.props.value}
                             id={this.props.id}
                             className="bbhf_input"

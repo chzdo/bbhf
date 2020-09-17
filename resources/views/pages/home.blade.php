@@ -135,16 +135,22 @@
 
   </section>
   <section class="section up" style="margin:0 !important; padding: 0 !important">
+
+
     <div class="">
        <div class="section-header-wrapper">
          <div class="section-header">
-        URGENT PROJECT
+        URGENT PROJECT(S)
          </div>
         
    </div>
-   <div style="height:500px;">
+ 
+   @foreach($list as $alist)
+  
+  
+   <div style="height:500px;" class="mb-5">
     
-   <div class="urgent-project">
+   <div class="urgent-project" style='background-image: url({{$alist->image}})'>
           
    </div>
    <div class="project-container">
@@ -153,25 +159,33 @@
    
   <div class="project-description">
   <p class="project-description-header">
-    Bore Hole for Gombe
+    {{$alist->project}}
 </p>
 <p class="project-description-article">
- We are commited to constructing a bore hole water supply for <strong> Gombe Community </strong>
+  {{$alist->description}}
 </p>
+<?php 
+$am = $alist->amount_raised;
+ if($alist->amount_raised == null){
+   $am = 0;
+ }
+ $per = round(((float)$am/(float)$alist->amount) * 100, 2) ;
 
+?>
 <div class="raised-amount">
   <div class="progress-cont">
-    <div class="progress-flo">
+    <div class="progress-flo" style='width:{{$per}}%'>
     </div>
   </div>
 <div class="raised">
-  <p> Goal - N6000 </p> <p> 50% </p> <p> Raised - N3000</p>
+  <p> Goal - N {{number_format($alist->amount,2)}}</p> <p> {{$per}}% </p> <p> Raised - N{{number_format($am,2)}}</p>
 </div>
 </div>
-<a href="" class="donate-btn"> Donate </a>
+<a href="/donate/{{$alist->category}}/{{$alist->id}}" class="donate-btn"> Donate </a>
 </div>
 </div>
 </div>
+@endforeach
    
        
        </div>
@@ -196,7 +210,7 @@
             <p class="member-card-article">
               Are you passionate about impact and rendering services to your immediate community?
          </p>
-         <a class="donate-btn donate-btn-orange" href="#"> JOIN NOW </a>
+         <a class="donate-btn donate-btn-orange" href="/dashboard/register"> JOIN NOW </a>
           </div>
           <div class="member-card">
             <img class="round-icon" src={{URL::asset('images/member.png')}}>
@@ -204,7 +218,7 @@
             <p class="member-card-article">
                  Join the BBHF team to changing lives through giving.
             </p>
-            <a class="donate-btn donate-btn-orange" href="#"> JOIN NOW </a>
+            <a class="donate-btn donate-btn-orange" href="/dashboard/register"> JOIN NOW </a>
           </div>
      
           <div class="member-card">
@@ -213,7 +227,7 @@
             <p class="member-card-article">
               Join the BBHF team to changing lives through giving.
          </p>
-         <a class="donate-btn donate-btn-orange" href="#"> JOIN NOW </a>
+         <a class="donate-btn donate-btn-orange" href="/dashboard/register"> JOIN NOW </a>
           </div>
   </div>
   
@@ -233,41 +247,29 @@
           Reports from volunteers and members
              </p>
        </div>
-    
        <div class="news-card-holder  ">
+       @foreach($news as $rep)
+  <?php   
+
+      ?> 
             <div class="news-card">
-            <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
-              <p class="news-date"> 27-11-1990 </p>
+            <img class="news-icon" src={{$rep['image_1']}}>
+              <p class="news-date"> 
+         @foreach($rep['author'] as $author)  <h6 class='text-bold text-black-50'>  {{ strtoupper($author['first_name'].' '.$author['last_name'] )}}</h4> @endforeach
+                <small>  {{ Carbon\Carbon::parse($rep['created_at'])->format('d-m-y') }}</small>
+              </p>
               <p class="news-title">
-               Medical Outreach
+                <h6 class='text-bold text-black-50'>   {{strtoupper($rep['title']) }} </h6>
+               @foreach($rep['category'] as $cat)    <small class=" text-bold"> <?=  $cat['category'] ?></small>  @endforeach
            </p>
            <p class="news-desc">
-            Are you passionate about impact and rendering services to your immediate community?
+       {!! $rep['news'] !!}
        </p>
-           <a class="continue-link" href="#"> READ MORE </a>
+           <a class="continue-link" href="/news/{{$rep['id']}}"> READ MORE </a>
             </div>
-            <div class="news-card">
-              <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
-                <p class="news-date"> 27-11-1990 </p>
-                <p class="news-title">
-                 Medical Outreach
-             </p>
-             <p class="news-desc">
-              Are you passionate about impact and rendering services to your immediate community?
-         </p>
-             <a class="continue-link" href="#"> READ MORE </a>
-              </div>
-              <div class="news-card">
-                <img class="news-icon" src={{URL::asset('images/ti.jpg')}}>
-                  <p class="news-date"> 27-11-1990 </p>
-                  <p class="news-title">
-                   Medical Outreach
-               </p>
-               <p class="news-desc">
-                Are you passionate about impact and rendering services to your immediate community?
-           </p>
-               <a class="continue-link" href="#"> READ MORE </a>
-                </div>
+
+            @endforeach
+           
                </div>
     
     </div>

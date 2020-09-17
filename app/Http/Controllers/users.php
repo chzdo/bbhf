@@ -8,6 +8,7 @@ use App\login;
 use App\register;
 use Carbon\Carbon;
 use App\users as user;
+use App\Mail\rejection;
 use App\Mail\acceptance;
 use App\Mail\registration;
 use Illuminate\Support\Str;
@@ -22,8 +23,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Validator;
 use App\Http\Requests\requestRecovery;
-use App\Mail\rejection;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
@@ -169,12 +170,12 @@ class users extends Controller
             "required" => "this field is required"
         ]);
 
-        $check = \App\application::find($v['email']);    
-      
-            if($check != null && ($check->status == 0 || $check->status == 1)){
-                return back()->withInput()->with('error', 'You have already applied');
-            }
-     
+        $check = \App\application::find($v['email']);
+
+        if ($check != null && ($check->status == 0 || $check->status == 1)) {
+            return back()->withInput()->with('error', 'You have already applied');
+        }
+
         $result = \App\application::create($v);
         if ($result->exists()) {
             return back()->with('result', 'Thank you for completing your registration! we will contact you.');
@@ -219,7 +220,7 @@ class users extends Controller
 
     function requestRecovery(requestRecovery $req)
     {
-  
+
         $validate = $req->validated();
         $date = Carbon::now();
         $expiry = $date->addHours(2);
@@ -325,51 +326,119 @@ class users extends Controller
         return response()->json(['code' => 1, 'message' => $user_info]);
     }
 
-    function revoke(Request $req){
+    function revoke(Request $req)
+    {
 
-        $validate = FacadesValidator::make($req->input(),['email'=>"bail|required|email|exists:users,email|exists:logins,users_email","code"=>"bail|required|numeric|in:0,1"]);
-        if($validate->fails()){
-            return response()->json(['code'=>0,'message'=>$validate->errors()]);
+        $validate = FacadesValidator::make($req->input(), ['email' => "bail|required|email|exists:users,email|exists:logins,users_email", "code" => "bail|required|numeric|in:0,1"]);
+        if ($validate->fails()) {
+            return response()->json(['code' => 0, 'message' => $validate->errors()]);
         }
-   
-       $user= login::where('users_email','=',$req->email)->get()->first();
-       $user->status = $req->code;
-       
-       $mes = ($req->code == 1)? "Access Restored" : "Access Revoked";
-       if($user->save()){
-        return response()->json(['code'=>1,'message'=>$mes]);
-       }
-       return response()->json(['code'=>0,'message'=>'Something went wrong']);
+
+        $user = login::where('users_email', '=', $req->email)->get()->first();
+        $user->status = $req->code;
+
+        $mes = ($req->code == 1) ? "Access Restored" : "Access Revoked";
+        if ($user->save()) {
+            return response()->json(['code' => 1, 'message' => $mes]);
+        }
+        return response()->json(['code' => 0, 'message' => 'Something went wrong']);
     }
 
 
-    function updateRole(Request $req){
-       // var_dump($req->input());
-        $validate = FacadesValidator::make($req->input(),['email'=>"bail|required|email|exists:users,email|exists:logins,users_email","role_id"=>"bail|required|numeric|exists:role,id"]);
-        if($validate->fails()){
-            return response()->json(['code'=>0,'message'=>$validate->errors()]);
+    function updateRole(Request $req)
+    {
+        // var_dump($req->input());
+        $validate = FacadesValidator::make($req->input(), ['email' => "bail|required|email|exists:users,email|exists:logins,users_email", "role_id" => "bail|required|numeric|exists:role,id"]);
+        if ($validate->fails()) {
+            return response()->json(['code' => 0, 'message' => $validate->errors()]);
         }
-   
-       $update = user::where('email',$req->email)->get()->first()->update(['role_id'=>$req->role_id]);
-     
-       if($update){
-        return response()->json(['code'=>1,'message'=>"Role Changed"]);
-       }
-       return response()->json(['code'=>0,'message'=>'Something went wrong']);
-    }
-    function getstatus(Request $req){
-  
-        $validate = FacadesValidator::make(['email'=>$req->email],['email'=>"bail|required|email|exists:users,email|exists:logins,users_email"]);
-        if($validate->fails()){
-            return response()->json(['code'=>0,'message'=>$validate->errors()],210);
-        }
-   
-       $update = login::select('status')->where('users_email','=',$req->email)->get()->first();
 
+        $update = user::where('email', $req->email)->get()->first()->update(['role_id' => $req->role_id]);
+
+        if ($update) {
+            return response()->json(['code' => 1, 'message' => "Role Changed"]);
+        }
+        return response()->json(['code' => 0, 'message' => 'Something went wrong']);
+    }
+    function getstatus(Request $req)
+    {
+
+        $validate = FacadesValidator::make(['email' => $req->email], ['email' => "bail|required|email|exists:users,email|exists:logins,users_email"]);
+        if ($validate->fails()) {
+            return response()->json(['code' => 0, 'message' => $validate->errors()], 210);
+        }
+
+        $update = login::select('status')->where('users_email', '=', $req->email)->get()->first();
+
+
+
+        return response()->json(['code' => 1, 'message' => $update->status]);
+    }
+
+    function password(Request $req)
+    {
+
+        $v =  FacadesValidator::make(
+            $req->all(),
+            [
+                'oldpassword' => 'bail|required',
+                'newpassword' => 'bail|required|min:8'
+            ]
+        );
+        if ($v->fails()) {
+            return response()->json(['code' => 0, 'message' => $v->errors()]);
+        }
+
+        $user = Auth::user();
+
+        if (Hash::check($req->oldpassword, $user->password)) {
+            $user->password = Hash::make($req->newpassword);
+            if ($user->save()) {
+                return response()->json(['code' => 1, 'message' => 'Password Changed']);
+            } else {
+                return response()->json(['code' => 0, 'message' => 'Something went wrong']);
+            }
+        } else {
+            return response()->json(['code' => 0, 'message' => 'Wrong Password']);
+        }
+    }
+
+
+    function photo(Request $re)
+    {
+
+
+        if ($re->hasFile('photoimage')) {
+            $r = $re->photoimage->store('photos', ['disk' => 'public']);
+
+            $photo = Storage::url($r);
+
+            $user = Auth::user()->user;
+            $user->photo = $photo;
+            if ($user->save()) {
+                return response()->json(['code' => 1, 'message' =>'success' , 'payload'=>$user]);
+            }
+            return response()->json(['code' => 0, 'message' => 'Something  went wrong']);
+        }
+    }
+
+    function update(Request $re){
+
+        $user = Auth::user()->user;
+
+        $user->state_of_origin = $re->state_of_origin;
+        $user->state_of_residence = $re->state_of_residence;
+        
+        $user->phone_number = $re->phone_number;
+        $user->address = $re->address;
+
+        $user->first_name = $re->first_name;
+        $user->other_name = $re->other_name;
+        $user->last_name = $re->last_name;
+        if ($user->save()) {
+            return response()->json(['code' => 1, 'message' =>'success' , 'payload'=>$user]);
+        }
+        return response()->json(['code' => 0, 'message' => 'Something went wrong']);
     
-       
-        return response()->json(['code'=>1,'message'=>$update->status]);
-     
-
     }
 }

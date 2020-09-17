@@ -49,8 +49,10 @@ $temp = \App\category::all() ?>
      {{ $item->write_up}}
     </div>
     <div class="btn-holder">
-     <a class=" btn btn-bbhf bbhf-orange "  href='/donate/{{ base64_encode($item->category)}}'> Donate for this cause </a>
-   
+     <a class=" btn btn-bbhf bbhf-orange "  href='/donate/{{ $item->id}}'> Donate for this cause </a>
+     @if (strpos($item->category,'Competitions and Scholarship') !== false || strpos($item->category,'Entreprenuership') !== false  )
+     <a class=" btn btn-bbhf bbhf-green "  href='/opportunities/{{ $item->id}}'> See Opportunities </a>
+     @endif
     </div>
    </div>
  </div>         

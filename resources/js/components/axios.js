@@ -22,7 +22,7 @@ async sendPost(url,cred,config={}){
       await axios.post(url,cred,{...config,Accept:'application/json'}).then(resp=>{ 
           
         let {message} = resp.data;
-            
+            console.log(message)
         data.code = resp.data.code;
         data.payload = resp.data.payload || null
         let res = '';

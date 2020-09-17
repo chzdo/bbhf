@@ -1,14 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\category;
 use App\Events\websock;
 use App\Jobs\SendEmail;
-use App\Mail\registration;
 use App\Mail\rejection;
-use Illuminate\Support\Facades\Broadcast;
-use Illuminate\Support\Facades\Config;
+use App\Mail\registration;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +25,15 @@ use Illuminate\Support\Facades\Mail;
 Route::post('/auth','users@auth');
 Route::get('/', function () {
    
-   
-    return view('pages.home');
+
+    
+    $list =   DB::table('projects')->select('projects.id')->leftJoin('donation','donation.donation_project','=','projects.id')
+
+    ->selectRaw('sum(donation.donation_amount) as amount_raised, projects.*') ->groupBy('projects.id')->orderByDESC('id')->take(5)->get()->toArray();
+
+    $news = \App\news::with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->take(4)->get()->toArray();
+
+    return view('pages.home', compact('list','news'));
   
 })->middleware('services');
 Route::get('/email', function () {
@@ -70,4 +79,4 @@ Route::get('/chat/zoomtoken','chat@createVideo');
 Route::get('/zoomToken','chat@zoomAuth');
 Route::get('/donate/{category?}/{project?}',"donors@showWeb")->name('donations');
 Route::get('/services/{section?}', "services@index" )->name('services')->middleware('services');
-Route::get('/news/{section?}', "services@news" )->name('news');
+Route::get('/news', "news@index" )->name('news');

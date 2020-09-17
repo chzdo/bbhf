@@ -47,6 +47,11 @@ async componentDidMount(){
 this.loadUser();
 
 }
+
+update = (user)=>{
+    console.log(user)
+    this.setState({user:user})
+}
     render(){
         return(
             <>
@@ -54,7 +59,7 @@ this.loadUser();
          <Network action={this.loadUser} />: 
          <Router>
            { this.state.user.role_id == this.users[3] ? 
-           <Provider.Provider value={this.state.user} >
+           <Provider.Provider value={{...this.state.user,update:this.update}} >
                <Admin  />
                </Provider.Provider> :null }
                             </Router>
