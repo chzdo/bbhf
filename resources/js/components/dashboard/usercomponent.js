@@ -113,7 +113,7 @@ export function ListComponent(props) {
 					ModalContent={ModalContent}
 					modal_child={List}
 					modalurl={{ 'userUrl': `/api/${props.routeType}/list/`, 'revoke': `/api/${props.routeType}/revoke`, 'update': `/api/${props.routeType}/update` }}
-					tableTitle="Volunteers List"
+					tableTitle={props.routeTitle}
 					tableUrl={`/api/${props.routeType}/list`} />
 			</div>
 		</>

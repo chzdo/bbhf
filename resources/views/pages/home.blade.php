@@ -134,6 +134,10 @@
     
 
   </section>
+  
+
+
+  @if(count((array)$urgent) > 0)
   <section class="section up" style="margin:0 !important; padding: 0 !important">
 
 
@@ -144,54 +148,138 @@
          </div>
         
    </div>
- 
-   @foreach($list as $alist)
-  
-  
    <div style="height:500px;" class="mb-5">
     
-   <div class="urgent-project" style='background-image: url({{$alist->image}})'>
-          
-   </div>
-   <div class="project-container">
-   
-  
-   
-  <div class="project-description">
-  <p class="project-description-header">
-    {{$alist->project}}
-</p>
-<p class="project-description-article">
-  {{$alist->description}}
-</p>
-<?php 
-$am = $alist->amount_raised;
- if($alist->amount_raised == null){
-   $am = 0;
- }
- $per = round(((float)$am/(float)$alist->amount) * 100, 2) ;
-
-?>
-<div class="raised-amount">
-  <div class="progress-cont">
-    <div class="progress-flo" style='width:{{$per}}%'>
+    <div class="urgent-project" style='background-image: url({{$urgent->image}})'>
+           
     </div>
-  </div>
-<div class="raised">
-  <p> Goal - N {{number_format($alist->amount,2)}}</p> <p> {{$per}}% </p> <p> Raised - N{{number_format($am,2)}}</p>
-</div>
-</div>
-<a href="/donate/{{$alist->category}}/{{$alist->id}}" class="donate-btn"> Donate </a>
-</div>
-</div>
-</div>
-@endforeach
+    <div class="project-container">
+    
    
+    
+   <div class="project-description">
+   <p class="project-description-header">
+     {{$urgent->project}}
+ </p>
+ <p class="project-description-article">
+   {{$urgent->description}}
+ </p>
+ <?php 
+ $am = $urgent->amount_raised;
+  if($urgent->amount_raised == null){
+    $am = 0;
+  }
+  $per = round(((float)$am/(float)$urgent->amount) * 100, 2) ;
+  $per = $per > 100 ? 100: $per;
+ 
+ ?>
+ <div class="raised-amount">
+   <div class="progress-cont">
+     <div class="progress-flo" style='width:{{$per}}%'>
+     </div>
+   </div>
+ <div class="raised">
+   <p> Goal - N {{number_format($urgent->amount,2)}}</p> <p> {{$per}}% </p> <p> Raised - N{{number_format($am,2)}}</p>
+ </div>
+ </div>
+ <a href="/donate/{{$urgent->category}}/{{$urgent->id}}" class="donate-btn"> Donate </a>
+ </div>
+ </div>
+ </div>
+
+
+
        
        </div>
        
 
      </section>
+@endif
+<?php 
+
+ $colors = [
+        'linear-gradient(315deg, #a40606 0%, #d98324 74%)',
+        'linear-gradient(315deg, #6b0f1a 0%, #b91372 74%)',    
+        'linear-gradient(315deg, #42378f 0%, #f53844 74%)',
+        'linear-gradient(315deg, #0cbaba 0%, #380036 74%)',
+       'linear-gradient(315deg, #3f0d12 0%, #a71d31 74%)'
+
+
+    ]
+
+?>
+
+@if($list->count() > 0)
+<?php $proj = $list->toArray(); ?>
+
+     <section class="section up" style="margin:0 !important; padding: 0 !important">
+
+
+      <div class="">
+         <div class="section-header-wrapper">
+           <div class="section-header">
+          OTHER PROJECT(S)
+           </div>
+          
+     </div>
+<?php
+
+$count = count($proj)/3;
+
+$k = 0;
+
+  ?>
+  @for($i = 0; $i < $count; $i++)
+  <div class='card-row'>
+    @for ($j = 0; $j < 4 || $k < count($proj); $j++)
+    <?php  
+    if($k>= count($proj) ) break;
+$am = $proj[$k]->amount_raised;
+  if($proj[$k]->amount_raised == null){
+    $am = 0;
+  }
+  $per = round(((float)$am/(float)$proj[$k]->amount) * 100, 2) ;
+  $pr = $per > 100 ? 100: $per;
+
+?>
+    <div class="col-md-4" >
+      <div class="home-card" style='background-image:{{$colors[rand(0,4)]}}'>
+          <p class="project-description-header">
+            {{$proj[$k]->project}}
+          </p>
+          <p class="project-description-article">
+            {{$proj[$k]->description}}
+       
+                  </p>
+          <div class="raised-amount">
+              <div class="progress-cont">
+                  <div class="progress-flo" style='width: {{$per>100? '100' : $pr }}%'>
+                  </div>
+              </div>
+              <div class="raised">
+                <p> Goal - N {{number_format($proj[$k]->amount,2)}}</p> <p> {{$per}}% </p> <p> Raised - N{{number_format($am,2)}}</p>
+                    </div>
+          </div>
+          <a href="/donate/{{$proj[$k]->category}}/{{$proj[$k]->id}}" class="donate-btn"> Donate </a>
+      </div>
+    </div>
+    <?php $k++ ?>
+    @endfor
+  </div>
+  @endfor
+  
+
+   
+    
+      
+ 
+     </div>
+    
+    
+
+     
+    </section>
+    @endif
      <section class="section " >
       <div class="section-wrapper ">
          <div class="section-header-wrapper">
@@ -236,7 +324,8 @@ $am = $alist->amount_raised;
          
      
        </section>
-
+@if($news->count()> 0)
+<?php $news = $news->toArray() ?>
        <section class="section  " >
         <div class="section-wrapper ">
            <div class="section-header-wrapper">
@@ -254,6 +343,7 @@ $am = $alist->amount_raised;
       ?> 
             <div class="news-card">
             <img class="news-icon" src={{$rep['image_1']}}>
+            <div>
               <p class="news-date"> 
          @foreach($rep['author'] as $author)  <h6 class='text-bold text-black-50'>  {{ strtoupper($author['first_name'].' '.$author['last_name'] )}}</h4> @endforeach
                 <small>  {{ Carbon\Carbon::parse($rep['created_at'])->format('d-m-y') }}</small>
@@ -262,10 +352,9 @@ $am = $alist->amount_raised;
                 <h6 class='text-bold text-black-50'>   {{strtoupper($rep['title']) }} </h6>
                @foreach($rep['category'] as $cat)    <small class=" text-bold"> <?=  $cat['category'] ?></small>  @endforeach
            </p>
-           <p class="news-desc">
-       {!! $rep['news'] !!}
-       </p>
+        
            <a class="continue-link" href="/news/{{$rep['id']}}"> READ MORE </a>
+          </div>
             </div>
 
             @endforeach
@@ -277,6 +366,7 @@ $am = $alist->amount_raised;
            
        
          </section>
+         @endif
 </div>
 
 

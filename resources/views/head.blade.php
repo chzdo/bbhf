@@ -31,7 +31,7 @@ $temp = \App\category::all() ?>
  <a class="nav-link active" href="/news" > News </a>
  <a class="nav-link active" href="#" id="contact"> Contact </a>
  @if (Auth::check())
- <a class="link-button" href="/dashboard/login/in/" >{{ Auth::user()->user->first_name}}  </a>
+ <a class="link-button" href="/dashboard/in/" >{{ Auth::user()->user->first_name}}  </a>
  @else
  <a class="link-button" href="/dashboard/login" >join us </a>
  @endif

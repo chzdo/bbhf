@@ -72,7 +72,7 @@ class projects extends Controller
         return response()->json(['code'=>2, 'message'=>'Not found']);
       }
      
-      $project =     \App\projects::where('id',$id)->with('donations')->first();
+      $project =     \App\projects::where('id',$id)->with('donations')->firstorFail();
      
           return response()->json(['code'=>1, 'message'=>$project]);
    
@@ -99,6 +99,25 @@ class projects extends Controller
 
     $donation = \App\donation::with(['projects:id,project','category:id,category'])->orderByDesc('date_donated')->get();
     return response()->json(['code'=>1 , 'message'=>$donation]);
+  }
+
+  function getActive(){
+
+    $list =   DB::table('projects')->select('projects.id')->leftJoin('donation','donation.donation_project','=','projects.id')
+
+    ->selectRaw('sum(donation.donation_amount) as amount_raised, projects.*') ->groupBy('projects.id')->orderByDESC('id')->take(3)->get()->toArray();
+    return response()->json(['code'=>1 , 'message'=>$list]);
+
+  }
+
+  function urgent($id){
+
+   $v =  DB::table('urgentproject')->updateOrInsert(['id'=>1],
+    ['project'=>$id]);
+    if($v){
+  return response()->json(['code'=>1 , 'message'=>'Updated']);
+    }
+    return response()->json(['code'=>0 , 'message'=>'Something went wrong']);
   }
 }
 

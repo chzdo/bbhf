@@ -51,7 +51,7 @@ $temp = \App\category::all() ?>
     <div class="btn-holder">
      <a class=" btn btn-bbhf bbhf-orange "  href='/donate/{{ $item->id}}'> Donate for this cause </a>
      @if (strpos($item->category,'Competitions and Scholarship') !== false || strpos($item->category,'Entreprenuership') !== false  )
-     <a class=" btn btn-bbhf bbhf-green "  href='/opportunities/{{ $item->id}}'> See Opportunities </a>
+     <a class=" btn btn-bbhf bbhf-green "  href='/opportunities'> See Opportunities </a>
      @endif
     </div>
    </div>

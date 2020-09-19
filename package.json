@@ -43,7 +43,6 @@
         "pusher-js": "^7.0.0",
         "react-bootstrap": "^1.3.0",
         "react-paystack": "^3.0.1",
-        "react-router-dom": "^5.2.0",
-        "react-summernote": "^2.0.2"
+        "react-router-dom": "^5.2.0"
     }
 }

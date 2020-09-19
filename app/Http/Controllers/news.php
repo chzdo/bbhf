@@ -19,7 +19,7 @@ class news extends Controller
         $validate = Validator::make(
             $re->all(),
             [
-                'title' => 'bail|required|max:30',
+                'title' => 'bail|required|max:50',
                 'news' => 'required',
                 'image_1' => 'bail|required|image',
                 'category' => 'bail|required|exists:category,id'
@@ -61,7 +61,7 @@ class news extends Controller
             $re->all(),
             [
                 'id' => 'bail|required|exists:news,id',
-                'title' => 'bail|required|max:30',
+                'title' => 'bail|required|max:50',
                 'category' => 'bail|required|exists:category,id',
                 'news' => 'required',
                 'image_1' => 'bail|required',
@@ -118,8 +118,12 @@ class news extends Controller
 
     function news($id)
     {
-       
-        $new = gist::where('id',$id)->first();
+        $validate = Validator::make(['id'=>$id],['id'=>'bail|required|numeric|exists:news,id']);
+
+        if($validate->fails()){
+          return response()->json(['code'=>2, 'message'=>'Not found']);
+        }
+        $new = gist::where('id',$id)->firstorFail();
         return response()->json(['code' => 1, 'message' => $new]);
     }
     function approve($id, $status)
@@ -140,9 +144,25 @@ class news extends Controller
     function index(){
       
             //    var_dump($req->param);
-            $latest  = gist::where('status',1)->with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->first()->toArray();
-            $more = gist::with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->paginate(5)->toArray();
-                return view('pages.news', compact('latest','more'));
+            $latest  = gist::where('status',1)->with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->first();
+            $more = gist::where('status',1)->with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->paginate(5);
+            $opp = \App\opportunity::where('status',1)->get()->take(3);
+   //   $latest =    $latest->count() == 0? [] : $latest->toArray();
+    //  $more =    $more->count() == 0? [] : $more->toArray();
+   //   $opp =    $opp->count() == 0? [] : $opp->toArray();
+                return view('pages.news', compact('latest','more', 'opp'));
      
     }
+    
+
+    function full($id){
+      
+        //    var_dump($req->param);
+        $news = gist::where('id',$id)->where('status',1)->with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->firstorFail();
+        $more = gist::where('status',1)->with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->get()->take(10);
+        $news =    $news->count() == 0? [] : $news->toArray();
+        $more =    $more->count() == 0? [] : $more->toArray();
+            return view('pages.full', compact('news','more'));
+ 
+}
 }

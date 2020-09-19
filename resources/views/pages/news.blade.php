@@ -11,6 +11,11 @@
 
 @section('body')
 <div class="home-container ">
+    @if(count((array)$latest) != null)
+    <?php 
+    
+$latest = $latest->toArray();
+    ?>
     <section class="section-news">
     <div class="latest-news-cont">
       <h3 class="lastest-news-head section-header pt-2">
@@ -34,7 +39,7 @@
                               <div class="brief-news">
                                 {!! $latest['news'] !!}
                                 </div>
-                                  <a  class="continue-link mt-3" href="#">
+                            <a  class="continue-link mt-3" href="/news/{{$latest['id']}}">
                                       Read More
                                       </a>
                                       </div>
@@ -42,12 +47,27 @@
           </div>
       </div>
     </section>
-<section class="section-news">
-       <div class="sch_alert">
+    @endif
 
-           <a class="continue-link sch-btn bg-danger" href="#"> Read More </a>
-       </div>
+    @if(count((array)$opp)> 0)
+    <?php 
+$opp= $opp->toArray();
+    ?>
+<section class="section-news row" >
+    @foreach ($opp as $item)
+    <div class="col-md-4 m-1">
+        <a href='/opportunities/{{$item['id']}}'  > <img src={{$item['image']}}  style='width:300px ; height:300px' /> </a>
+    </div>
+    @endforeach
+      
 </section>
+@endif
+
+@if($more['total'] > 0)
+<?php 
+
+$more= $more->toArray();
+?>
 <section class="section-news">
         
     <div class="news-holder">
@@ -58,7 +78,7 @@
             </div></div>
 
             @foreach($more['data'] as $new)
-         <a class="new-link " href='/news/full/{{$new['id']}}'>
+         <a class="new-link " href='/news/{{$new['id']}}'>
         
                     <img src="{{$new['image_1']}}"  class='news-image-mini'/>
                    
@@ -88,15 +108,16 @@
 <div class="row">
     <div class="col-md-6 w-100 mx-auto flex-row">
 
-        <a href={{$more['first_page_url']}} class='btn donate-btn m-1'> First Page </a>
-        <a href={{$more['prev_page_url']}} class='btn donate-btn m-1'> prev page</a>
+        <a href={{$more['first_page_url']}} class='btn  m-1'> First Page </a>
+        <a href={{$more['prev_page_url']}} class='btn  m-1'> prev page</a>
         
-        <a href={{$more['next_page_url']}} class='btn donate-btn m-1'> next page</a>
-        <a href={{$more['last_page_url']}} class='btn donate-btn m-1'> last page</a>
+        <a href={{$more['next_page_url']}} class='btn  m-1'> next page</a>
+        <a href={{$more['last_page_url']}} class='btn  m-1'> last page</a>
     </div>
 </div>
     </div>
  </section>
+ @endif
 </div>
 
 @endsection

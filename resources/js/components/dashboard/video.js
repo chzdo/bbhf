@@ -394,7 +394,7 @@ const [loading,setLoading] = useState(true)
             <div className="meetlist" >
             {loading ? <span className="w-100 d-flex justify-content-center align-items-center text-white"><Loader  /></span> : network ? <Network action={f} /> :
 		  <div className="meetlist-inner">
-                {meetings.map((data,i)=><Meeting key={i} {...data}  />)}
+                {!meetings? <span>No meeting yet </span>:meetings.map((data,i)=><Meeting key={i} {...data}  />)}
                 </div>
 
     }

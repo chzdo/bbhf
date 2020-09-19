@@ -198,6 +198,31 @@ class CreateProject extends React.Component {
         })
         response.code == 1 && this.setState({ status: status })
     }
+
+    urgent= async () => {
+        let status;
+        let { match: { params: { id } } } = this.props
+        let response = await apiClient.sendPost('/api/projects/urgent/'+id, {
+            id: id,
+         
+        }, {
+            cancelToken: new axios.CancelToken(function (e) {
+                cancel = e
+            })
+        })
+
+
+        this.setState({
+            toast: {
+                show: true,
+                color: response.code == 1 ? 'toastGreen' : 'toastRed',
+                title: response.code == 1 ? 'Success' : 'Failure',
+                message: response.message,
+
+            },
+        })
+      
+    }
     render() {
         return (
             <>
@@ -216,6 +241,7 @@ class CreateProject extends React.Component {
                                     <div className="d-flex p-3 justify-content-around text-white" style={{ background: 'rgba(250, 119, 11,10.5)' }}>
                                         <span><FontAwesomeIcon icon={faMoneyCheckAlt} /> Target  {this.state.config.amount.value}</span>
                                         <span><FontAwesomeIcon icon={faMoneyCheck} /> Generated {this.state.gamt}</span>
+                                        <span onClick={this.urgent} style={{ cursor: 'pointer' }}>Make Urgent </span>
                                         <span onClick={this.active} style={{ cursor: 'pointer' }}>{this.state.status == 1 ? 'Deactivate?' : 'Activate?'} </span>
                                     </div> : null}
                                 <div className="project-cont" style={{ borderRadius: '0px', padding: '2%' }}>

@@ -11,6 +11,11 @@ $list =   DB::table('projects')->select('projects.id')->leftJoin('donation','don
 
 ?>
 
+
+
+
+@if(count((array)$list) > 0)
+
 <div class="mini-slide" style="height:400px">
     
     <div class="urgent-project mini-slide-overlay" style='background-image: url({{$list->image}})'>
@@ -48,3 +53,21 @@ $am = $list->amount_raised;
  </div>
  </div>
  </div>
+ @else 
+
+ <div class="mini-slide" style="height:400px">
+    
+  <div class="urgent-project mini-slide-overlay" style='background-image: url(/images/medical2.jpg)'>
+         
+  </div>
+  <div class="project-description">
+
+<a href="/donate" class="donate-btn" style='margin-top:-100px; z-index:1000'> Donate </a>
+  </div>
+</div>
+
+
+
+
+
+ @endif

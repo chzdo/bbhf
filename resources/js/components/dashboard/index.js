@@ -29,7 +29,7 @@ users=[
 
 loadUser = async() =>{
 
-    let response = await apiClient.get('/api/user',{timeout:10000})
+    let response = await apiClient.get('/api/user')
   if(response.code == 1){
  let   {role_id} = response.message;
   let c =  (this.users).includes(role_id);

@@ -11,15 +11,15 @@ import { getValues } from '../cleantoast'
 import { faFileUpload, faTruckMonster, faMoneyCheckAlt, faMoneyCheck, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MUIDataTable from "mui-datatables";
-import ReactSummernote from 'react-summernote';
-import 'react-summernote/dist/react-summernote.css'; // import styles
+// import styles
 //import 'react-summernote/lang/'; // you can import any other locale
 import Provider from './usercontext';
 import { Switch, Route, history, withRouter, useLocation, useHistory, Router, Link, useRouteMatch, useParams } from 'react-router-dom'
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Axios from 'axios'
 let cancel
-class CreateNews extends React.Component {
+class CreateGrant extends React.Component {
     static contextType = Provider;
     constructor(props) {
 
@@ -46,34 +46,27 @@ class CreateNews extends React.Component {
                     value: '',
                     state: false
                 },
-                news: {
+                publication: {
                     value: '',
                     state: false
                 },
-                image_1: {
+                image: {
                     value: '',
                     state: false
                 },
-                image_2: {
+                type: {
                     value: '',
                     state: true
                 },
-                category: {
-                    value: '',
-                    state: false
-                },
+
 
 
             },
             imgerr: false,
             imgerrmsg: '',
-            image_1: null,
-            imgerr_2: false,
-            imgerrmsg_2: '',
-            image_2: null,
-            status: null,
-            newserr: null,
-            gamt: 0,
+            image: null,
+
+
             edit: false,
             data: [],
             loading: ''
@@ -93,7 +86,7 @@ class CreateNews extends React.Component {
             this.setState({ edit: true, loading: true })
 
 
-            let r = await apiClient.get('/api/news/list/' + id, {
+            let r = await apiClient.get('/api/grant/list/' + id, {
                 cancelToken: new axios.CancelToken(function (c) {
                     cancel = c
                 })
@@ -107,22 +100,19 @@ class CreateNews extends React.Component {
                         value: cat.title,
                         state: cat.title ? true : false
                     },
-                    news: {
-                        value: cat.news,
-                        state: cat.news ? true : false
+                    publication: {
+                        value: cat.publication,
+                        state: cat.publication ? true : false
                     },
-                    category: {
-                        value: cat.category,
-                        state: cat.category ? true : false
+                    type: {
+                        value: cat.type,
+                        state: cat.type ? true : false
                     },
-                    image_1: {
-                        value: cat.image_1,
-                        state: cat.image_1 ? true : false
+                    image: {
+                        value: cat.image,
+                        state: cat.image ? true : false
                     },
-                    image_2: {
-                        value: cat.image_2,
-                        state: true
-                    },
+
 
                 }
 
@@ -130,7 +120,7 @@ class CreateNews extends React.Component {
                 //   var sum = amt.reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
 
                 var status = cat.status
-                this.setState({ config: config, image_1: cat.image_1, image_2: cat.image_2, loading: false, network: false, notfound: false, status: status, author: cat.author })
+                this.setState({ config: config, image: cat.image, loading: false, network: false, notfound: false, status: status })
             } else {
                 if (r.code == 2) {
 
@@ -164,18 +154,18 @@ class CreateNews extends React.Component {
 
     register = async (e) => {
         await this.setState({ loader: true, invalid: true })
-        let { title, news, category, image_1, image_2 } = this.state.config
+        let { title, publication, type, image } = this.state.config
         let form = new FormData();
         let { match: { params: { id } } } = this.props
         form.append('title', title.value);
-        form.append('news', news.value);
-        form.append('category', category.value)
-        form.append('image_1', image_1.value)
-        form.append('image_2', image_2.value)
+        form.append('publication', publication.value);
+        form.append('type', type.value)
+        form.append('image', image.value)
+
         form.append('id', id)
-        let url = '/api/news/create'
+        let url = '/api/grant/create'
         if (this.state.edit) {
-            url = '/api/news/update'
+            url = '/api/grant/update'
         }
         let register = await apiClient.sendPost(url, form, {
             Accept: 'multipart/form-data'
@@ -191,23 +181,28 @@ class CreateNews extends React.Component {
                     message: register.message,
 
                 },
-                loading: false
+                loader: false,
+                invalid: false
             })
         } else {
 
             await this.activity.formend(register);
-            this.setState({ image_1: null, image_2: null })
+
+            if (register.code == 1) {
+                this.setState({ image: null })
+            }
+
         }
     }
 
 
-    approve = async (status) => {
+    approve = async () => {
         this.setState({ approval: true })
-
+        let status = this.state.status == 1 ? 0 : 1
         let { match: { params: { id } } } = this.props
-        let response = await apiClient.sendPost('/api/news/approve/' + id + '/' + status, {
+        let response = await apiClient.sendPost('/api/grant/active/' + id + '/' + status, {
             id: id,
-            status: status
+
         }, {
             cancelToken: new axios.CancelToken(function (e) {
                 cancel = e
@@ -238,24 +233,23 @@ class CreateNews extends React.Component {
                     <>
                         {this.state.edit ?
                             <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: this.props.geturl, title: this.props.title }, { route: this.props.location.pathname, title: this.state.config.title.value }]} /> :
-                            <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: `/dashboard/in/projects/create`, title: `Create News` }]} />}
+                            <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: `/dashboard/in/grant/create`, title: `Create Opportunity` }]} />}
 
                         <div className="create-cont">
 
                             <div className='create-cont-inner'>
                                 {this.state.edit ?
                                     <div className="d-flex p-3 justify-content-around text-white" style={{ background: 'rgba(250, 119, 11,10.5)' }}>
-                                        <span><FontAwesomeIcon icon={faUserEdit} /> Created By  {this.state.author}</span>
+
 
                                         {this.context.role_id == 4 ?
-                                            <div disabled={this.state.aproval}>
+                                            <div disabled={this.state.approval}>
 
-                                                {this.state.status == 0 || this.state.status == 2 ?
-                                                    <span className="btn btn-success" onClick={() => this.approve(1)} style={{ cursor: 'pointer' }}>Approve </span>
-                                                    : null}
-                                                {this.state.status == 0 || this.state.status == 1 ?
-                                                    <span className="btn btn-danger" onClick={() => this.approve(2)} style={{ cursor: 'pointer' }}>Disapprove</span>
-                                                    : null}</div> : null}
+
+
+                                                <span className="btn btn-danger" onClick={() => this.approve()} style={{ cursor: 'pointer' }}>{this.state.status == 1 ? 'Deactivate' : 'Activate'}</span>
+
+                                            </div> : null}
                                     </div> : null}
                                 <div className="project-cont" style={{ borderRadius: '0px', padding: '2%' }}>
 
@@ -285,49 +279,46 @@ class CreateNews extends React.Component {
                                                 disabled={this.state.edit}
                                             />
                                             <SelectInput
-                                                id="category"
+                                                id="type"
                                                 isLoading={this.state.catloading}
-                                                data={this.state.category}
-                                                label="Category"
-                                                disabled={this.state.edit && this.context.email != this.state.author}
-                                                valueKeys={{ "value": "id", "label": "category" }}
-                                                value={this.state.config.category.value}
+                                                data={['Scholarship', 'Entreprenuership', 'Competition']}
+                                                label="Type"
+
+                                                value={this.state.config.type.value}
                                                 getValues={this.activity.getValues}
                                                 reset={this.state.reset}
                                             />
-                                            {this.state.edit && this.context.email != this.state.author ?
-                                                <div style={{minHeight:'500px', height:'500px', border:'2px solid #ccc'}} dangerouslySetInnerHTML={{ __html: this.state.config.news.value }}></div> :
-                                                <CKEditor
+                                            <CKEditor
 
-                                                    editor={ClassicEditor}
-                                                    data={this.state.config.news.value}
-                                                    onInit={editor => {
-                                                        // You can store the "editor" and use when it is needed.
-                                                        console.log('Editor is ready to use!', editor);
-                                                    }}
-                                                    onChange={(event, editor) => {
-                                                        const data = editor.getData();
-                                                        this.setState(prev => ({
-                                                            ...prev,
-                                                            config: {
-                                                                ...prev.config,
+                                                editor={ClassicEditor}
+                                                data={this.state.config.publication.value}
+                                                onInit={editor => {
+                                                    // You can store the "editor" and use when it is needed.
+                                                    console.log('Editor is ready to use!', editor);
+                                                }}
+                                                onChange={(event, editor) => {
+                                                    const data = editor.getData();
+                                                    this.setState(prev => ({
+                                                        ...prev,
+                                                        config: {
+                                                            ...prev.config,
 
-                                                                news: {
-                                                                    value: data,
-                                                                    state: data ? true : false
-                                                                }
+                                                            publication: {
+                                                                value: data,
+                                                                state: data ? true : false
                                                             }
-                                                        }))
-                                                        console.log({ event, editor, data });
-                                                    }}
-                                                    onBlur={(event, editor) => {
-                                                        console.log('Blur.', editor);
-                                                    }}
-                                                    onFocus={(event, editor) => {
-                                                        console.log('Focus.', editor);
-                                                    }}
-                                                />
-                                            }
+                                                        }
+                                                    }))
+                                                    console.log({ event, editor, data });
+                                                }}
+                                                onBlur={(event, editor) => {
+                                                    console.log('Blur.', editor);
+                                                }}
+                                                onFocus={(event, editor) => {
+                                                    console.log('Focus.', editor);
+                                                }}
+                                            />
+
 
                                             {this.state.newserr != null ?
                                                 <span className="invalid" id=""  >
@@ -345,12 +336,11 @@ class CreateNews extends React.Component {
                                             {this.state.loader ? <span style={{ display: "flex" }}><Loader />Processing</span> :
                                                 this.state.edit ? "Update" : "Create"}</button>
 
-
                                     </div>
                                     <div className="p-image">
-                                        <span><strong> Main Image Must be 1000 x 500 px (Required) </strong> {this.state.imgerr ? <span className="text-danger">{this.state.imgerrmsg}</span> : null} </span>
+                                        <span><strong> Main Image must be a designed flyer of  300 x 300 px (Required) </strong> {this.state.imgerr ? <span className="text-danger">{this.state.imgerrmsg}</span> : null} </span>
 
-                                        <img src={this.state.image_1 || null} style={{ width: '100%', height: '300px' }} placeholder="Project Image" onClick={() => this.state.edit && this.context.email != this.state.author ? null : this.image.click() } disabled={this.context.email === this.state.author} />
+                                        <img src={this.state.image || null} style={{ width: '100%', height: '300px' }} placeholder="Project Image" onClick={() => this.state.edit && this.context.email != this.state.author ? null : this.image.click()} disabled={this.context.email === this.state.author} />
                                         <input ref={e => this.image = e} type='file' hidden onChange={(event) => {
                                             event.persist()
 
@@ -358,12 +348,14 @@ class CreateNews extends React.Component {
                                                 this.setState({ imgerr: true, imgerrmsg: "invalid picture format" })
                                                 return
                                             }
+
+
                                             if (event.target.files && event.target.files[0]) {
                                                 let image = new Image();
                                                 image.src = URL.createObjectURL(event.target.files[0])
 
                                                 this.setState(prev => ({
-                                                    ...prev, config: { ...prev.config, image_1: { value: event.target.files[0], state: true } }, image_1: URL.createObjectURL(event.target.files[0]), imgerr: false
+                                                    ...prev, config: { ...prev.config, image: { value: event.target.files[0], state: true } }, image: URL.createObjectURL(event.target.files[0]), imgerr: false
                                                 }
                                                 ))
 
@@ -371,29 +363,7 @@ class CreateNews extends React.Component {
                                         }
                                         }
                                         />
-                                        <span><strong> Second Image Must be 500 x 500 px (optional) </strong> {this.state.imgerr ? <span className="text-danger">{this.state.imgerrmsg}</span> : null} </span>
 
-                                        <img src={this.state.image_2 || null} style={{ width: '100%', height: '300px' }} placeholder="Project Image" onClick={() => this.state.edit && this.context.email != this.state.author ? null : this.image_2.click()} disabled={this.context.email !== this.state.author} />
-                                        <input ref={e => this.image_2 = e} type='file' hidden onChange={(event) => {
-                                            event.persist()
-
-                                            if (!event.target.files[0].type.includes('image')) {
-                                                this.setState({ imgerr_2: true, imgerrmsg_2: "invalid picture format" })
-                                                return
-                                            }
-                                            if (event.target.files && event.target.files[0]) {
-                                                let image = new Image();
-                                                image.src = URL.createObjectURL(event.target.files[0])
-
-                                                this.setState(prev => ({
-                                                    ...prev, config: { ...prev.config, image_2: { value: event.target.files[0], state: true } }, image_2: URL.createObjectURL(event.target.files[0]), imgerr_2: false
-                                                }
-                                                ))
-
-                                            }
-                                        }
-                                        }
-                                        />
                                     </div>
                                 </div>
 
@@ -411,7 +381,7 @@ class CreateNews extends React.Component {
     }
 }
 
-export function NewsList({ geturl, title, posturl }) {
+export function GrantList({ geturl, title, posturl }) {
     const [loader, setLoader] = useState(true)
     const [network, setNetwork] = useState(false)
     const [data, setData] = useState([])
@@ -490,20 +460,200 @@ export function NewsList({ geturl, title, posturl }) {
 }
 
 
+export function GrantApplication({ posturl, geturl, title }) {
+    const [loader, setLoader] = useState(true)
+    const [network, setNetwork] = useState(false)
+    const [notfound, setNotfound] = useState(false)
+    const [data, setData] = useState([])
+    const [status, setStatus] = useState([])
+    let history = useHistory()
+    let params = useParams();
+    let { path, url } = useRouteMatch();
+    let cancel = null
+    const options = {
+        filterType: 'checkbox',
+        search: true,
+        selectableRows: 'none',
+    };
 
-export default withRouter(CreateNews)
+    const h = async () => {
+        let response = await apiClient.get(posturl + '/' + params.id, {
+            cancelToken: new axios.CancelToken(e => cancel = e),
+            timeout: 100000
+
+        });
+        if (response.code == 1) {
+            setData(response.message.data);
+            setStatus(response.message.payload)
+            setLoader(false)
+            setNetwork(false)
+            setNotfound(false)
+        } else if (response.code == 2) {
+
+            setLoader(false)
+            setNetwork(false)
+            setNotfound(true)
+        } else {
+            setLoader(false)
+            setNetwork(true)
+            setNotfound(false)
+        }
+    }
+
+    useEffect(() => {
+        h()
+
+        return function cleanup() {
+            console.log('clean')
+            cancel('list')
+        }
+    }, [])
+
+    const col = [
+        {
+            name: "fullname",
+            label: 'Full Name',
+            options: {
+                filter: true,
+                sort: true,
+                searchable: true
+            }
+        },
+
+        {
+            name: "phone_number",
+            label: 'Phone Number',
+            options: {
+                filter: true,
+                sort: true,
+                searchable: true
+            }
+        },
+        {
+            name: "grant",
+            label: 'Type',
+            options: {
+                filter: true,
+                sort: true,
+                searchable: true
+            }
+        },
+
+        {
+            name: "id",
+            label: 'Type',
+            options: {
+               display:false
+            }
+        },
+
+        {
+            name: "created_at",
+            label: 'Date Created',
+            options: {
+                filter: true,
+                sort: true
+            }
+        },
+
+        {
+            name: "file",
+            label: 'Download',
+            options: {
+                filter: false,
+                sort: false,
+                download: false,
+                print: false,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    console.log(value, tableMeta, updateValue)
+                    return <a href={ value} className='btn btn-success'>Download</a>
+                }
+            }
+        },
+        {
+            name: "status",
+            label: 'Status',
+            options: {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                            let valu = value
+                   let { rowData } = tableMeta
+                    if (status == 1 && value == 0) {
+                        return <a href="javascript:void(0)" onClick={(e) => {
+                            e.preventDefault()
+                             
+                           Axios.post(posturl+'/'+rowData[3]+'/accept',{
+                            cancelToken: new axios.CancelToken(e => cancel = e)
+                           }).then(resp=>{
+                              if(resp.data.code == 1){
+                                  setData(resp.data.message)
+                              }
+                           }).catch(err=>{
+                               if(err.isCancel()){
+                                   return;
+                               }
+                           })
+
+                        }
+
+                        } className='btn btn-success'>Accept</a>
+                    } else {
+                        if (value == 1) {
+                            return 'Accepted'
+                        } else {
+                            return 'Rejected'
+                        }
+                    }
+                }
+            },
+        }
+    ];
+
+    return (
+        <>
+
+
+
+
+            <Head crumb={[{ route: '/dashboard/in', title: 'Home' }, { route: geturl, title: title }]} />
+            <div className="scroll-content">
+                {loader ? <Loader /> : network ? <Network action={h} /> : notfound ? <NotFound /> :
+
+                    <MUIDataTable
+                        title={title}
+                        data={data}
+                        columns={col}
+                        options={options}
+                    />
+
+                }
+
+            </div>
+
+
+
+        </>
+    )
+
+
+
+}
+
+export default withRouter(CreateGrant)
 
 
 const col = [
     {
         name: "title",
-        label: 'News Title',
+        label: 'Title',
         options: {
             filter: true,
             sort: true,
             searchable: true
         }
     },
+
     {
         name: "id",
         label: 'id',
@@ -511,7 +661,15 @@ const col = [
             display: false
         }
     },
-
+    {
+        name: "type",
+        label: 'Type',
+        options: {
+            filter: true,
+            sort: true,
+            searchable: true
+        }
+    },
 
 
     {
@@ -522,14 +680,7 @@ const col = [
             sort: true
         }
     },
-    {
-        name: "author",
-        label: 'Author',
-        options: {
-            filter: true,
-            sort: true
-        }
-    },
+
     {
         name: "status",
         label: 'Status',

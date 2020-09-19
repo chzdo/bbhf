@@ -11,8 +11,7 @@ import { getValues } from '../cleantoast'
 import { faFileUpload, faTruckMonster, faMoneyCheckAlt, faMoneyCheck, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MUIDataTable from "mui-datatables";
-import ReactSummernote from 'react-summernote';
-import 'react-summernote/dist/react-summernote.css'; // import styles
+ // import styles
 //import 'react-summernote/lang/'; // you can import any other locale
 import Provider from './usercontext';
 import { Switch, Route, history, withRouter, useLocation, useHistory, Router, Link, useRouteMatch, useParams } from 'react-router-dom'
@@ -195,9 +194,11 @@ class CreateNews extends React.Component {
                 invalid:false
             })
         } else {
-
+             if (register.code == 1){
+                this.setState({ image_1: null, image_2: null })
+             }
             await this.activity.formend(register);
-            this.setState({ image_1: null, image_2: null })
+          
         }
     }
 

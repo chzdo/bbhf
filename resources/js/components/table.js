@@ -51,6 +51,7 @@ export class TableWorker extends React.Component {
             
             cancelToken: new Axios.CancelToken(c=>cancel = c),
             timeout: 50000 });
+            if (response == null) return;
         if (response.code == 1) {
             await this.setState({ loader: false, data: response.message, open: false, network: false })
         } else {

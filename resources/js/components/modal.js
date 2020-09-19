@@ -63,7 +63,7 @@ export function Application_list(props) {
                     cancel = c;
                 })
             })
-
+            if(response == null) return;
         await props.activity.formend(response)
         if (response.code == 1) {
             await props.props.parent.reloadTable()
@@ -166,6 +166,7 @@ export class ModalContent extends React.Component {
             timeout: 20000
 
         })
+        if(response == null) return;
         if (response.code == 1) {
             await this.setState({ details: response.message, loader: false, network: false })
 
@@ -276,7 +277,7 @@ let revoke = async (id) => {
                 cancel = c;
             })
         })
-
+        if(response == null) return;
     await props.activity.formend(response)
 response.code == 1 && setAccess(cred.code)
     setloaders(prev => ({ ...prev, loading: false, Aload: false, Rload: false }))
@@ -302,7 +303,7 @@ let changeRole = async (e, i) => {
                 cancel = c;
             })
         })
-
+        if(response == null) return;
         props.activity.formend(resp)
         if (resp.code == 1) {
             await props.props.parent.reloadTable()

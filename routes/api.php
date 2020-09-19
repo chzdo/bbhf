@@ -70,8 +70,8 @@ Route::get('/category/{category_id}/project', function(Request $req){
             Route::get('/donate/list','projects@donation');
             Route::get('/projects/list/{id}','projects@project');
             Route::post('/projects/active','projects@active');
-
-
+            Route::get('/projects/active','projects@getActive');
+            Route::post('/projects/urgent/{id}','projects@urgent');
             //news
              //project
              Route::post('/news/create','news@create');
@@ -82,7 +82,16 @@ Route::get('/category/{category_id}/project', function(Request $req){
              Route::post('/news/approve/{id}/{status}','news@approve');
              Route::post('/news/update','news@update');
 
-
+             Route::post('/grant/create','grant@create');
+             Route::get('/grant/list','grant@list');
+             Route::get('/grant/list/winners','grant@listwinners');
+             Route::get('/grant/list/{id}','grant@grant');
+             Route::post('/grant/update','grant@update');
+             Route::post('/grant/active/{id}/{status}','grant@active');
+             Route::get('/grant/application/{id}','grant@application');
+             Route::post('/grant/application/{id}/accept','grant@accept');
+             Route::get('/grant/application/winners/{id}','grant@winners');
+          
         //volunteer routes
        // volunteers
             Route::get('/volunteers/application','volunteers@application');

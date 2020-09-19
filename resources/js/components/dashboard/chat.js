@@ -356,7 +356,7 @@ export default class MessageComponent extends React.Component {
 			}),
 			timeout: 1000000
 		}).then(async resp => {
-
+              
 			if (resp.data.code == 1) {
 
 				let scroll = this.state.next_page_url == '' ? true : false;
@@ -364,11 +364,11 @@ export default class MessageComponent extends React.Component {
 				await this.setState(prev =>
 					({
 						...prev,
-						message: Object.values([...prev.message, ...resp[0].data.message.data]).sort((a, b) => b.id - a.id),
+						message: Object.values([...prev.message, ...resp.data.message.data]).sort((a, b) => b.id - a.id),
 						loading: false,
-						next_page_url: resp[0].data.message.next_page_url,
+						next_page_url: resp.data.message.next_page_url,
 						network: false,
-						current: resp[0].data.message.current_page,
+						current: resp.data.message.current_page,
 						shouldScroll: !scroll
 					}))
 
