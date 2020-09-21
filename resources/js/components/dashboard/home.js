@@ -6,15 +6,15 @@ export function Home(props) {
     function Lazy(){
         return(
             <>
-                   <div class="col-md-4 bg-gray m-1" style={{height:'300px',background:'#ccc'}} >
+                   <div className="col-md-4 bg-gray m-1" style={{height:'300px',background:'#ccc'}} >
                          
                             
                         </div>
-                        <div class="col-md-4 bg-gray m-1" style={{height:'300px',background:'#ccc'}}>
+                        <div className="col-md-4 bg-gray m-1" style={{height:'300px',background:'#ccc'}}>
                          
                             
                         </div>
-                        <div class="col-md-4 bg-gray m-1" style={{height:'300px',background:'#ccc'}}>
+                        <div className="col-md-4 bg-gray m-1" style={{height:'300px',background:'#ccc'}}>
                          
                             
                         </div>
@@ -69,12 +69,12 @@ console.log(project.length)
                             let per = ((parseFloat(raised)/parseFloat(data.amount)) * parseFloat(100)).toFixed(2)  ;
                             console.log(per)
                     return (
-                        <div class="col-md-4" key={i}>
+                        <div className="col-md-4" key={i}>
                             <div className="home-card" style={{backgroundImage:`${colors[i]}`}}>
-                                <p class="project-description-header">
+                                <p className="project-description-header">
                                          {data.project}
                                 </p>
-                                <p class="project-description-article">
+                                <p className="project-description-article">
                               {data.description}
                              
                                         </p>

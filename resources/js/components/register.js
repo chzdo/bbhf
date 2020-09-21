@@ -80,7 +80,7 @@ export default class Register extends React.Component {
         let response = await states;
         let roles = {};
         if (response[1].data.code == 1) {
-            roles = response[1].data.message;
+            roles = response[1].data.message.filter(e=>e.id != 4);
         }
         this.setState(prev => ({
             ...prev, stateloading: false, rolesloading: false, states: response[0].data, roles: roles

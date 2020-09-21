@@ -462,14 +462,13 @@ justify-content: center;
   position: relative;
   flex-direction: column;
   width: 300px;
-  flex: 0;
+  /* flex: 0; */
   margin: 10px;
   /* margin: 2em; */
   height: fit-content;
   height: 400px;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
   border-radius: 3%;
-
 }
 .news-icon{
 width:100%;

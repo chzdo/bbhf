@@ -12,7 +12,7 @@ import apiClient from '../axios';
 import { data } from 'jquery';
 import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileUpload, faPaperPlane, faPaperclip, faVideo, faUserFriends, faComment, faSpinner, faCheckDouble, faTimes, faFilePdf, faFileImage, faFile, faFileExcel, faFileWord, faFilePowerpoint, faFileVideo, faFileAlt, faDownload, faPhoneAlt, faEnvelopeOpen, faMapMarked } from '@fortawesome/free-solid-svg-icons';
+import { faFileUpload, faPaperPlane, faPaperclip, faVideo, faUserFriends, faComment, faSpinner, faCheckDouble, faTimes, faFilePdf, faFileImage, faFile, faFileExcel, faFileWord, faFilePowerpoint, faFileVideo, faFileAlt, faDownload, faPhoneAlt, faEnvelopeOpen, faMapMarked, faLongArrowAltDown } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -51,6 +51,7 @@ function SendMessage({ message, setMessage, context, group }) {
 
 
 	const sendMessage = async (e, payload, type) => {
+		let cancel
 		e.preventDefault();
 		var newMe = {
 			message: type == 0 ? payload : payload.name,
@@ -86,6 +87,8 @@ function SendMessage({ message, setMessage, context, group }) {
 				Accept: 'multipart/form-data'
 			},
 			cancelToken: new Axios.CancelToken(e=> cancel = e)})
+
+			if (response == null) return
 	
 			let message_ =k
 		
@@ -108,7 +111,7 @@ function SendMessage({ message, setMessage, context, group }) {
 	}
 
 	useEffect(()=>{
-		return ()=> cancel()
+		return ()=>  cancel != undefined && cancel()
 	},[])
 	return (
 		<footer >
@@ -154,17 +157,17 @@ const getDate = (d) => {
 
 
 
-function ChatMessage({ callback, message, email, loading, network, current, next_page_url, setUrl, scroll, setScroll, shouldScroll, setshouldScroll }) {
+function ChatMessage({ callback, message, email, loading, network, current, next_page_url, setUrl, scroll, setScroll, shouldScroll, setshouldScroll , newM}) {
 
 	const [element, setElement] = useState(null)
 
-	let bottom = useRef(null)
+	let bottom = useRef()
 
 	useEffect(() => {
 
 		if (!scroll) return
 
-		bottom.scrollIntoView({ behavior: 'smooth' })
+		bottom.current.scrollIntoView({ behavior: 'smooth' })
 
 	}, [scroll])
 
@@ -203,12 +206,39 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 
 
 
+    const [newclose,setNewClose] = useState(true)
+
+     let obs = useRef()
+	obs = new IntersectionObserver(entry => {
+
+		if (!entry[0].isIntersecting && newM ) {
+			
+			setNewClose(false)
+
+
+		}else{
+			setNewClose(true);
+		}
+	})
+
+	if (bottom.current) {
+		obs.observe(bottom.current)
+	
+	}
+
+
 	return (
 		<>
-		{loading ? <span className="d-flex w-100 justify-content-center align-items-center">Loading...</span> : network ? <Network action={callback} /> : null}
+	  	<div className={`alert alert-info position-absolute `}  style={{display:`${newclose? 'none': 'block'}`, zIndex:'10000', top:'0', right:'0', marginLeft:'-50%'}}>
+			 <span onClick={()=>{ setScroll(); }} className="m-3 " style={{cursor:'pointer'}}><FontAwesomeIcon icon={faLongArrowAltDown} /></span> 
+			  New Message
+			  <span className="m-3 "style={{cursor:'pointer'}} onClick={()=>setNewClose(true)}><FontAwesomeIcon icon={faTimes} /></span> 
+			  </div>
 
 		<ul id="chat" onScroll={handleChange} ref={r => c = r} >
-				{Object.keys(message).map((data, i) => {
+		
+	         <li>	<div ref={bottom}></div> </li>
+				{	Object.keys(message).map((data, i) => {
 				if (message.length == i + 1) {
 					return <li ref={firstElement} className={`chat-holder ${message[data].user.email == email ? 'me' : 'you'} `} key={i}>
 						<div className="cih">
@@ -223,7 +253,7 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 							<div className="chatbox">
 								<div className="chat-info">
 								<div className="message">
-									<p class="main-message">{message[data].message}</p>	
+									<p className="main-message">{message[data].message}</p>	
 										{
 											message[data].type != 1 ? null : <a className='dwl'  href={message[data].payload} target='_blank'><FontAwesomeIcon icon={faDownload} />  </a>
 										}
@@ -264,7 +294,7 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 							<div className="chatbox">
 								<div className="chat-info">
 									<div className="message">
-									<p class="main-message">{message[data].message}</p>	
+									<p className="main-message">{message[data].message}</p>	
 										{
 											message[data].type != 1 ? null : <a className='dwl' href={message[data].file_path} target='_blank' ><FontAwesomeIcon icon={faDownload} />  </a>
 										}
@@ -292,8 +322,9 @@ function ChatMessage({ callback, message, email, loading, network, current, next
 				}
 			})
 			}
-
-			<div ref={(el) => { bottom = el; }}></div>
+{loading ?<li><span className="d-flex w-100 justify-content-center align-items-center">Loading...</span></li> : network ? <Network action={callback} />: null }
+	
+		
 			
 		</ul>
 
@@ -320,11 +351,13 @@ function useChatLoad({ url }) {
 	return { data }
 }
 
+
 export default class MessageComponent extends React.Component {
 	static contextType = Provider;
 	constructor(props) {
 		super(props)
 		this.state = {
+			newM:false,
 			message: [],
 			loading: true,
 			network: false,
@@ -344,16 +377,14 @@ export default class MessageComponent extends React.Component {
 	}
 
 	loadChat = () => {
-
+  
 		 
 		this.setState({ loading: true })
 		Axios.get(this.state.url, {
 			params: {
 				group: this.props.group
 			},
-			cancelToken: new Axios.CancelToken(function (c) {
-				cancel = c
-			}),
+			cancelToken: new Axios.CancelToken(e=>mesreq = e),
 			timeout: 1000000
 		}).then(async resp => {
               
@@ -416,7 +447,7 @@ export default class MessageComponent extends React.Component {
 				let { message } = this.state;
 				message.push(e.message);
 				let k = Object.values(message).sort((a, b) => b.id - a.id)
-				this.setState({ message: k });
+				this.setState({ message: k , newM:true});
 
 			})
 			
@@ -424,16 +455,17 @@ export default class MessageComponent extends React.Component {
 	}
 
 	setMessage = async (m) => {
-		await this.setState({ message: m});
+		await this.setState({ message: m, scroll:true});
 	}
 
 
 	setScroll = () => {
-		this.setState({ scroll: false })
+		this.setState({ scroll: true })
 	}
 
 	componentWillUnmount() {
-		cancel()
+		
+		mesreq('hi')
 		window.Echo.leave(channel)
 	
     
@@ -474,7 +506,7 @@ export default class MessageComponent extends React.Component {
 
 
 
-
+let mesreq
 
 
 
@@ -512,7 +544,7 @@ function Friends({ aside, group, online }) {
 			},
 			cancelToken: new Axios.CancelToken(c => cancel = c)
 		})
-
+            if (response == null) return;
 		if (response.code == 1) {
 			setLoading(false)
 			setFriends(response.message)

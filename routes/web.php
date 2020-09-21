@@ -25,18 +25,19 @@ use Illuminate\Support\Carbon;
 
 Route::post('/auth', 'users@auth');
 Route::get('/', function () {
-
-    $list =   DB::table('projects')->select('projects.id')->leftJoin('donation', 'donation.donation_project', '=', 'projects.id')
-
-        ->selectRaw('sum(donation.donation_amount) as amount_raised, projects.*')->groupBy('projects.id')->orderByDESC('id')->take(5)->get();
-
-    $news = \App\news::with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->take(4)->get();
     $u = DB::table('urgentproject')->first();
-    $urgent =   DB::table('projects')->where('projects.id', $u->project)->select('projects.id')->leftJoin('donation', 'donation.donation_project', '=', 'projects.id')
+    $urgent =   DB::table('projects')->where('status',1)->where('projects.id', $u->project)->select('projects.id')->leftJoin('donation', 'donation.donation_project', '=', 'projects.id')
 
         ->selectRaw('sum(donation.donation_amount) as amount_raised, projects.*')->groupBy('projects.id')->orderByDESC('id')->first();
 
   
+    $list =   DB::table('projects')->where('status',1)->select('projects.id')->leftJoin('donation', 'donation.donation_project', '=', 'projects.id')
+
+        ->selectRaw('sum(donation.donation_amount) as amount_raised, projects.*')->groupBy('projects.id')->orderByDESC('id')->where('projects.id','<>',$urgent->id??0)->take(5)->get();
+
+    $news = \App\news::where('status',1)->with('category:id,category')->with('author:email,first_name,last_name')->orderByDESC('id')->take(4)->get();
+   
+
     return view('pages.home', compact('list', 'news', 'urgent'));
 })->middleware('services');
 Route::get('/email', function () {

@@ -103,7 +103,7 @@ class projects extends Controller
 
   function getActive(){
 
-    $list =   DB::table('projects')->select('projects.id')->leftJoin('donation','donation.donation_project','=','projects.id')
+    $list =   DB::table('projects')->where('status',1)->select('projects.id')->leftJoin('donation','donation.donation_project','=','projects.id')
 
     ->selectRaw('sum(donation.donation_amount) as amount_raised, projects.*') ->groupBy('projects.id')->orderByDESC('id')->take(3)->get()->toArray();
     return response()->json(['code'=>1 , 'message'=>$list]);

@@ -90,7 +90,7 @@ class CreateProject extends React.Component {
                     cancel = c
                 })
             })
-       
+            if (r == null) return
             if (r.code == 1) {
                 let cat = r.message;
                 let config = {
@@ -138,7 +138,7 @@ class CreateProject extends React.Component {
                 cancel = c
             })
         });
-
+        if (response == null) return
         if (response.code == 1) {
             let cat = response.message;
 
@@ -175,18 +175,18 @@ class CreateProject extends React.Component {
         }
     }
     active = async () => {
-        let status;
+        let status =  this.state.status == 0 ? 1 : 0
         let { match: { params: { id } } } = this.props
         let response = await apiClient.sendPost('/api/projects/active', {
             id: id,
-            status: this.state.status == 0 ? 1 : 0
+            status: status
         }, {
             cancelToken: new axios.CancelToken(function (e) {
                 cancel = e
             })
         })
 
-
+       if (response == null) return
         this.setState({
             toast: {
                 show: true,
@@ -211,7 +211,7 @@ class CreateProject extends React.Component {
             })
         })
 
-
+  if (response == null) return
         this.setState({
             toast: {
                 show: true,
@@ -414,6 +414,8 @@ export function ProjectList() {
             timeout: 100000
 
         });
+
+        if (response == null) return;
         if (response.code == 1) {
             setData(response.message);
             setLoader(false)
@@ -603,9 +605,17 @@ export function DonateList() {
             timeout: 100000
 
         });
+      if( response == null ) return
         if (response.code == 1) {
           let a =  Object.values(response.message).filter(e=>{
-                e.project = e.projects.project; e.category = e.category.category})
+              if (e.projects != null){
+                e.project = e.projects.project;
+               }
+               
+               if (e.category != null ){
+                   e.category = e.category.category}
+                 return  e.projects != null ||  e.category != null
+                })
 
             setData(response.message);
             setLoader(false)

@@ -303,7 +303,7 @@ let changeRole = async (e, i) => {
                 cancel = c;
             })
         })
-        if(response == null) return;
+        if(resp == null) return;
         props.activity.formend(resp)
         if (resp.code == 1) {
             await props.props.parent.reloadTable()

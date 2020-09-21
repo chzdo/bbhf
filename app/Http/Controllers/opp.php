@@ -34,7 +34,7 @@ class opp extends Controller
         ]
         
         )->validate();
-
+      \App\opportunity::where('status',1)->where('id',$req->grant)->firstorFail();
        $file =  $req->file->store('grant', ['disk'=>'public']);
        $file_url = Storage::url($file);
 
