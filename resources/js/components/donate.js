@@ -20,10 +20,13 @@ class Donate extends React.Component{
  let req_resp = await  apiClient.get(uri)
  let {code,message} = req_resp
  if (code == 1){
+    
         let cat_id = (category == null)? {value:"", state:false}: {value:category, state:true};
         let proj_id = (project == null)? {value:"", state:false}: {value:project, state:true};
-        await this.getProjects(cat_id.value) 
-       await   this.setState(prev=>({...prev,category: message,category_loader:false,config:{...prev.config,category:cat_id,project:proj_id}}))
+        console.log(proj_id)
+        await   this.setState(prev=>({...prev,category: message,category_loader:false,config:{...prev.config,category:cat_id,project:proj_id}}))
+        await this.getProjects(cat_id.value,proj_id) 
+    
       
     }else{
     await  this.setState({category_loader:false})
@@ -35,7 +38,7 @@ class Donate extends React.Component{
 async componentDidUpdate(prevprops,prevstate){
 let {category} = this.state.config;
     if(prevstate.config.category.value !=  category.value){
-        this.getProjects(category.value)
+        this.getProjects(category.value,{})
     }
 
    if (prevstate.loader && this.state.loader){
@@ -282,9 +285,9 @@ regState = () => {
 
 
 
-getProjects= async  (id='')=>{
-
-this.setState(prevState=>({...prevState,config:{...prevState.config,project:''}, project_loader:true,project:[]}));
+getProjects= async  (id='',v='')=>{
+console.log('mm',v);
+this.setState(prevState=>({...prevState,config:{...prevState.config,project:v}, project_loader:true,project:[]}));
 let project_request = await apiClient.get('/api/category/'+id+'/project')
 if (project_request.code == 1)
 {

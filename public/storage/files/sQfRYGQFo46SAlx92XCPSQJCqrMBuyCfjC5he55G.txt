@@ -1,3 +1,0 @@
-"First Name","Other Name","Last Name","Email","Phone Number","State Of Residence"
-"ss","ss","ss","chzdo92@gmail.codm","12345675432","Ebonyi"
-"Stan","Ibe","Ibe","c@c.bb","12345676544","Enugu"
